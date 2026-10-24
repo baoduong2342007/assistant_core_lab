@@ -47,34 +47,38 @@ def execute_lookup_by_id(
         return Response(answer=fallback_answer, intent=Intent.RULE, sources=sources, degraded=True)
 
 
-def test_find_rule_by_id_exact_match(dummy_rule):
+def test_find_rule_by_id_exact_match():
     """Verify exact ID returns matching rule."""
-    rules = [dummy_rule]
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
+    rules = [sample]
     found = find_rule_by_id(rules, "H26-5.3")
     assert found is not None
     assert found.id == "H26-5.3"
-    assert found.title == dummy_rule.title
+    assert found.title == sample.title
 
 
-def test_find_rule_by_id_case_insensitive(dummy_rule):
+def test_find_rule_by_id_case_insensitive():
     """Verify lowercase ID query matches uppercase rule id."""
-    rules = [dummy_rule]
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
+    rules = [sample]
     found = find_rule_by_id(rules, "h26-5.3")
     assert found is not None
     assert found.id == "H26-5.3"
 
 
-def test_find_rule_by_id_whitespace_stripping(dummy_rule):
+def test_find_rule_by_id_whitespace_stripping():
     """Verify query with leading/trailing whitespace matches rule."""
-    rules = [dummy_rule]
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
+    rules = [sample]
     found = find_rule_by_id(rules, "   H26-5.3 \n")
     assert found is not None
     assert found.id == "H26-5.3"
 
 
-def test_find_rule_by_id_not_found(dummy_rule):
+def test_find_rule_by_id_not_found():
     """Verify non-existent ID safely returns None."""
-    rules = [dummy_rule]
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
+    rules = [sample]
     found = find_rule_by_id(rules, "H99-9.9")
     assert found is None
 
@@ -85,10 +89,11 @@ def test_find_rule_by_id_empty_rules_list():
     assert find_rule_by_id([], "") is None
 
 
-def test_execute_lookup_by_id_success(dummy_rule, stub_responder_success, template_responder):
+def test_execute_lookup_by_id_success(stub_responder_success, template_responder):
     """Verify successful lookup returns RULE intent and correct source."""
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
     res = execute_lookup_by_id(
-        rules=[dummy_rule],
+        rules=[sample],
         rule_id="H26-5.3",
         responder=stub_responder_success,
         fallback_responder=template_responder,
@@ -100,10 +105,11 @@ def test_execute_lookup_by_id_success(dummy_rule, stub_responder_success, templa
     assert "Based on" in res.answer
 
 
-def test_execute_lookup_by_id_fallback_on_provider_error(dummy_rule, stub_responder_fail, template_responder):
+def test_execute_lookup_by_id_fallback_on_provider_error(stub_responder_fail, template_responder):
     """Verify lookup with failing provider triggers fallback, sets degraded=True, and preserves source."""
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
     res = execute_lookup_by_id(
-        rules=[dummy_rule],
+        rules=[sample],
         rule_id="H26-5.3",
         responder=stub_responder_fail,
         fallback_responder=template_responder,
@@ -112,13 +118,14 @@ def test_execute_lookup_by_id_fallback_on_provider_error(dummy_rule, stub_respon
     assert res.degraded is True
     assert len(res.sources) == 1
     assert res.sources[0].id == "H26-5.3"
-    assert res.answer == f"{dummy_rule.title}: {dummy_rule.text}"
+    assert res.answer == f"{sample.title}: {sample.text}"
 
 
-def test_execute_lookup_by_id_unknown(dummy_rule, stub_responder_success, template_responder):
+def test_execute_lookup_by_id_unknown(stub_responder_success, template_responder):
     """Verify unknown rule ID yields UNKNOWN intent and empty sources."""
+    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
     res = execute_lookup_by_id(
-        rules=[dummy_rule],
+        rules=[sample],
         rule_id="H99-9.9",
         responder=stub_responder_success,
         fallback_responder=template_responder,
