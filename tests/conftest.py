@@ -7,7 +7,7 @@ import pytest
 from assistant_core.config import Settings
 from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.models import Rule
-from assistant_core.responder import StubLLMResponder
+from assistant_core.responder import StubLLMResponder, TemplateResponder
 from assistant_core.service import AssistantService
 
 
@@ -57,3 +57,21 @@ def dummy_rule() -> Rule:
         title="Test Rule",
         text="This is a test rule description for unit tests.",
     )
+
+
+@pytest.fixture
+def template_responder() -> TemplateResponder:
+    """Fixture providing a deterministic template responder."""
+    return TemplateResponder()
+
+
+@pytest.fixture
+def stub_responder_success() -> StubLLMResponder:
+    """Fixture providing an offline stub responder in success mode."""
+    return StubLLMResponder(fail=False)
+
+
+@pytest.fixture
+def stub_responder_fail() -> StubLLMResponder:
+    """Fixture providing an offline stub responder in failure mode."""
+    return StubLLMResponder(fail=True)

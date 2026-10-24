@@ -20,6 +20,6 @@
 
 ## 2. Three Sentences Reflection
 
-1. **What improved most**: Replacing magic return strings and blind exceptions with a structured domain exception hierarchy and Pydantic models provides total contract safety.
-2. **What got more complex**: Defining protocols and multiple stub/template responders requires more boilerplate up-front.
-3. **What you would still change**: I would add streaming response capabilities to the Responder protocol for future labs.
+1. **What improved most**: Replacing magic return strings and blind exceptions with a structured domain exception hierarchy (`AssistantError`, `ProviderError`, `InvalidRequest`) and typed Pydantic models provides strict contract boundaries and prevents silent failures.
+2. **What got more complex**: Defining formal protocols (`Responder`), multiple offline implementations (`TemplateResponder`, `StubLLMResponder`), and independent test fixtures introduces more structural boilerplate up-front compared to a monolithic script.
+3. **What you would still change**: I would extend the `Responder` Protocol to support streaming chunks or structured metadata schemas in subsequent labs once asynchronous LLM calls are introduced.
