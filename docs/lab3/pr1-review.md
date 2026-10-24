@@ -1,4 +1,4 @@
-# PR #1 integration review — no changes made to that PR
+# PR #1 initial scope review and later integration status
 
 Inspected origin/refactor/assistant-core-luongnhatinh at cf42b99 on 2026-10-24.
 The PR contains all runtime modules, tests, and reports for all five members, beyond Minh's tools/router/CI scope.
@@ -14,3 +14,10 @@ Authors should confirm ownership and evidence; individual worksheets/reflections
   This branch corrects documentation to actual foundation status.
 
 This is a scope/integration review, not a complete runtime code review or endorsement of its 71 tests.
+
+## Later status on 2026-10-24
+
+The notes above are historical. PR1 subsequently received CI-only repair 9fb75ef, approval and merge
+as d632215. PR16 now integrates that code and adds CLI validation, acceptance tests and measured docs.
+No history split or rewriting of other members' reports is required. Owner gaps are in open-items.md.
+Reviewer names are flexible as requested; actual peer review still applies.

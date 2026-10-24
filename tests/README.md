@@ -1,7 +1,8 @@
-# Test ownership
+# Test ownership and coverage
 
-This foundation has no runtime behavior tests yet. CI checks editable/wheel installation and import,
-not fabricated business assertions. Add real tests with each owner's implementation.
-Pytest discovers `tests/test_*.py`; CI will run pytest once at least one such file exists.
-Required cases: greeting, 18+2 tuition = 9450000, Library room/hours, thesis source H26-5.3,
-unknown, provider fallback/source/degraded, invalid text/credits, malformed data, config/log streams.
+PR #1 introduced the original 71 tests. Dương's PR #16 adds 19 acceptance/regression cases
+in test_cli_contract.py and test_service.py for a total of 90.
+Coverage includes invalid startup/request/usage exits, EOF/quit/blank lines and interactive recovery,
+CLI log/answer streams, rule sources on success/fallback, unknown, invalid fee guidance and propagation
+of programming errors. Each subprocess uses isolated environment settings and a timeout.
+Other owners retain responsibility for their module acceptance gaps; see docs/lab3/open-items.md.

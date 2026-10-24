@@ -12,3 +12,6 @@ Five-person module splitting and this review rotation are team adaptations. The 
 individual refactors and comparison; confirm this adaptation with the instructor and disclose it in submission.
 Each person authors their own worksheet, PR and tests. Do not prefill others' reports.
 Huy/Quyền invitations were pending at inspection; acceptance remains their action.
+
+Reviewer rotation is guidance per team instruction: another competent available peer can review.
+A peer approval is still required; do not self-approve. No need to redo a valid review just for a different name.

@@ -1,23 +1,21 @@
-# Foundation validation — 2026-10-24
+# Dương classroom integration validation — 2026-10-24
 
-Local environment: Windows, Python 3.13. Python 3.10/3.12 are validated by the PR's Foundation matrix;
-local 3.13 checks do not substitute for that matrix.
+Windows, Python 3.13.14. Python 3.10/3.12 validation is the PR CI matrix, not this local runtime.
 
-Executed successfully:
+Executed checks for the integrated branch:
 
-- `python -m pip install -r requirements.txt` and `python -m pip install -e .`.
-- `python -c "import assistant_core; print(assistant_core.__file__)"` resolves to this checkout's src package.
-- `python -m ruff check .`, `python -m ruff format --check .`, `python -m ruff check --select BLE .`.
-- `python -m build` produced sdist and wheel.
-- Unchanged reference comparison, runtime data equality and four baseline assertions;
-  20 additional print-based starter runs (see lab3/baseline-evidence.json).
+- Pinned requirements and editable install/import passed.
+- `python -m pytest -q`: 90 passed, including 19 new CLI/service acceptance cases.
+- Ruff 0.6.9 check, format --check and BLE passed.
+- Original reference manifest hashes and runtime/reference data equality passed.
+- Baseline: four actual commands/assertions and 20 unchanged --test runs (no timeout observed).
+- CLI cases cover invalid overrides, startup failures, whitespace/oversized input, argparse exit2,
+  EOF/quit/blank lines/recovery, source/degraded on rule success/failure, unknown and log metadata/privacy.
+- Service cases verify invalid fee guidance keeps fee intent and only ProviderError becomes fallback.
 
-Project Ruff exclusion now extends defaults so `.git` and virtual environments remain excluded;
-the original `exclude = ["reference"]` replaced those defaults.
-Pytest is scoped to tests/ to avoid collecting the intentionally flawed reference monolith.
-There are no behavioral tests or implemented models/errors yet, so no pytest-pass claim is made.
-CI explicitly reports that state and runs real editable/wheel import checks instead.
+Measured counts: lab3/baoduong2342007/metrics.json. Starter outputs: lab3/baseline-evidence.json.
+No business test-pass claim is inferred from the starter's print-only --test.
 
-The wheel check uses a clean virtual environment and an import outside the checkout. It validates the
-distribution only; it is not a fresh-clone verification of a completed runtime core or a release gate.
-Use the final PR check links for exact commits and Python 3.10/3.12 results.
+A clean-clone report alongside this document records the exact tested commit, environment, commands
+and outputs. A later documentation-only commit may record that report.
+Final team/release acceptance still depends on owner items in lab3/open-items.md.
