@@ -1,0 +1,51 @@
+name: Foundation
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  foundation:
+    name: Foundation (${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies and editable package
+        run: |
+          python -m pip install -r requirements.txt build==1.2.2.post1
+          python -m pip install -e .
+          python -c "import assistant_core; print(assistant_core.__file__)"
+      - name: Lint and format
+        run: |
+          python -m ruff check .
+          python -m ruff format --check .
+          python -m ruff check --select BLE .
+      - name: Check unresolved code conflict markers
+        shell: bash
+        run: |
+          if git grep -n -E '^(<<<<<<< |=======|>>>>>>> )' -- '*.py' '*.toml' '*.yml'; then
+            exit 1
+          fi
+      - name: Build and verify installed wheel outside checkout
+        shell: bash
+        run: |
+          python -m build
+          python -m venv "$RUNNER_TEMP/wheel-env"
+          "$RUNNER_TEMP/wheel-env/bin/python" -m pip install dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/wheel-env/bin/python" -c "import assistant_core; print(assistant_core.__file__)"
+      - name: Run behavioral tests when implementations add them
+        shell: bash
+        run: |
+          if find tests -name 'test_*.py' -print -quit | grep -q .; then
+            python -m pytest -q
+          else
+            echo 'No behavior tests yet: foundation import/build checks only.'
+          fi

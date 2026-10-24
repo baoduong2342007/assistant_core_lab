@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "assistant-core"
 version = "0.3.0"
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "pydantic>=2.7,<3",
@@ -16,10 +17,11 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 120
-exclude = ["reference"]
+extend-exclude = ["reference"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "BLE"]
