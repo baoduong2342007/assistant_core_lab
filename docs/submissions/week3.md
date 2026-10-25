@@ -20,7 +20,7 @@ This index records classroom work and remaining evidence, not a self-awarded rub
 | --- | --- | --- | --- |
 | Dương | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16); integrates core introduced by PR1 | [worksheet + measured metrics](../lab3/baoduong2342007/before_after.md) | Merged as a2ad759 after simble2k approval; CLI validation fixes, 19 added acceptance cases, measured worksheet, packaging and clean-clone evidence |
 | Minh | [PR1 merged](https://github.com/baoduong2342007/assistant_core_lab/pull/1) | [worksheet](../lab3/luongnhatinh/before_after.md) | Tools/router/CI merged; decimal parser and worksheet measurements still need owner follow-up |
-| Trần Quốc Huy | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19): config/logging fixes and owner evidence | [measured worksheet](../lab3/tqhuy0602/before_after.md) | 113 tests local + Python 3.10/3.12 CI passed at 579740b; peer review/merge pending |
+| Trần Quốc Huy | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19): config/logging fixes and owner evidence | [measured worksheet](../lab3/tqhuy0602/before_after.md) | 113 tests local + Python 3.10/3.12 CI passed; Dương approved and merged PR19 at 1ee4e9a on 2026-10-25 |
 | Quyền | Knowledge is present through PR1; no separate owner PR verified | [worksheet](../lab3/pqquyenn/before_after.md) | Owner verification pending |
 | Bảo | Models/responders through PR1; [PR17 open](https://github.com/baoduong2342007/assistant_core_lab/pull/17) | [worksheet](../lab3/simble2k/before_after.md) | PR17 review and conflict resolution pending |
 
@@ -51,3 +51,8 @@ from PR1; their presence is not proof that their claimed personal actions happen
 - [E2E draft PR57](https://github.com/baoduong2342007/python-bootcamp/pull/57): 16 cases currently fail because shared CLI dependency #54 has no __main__.py; not ready to merge.
 - [H3](../lab3/tqhuy0602/reflection.md) is an AI-assisted draft awaiting Huy's own reading/confirmation. Personal hours, peer approvals and LMS submission are not inferred.
 - Code owner Trần Quốc Huy; Codex hỗ trợ toàn bộ, including generated implementation/tests/docs, assisted review, validation and Git/PR preparation.
+
+Live Huy status verified after the earlier snapshot: PR19 is merged at 1ee4e9a with baoduong2342007 peer approval.
+PR21 was rebased by the team onto main and remains draft; the v0.3-core tag still points to e975675,
+so no new HOME-01 release verification is claimed. Bootcamp PR56 CI is now green at 23ad463
+(runs40206335449/40206335489); PR57 still awaits the missing shared CLI implementation.

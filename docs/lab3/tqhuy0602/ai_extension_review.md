@@ -27,7 +27,7 @@ Bản đề xuất AI ban đầu được giữ ở [session_id_initial_proposal
 | Chỉ truyền session vào one-shot, interactive vẫn dùng `local` | Cả hai call sites truyền cùng ID; `process_message` ghi `msg.session_id` vào log thay vì một bản raw riêng | Interactive hi/Library tạo đúng hai handled records cùng ID; default vẫn local; JSON response schema giữ nguyên |
 | Không có regression evidence cho override/stream/handler | Thêm tests subprocess và hai lần gọi main trong cùng process; cấu hình env rõ, temp cwd, timeout | CLI log-level vượt env chỉ cho lần chạy; lần kế tiếp giữ env; key/full query không xuất log; hai main tạo đúng hai records, không duplicate |
 
-Implementation + tests commit: `cf67876`. Đây là các cải tiến thực sự trong diff; review/implementation được Codex hỗ trợ,
+Implementation + tests: original commit `cf67876`, rebased by the team to `94bf2ed`. Đây là các cải tiến thực sự trong diff; review/implementation được Codex hỗ trợ,
 không ghi thành ba thao tác do Huy tự làm mà chưa được Huy xác nhận.
 
 ## Validation thực tế — 2026-10-25, macOS / Python 3.11.16
@@ -43,6 +43,6 @@ Câu trả lời vẫn đi qua AssistantService; không thay responder, thuật 
 
 ## Cần hoàn tất ngoài phiên tự động
 
-- Core PR19 được peer review/merge; HOME-01 được nhóm kiểm chứng.
-- Rebase/retarget H1 về main sau dependency, chạy lại CI đúng SHA.
+- Core PR19 đã được Dương approved/merge tại 1ee4e9a; HOME-01 release evidence vẫn cần nhóm kiểm chứng (tag hiện ở e975675).
+- Nhóm đã rebase/retarget H1 về main; CI Foundation + test-and-lint trên Python 3.10/3.12 đã đạt tại d4cf55f.
 - Huy tự đọc/giải thích code; Quyền hoặc peer phù hợp review; merge H1 trước hạn LMS đã xác nhận.
