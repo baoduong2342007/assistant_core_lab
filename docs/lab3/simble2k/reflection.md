@@ -1,6 +1,6 @@
 # Lab 3 — Homework H3: Reading and Reflection
 
-**Author:** Nguyễn Tấn Bảo (`simble2k`)  
+**Author:** Phạm Quốc Bảo (`simble2k`)  
 **Assigned Modules:** Models, Named Errors, Responders, Test Harness
 
 ---
@@ -37,9 +37,9 @@ The most egregious maintainability violation in the monolith was its complete la
 
 ### Architectural Solution
 By introducing:
-- **Pydantic Models (`models.py`)**: `Message` validates input bounds (1–2000 characters, non-whitespace), while `Response` provides immutable contract fields and isolated `Source` lists.
+- **Pydantic Models (`models.py`)**: `Message` validates input bounds (1–2000 characters, non-whitespace), while `Response` provides typed contract fields and isolated `Source` lists.
 - **Exception Hierarchy (`errors.py`)**: `AssistantError` serves as the root class for `ConfigError`, `DataError`, `InvalidRequest`, and `ProviderError`, enabling granular catch blocks and clean caller boundaries.
 - **Responder Protocol (`responder.py`)**: The runtime `@runtime_checkable` `Responder` protocol decouples caller logic from generation implementations, allowing deterministic offline `TemplateResponder` and testable `StubLLMResponder` to run without network or nondeterminism.
 
 ### Cost vs. Benefit of Modularization
-While establishing protocols, domain models, and dedicated test fixtures demands higher initial boilerplate than writing a 50-line script, the maintainability return is immediate: 100% offline automated testability, strict contract safety, zero leaked exceptions, and the ability for 5 team members to develop and test components concurrently without merge conflicts.
+While establishing protocols, domain models, and dedicated test fixtures demands higher initial boilerplate than writing a 50-line script, the maintainability return is immediate: 100% offline automated testability, strict contract safety, explicit handling of expected domain errors, and the ability for 5 team members to develop and test components concurrently without merge conflicts.

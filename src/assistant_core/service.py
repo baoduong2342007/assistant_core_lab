@@ -87,7 +87,7 @@ class AssistantService:
             )
 
     def _rule(self, text: str) -> Response:
-        rule = self.handbook.search(text)
+        rule = self.handbook.get_by_id(text) or self.handbook.search(text)
         if rule is None:
             return Response(
                 answer="Sorry, I don't know that yet.",

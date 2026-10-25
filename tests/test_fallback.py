@@ -1,54 +1,22 @@
-"""Unit tests for responder provider error fallback and graceful degradation."""
+"""Exercise actual service fallback through shared responder fixtures."""
 
-from assistant_core.errors import ProviderError
-from assistant_core.models import Intent, Response, Rule, Source
+import pytest
+
+from assistant_core.models import Intent, Message
 from assistant_core.responder import Responder
 
 
-def execute_explain_with_fallback(
-    responder: Responder,
-    fallback_responder: Responder,
-    question: str,
-    rule: Rule,
-) -> Response:
-    """Helper representing the core service fallback mechanism for rule explanation."""
-    sources = [Source(id=rule.id, title=rule.title)]
-    try:
-        answer = responder.explain(question, rule)
-        return Response(answer=answer, intent=Intent.RULE, sources=sources, degraded=False)
-    except ProviderError:
-        fallback_answer = fallback_responder.explain(question, rule)
-        return Response(answer=fallback_answer, intent=Intent.RULE, sources=sources, degraded=True)
-
-
-def test_provider_success_no_degraded(dummy_rule, stub_responder_success, template_responder):
-    """Verify normal responder success yields degraded=False and correct sources."""
-    res = execute_explain_with_fallback(
-        responder=stub_responder_success,
-        fallback_responder=template_responder,
-        question="Can I take thesis?",
-        rule=dummy_rule,
-    )
-    assert not res.degraded
-    assert res.intent == Intent.RULE
-    assert len(res.sources) == 1
-    assert res.sources[0].id == dummy_rule.id
-    assert res.answer == f"Based on '{dummy_rule.title}': {dummy_rule.text}"
-
-
-def test_provider_failure_fallback_retains_sources_and_sets_degraded(
-    dummy_rule, stub_responder_fail, template_responder
-):
-    """Verify provider failure falls back to template, sets degraded=True, and retains sources."""
-    res = execute_explain_with_fallback(
-        responder=stub_responder_fail,
-        fallback_responder=template_responder,
-        question="Can I take thesis?",
-        rule=dummy_rule,
-    )
-    assert res.degraded is True
-    assert res.intent == Intent.RULE
-    assert len(res.sources) == 1
-    assert res.sources[0].id == dummy_rule.id
-    assert res.sources[0].title == dummy_rule.title
-    assert res.answer == f"{dummy_rule.title}: {dummy_rule.text}"
+@pytest.mark.parametrize("failing", [False, True])
+def test_service_responder_contract(service, stub_responder_success, stub_responder_fail, template_responder, failing):
+    responder = stub_responder_fail if failing else stub_responder_success
+    assert isinstance(responder, Responder)
+    assert isinstance(template_responder, Responder)
+    service.responder = responder
+    service.fallback = template_responder
+    rule = service.handbook.get_by_id("H26-5.3")
+    response = service.handle(Message(text="can I register my thesis with 118 credits"))
+    assert response.intent is Intent.RULE
+    assert response.degraded is failing
+    assert [(s.id, s.title) for s in response.sources] == [(rule.id, rule.title)]
+    expected = template_responder if failing else stub_responder_success
+    assert response.answer == expected.explain("question", rule)

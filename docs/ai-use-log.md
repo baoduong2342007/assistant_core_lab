@@ -32,3 +32,7 @@ Review/merge, instructor acceptance of the shared-module workflow, and team rele
 ## Dương — merge closeout (2026-10-25)
 
 Codex assisted the issue/status audit and review of PR #17. PR #16 was approved by simble2k and merged as a2ad759. Dương contributed CLI validation fixes, 19 acceptance cases, source/baseline measurements, packaging verification and integration documentation. Main validation: 90 pytest cases passed. Other members' AI tools remain their own disclosures.
+
+## PR #17 branch correction — 2026-10-25
+
+At Dương's request, Codex merged main and the AI-disclosure closeout branch into simble2k's branch, preserving both histories. Dương/Codex wired exact ID lookup into the production service, replaced duplicate test-only implementations with real service/CLI tests, and corrected factual worksheet metrics with source hashes. Local result: 107 tests passed; Ruff check/format/BLE passed. Original responder/fixture commits remain credited to simble2k; these fixes are Dương's Codex-assisted contribution. No new personal reflection or independent human verification by Bảo is claimed.

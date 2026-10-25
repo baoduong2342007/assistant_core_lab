@@ -1,135 +1,72 @@
-"""Unit and contract tests for H1 extension: Exact Rule Lookup by ID."""
+"""Exact ID lookup uses production knowledge, service and CLI paths."""
 
-from assistant_core.errors import ProviderError
-from assistant_core.models import Intent, Response, Rule, Source
-from assistant_core.responder import Responder
+import json
+import os
+import subprocess
+import sys
 
+import pytest
 
-def find_rule_by_id(rules: list[Rule], rule_id: str) -> Rule | None:
-    """Lookup a rule by exact identifier with whitespace stripping and case-normalization.
-
-    Three improvements from initial AI proposal:
-    1. Case and whitespace normalization on search id and target id.
-    2. Returns None consistently when not found instead of raising generic Exception.
-    3. Graceful handling of empty or malformed queries without crashing.
-    """
-    if not rule_id or not rule_id.strip():
-        return None
-    normalized_query = rule_id.strip().lower()
-    for rule in rules:
-        if rule.id.strip().lower() == normalized_query:
-            return rule
-    return None
+from assistant_core.knowledge import Handbook
+from assistant_core.models import Intent, Message, Rule
 
 
-def execute_lookup_by_id(
-    rules: list[Rule],
-    rule_id: str,
-    responder: Responder,
-    fallback_responder: Responder,
-) -> Response:
-    """Execute rule explanation for an exact rule ID lookup with fallback support."""
-    rule = find_rule_by_id(rules, rule_id)
-    if rule is None:
-        return Response(
-            answer="No regulation found matching the requested identifier.",
-            intent=Intent.UNKNOWN,
-            sources=[],
-            degraded=False,
-        )
-
-    sources = [Source(id=rule.id, title=rule.title)]
-    try:
-        answer = responder.explain(f"explain regulation {rule.id}", rule)
-        return Response(answer=answer, intent=Intent.RULE, sources=sources, degraded=False)
-    except ProviderError:
-        fallback_answer = fallback_responder.explain(f"explain regulation {rule.id}", rule)
-        return Response(answer=fallback_answer, intent=Intent.RULE, sources=sources, degraded=True)
+@pytest.mark.parametrize("query", ["H26-5.3", "h26-5.3", "  H26-5.3 "])
+def test_handbook_exact_id(sample_handbook, query):
+    assert sample_handbook.get_by_id(query).id == "H26-5.3"
 
 
-def test_find_rule_by_id_exact_match():
-    """Verify exact ID returns matching rule."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    rules = [sample]
-    found = find_rule_by_id(rules, "H26-5.3")
-    assert found is not None
-    assert found.id == "H26-5.3"
-    assert found.title == sample.title
+@pytest.mark.parametrize("query", ["", "   ", "H99-9.9", "H26-5", "thesis"])
+def test_handbook_id_miss(sample_handbook, query):
+    assert sample_handbook.get_by_id(query) is None
 
 
-def test_find_rule_by_id_case_insensitive():
-    """Verify lowercase ID query matches uppercase rule id."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    rules = [sample]
-    found = find_rule_by_id(rules, "h26-5.3")
-    assert found is not None
-    assert found.id == "H26-5.3"
+def test_empty_handbook():
+    assert Handbook([]).get_by_id("H26-5.3") is None
 
 
-def test_find_rule_by_id_whitespace_stripping():
-    """Verify query with leading/trailing whitespace matches rule."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    rules = [sample]
-    found = find_rule_by_id(rules, "   H26-5.3 \n")
-    assert found is not None
-    assert found.id == "H26-5.3"
+def test_normalize_stored_id():
+    rule = Rule(id=" H26-5.3 ", title="Thesis", text="Example")
+    assert Handbook([rule]).get_by_id("h26-5.3") is rule
 
 
-def test_find_rule_by_id_not_found():
-    """Verify non-existent ID safely returns None."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    rules = [sample]
-    found = find_rule_by_id(rules, "H99-9.9")
-    assert found is None
+@pytest.mark.parametrize("failing", [False, True])
+def test_service_id_lookup(service, stub_responder_success, stub_responder_fail, failing):
+    service.responder = stub_responder_fail if failing else stub_responder_success
+    response = service.handle(Message(text=" h26-5.3 "))
+    rule = service.handbook.get_by_id("H26-5.3")
+    assert response.intent is Intent.RULE
+    assert response.degraded is failing
+    assert [(s.id, s.title) for s in response.sources] == [(rule.id, rule.title)]
+    expected = service.fallback if failing else stub_responder_success
+    assert response.answer == expected.explain("question", rule)
 
 
-def test_find_rule_by_id_empty_rules_list():
-    """Verify empty rule collection safely returns None without error."""
-    assert find_rule_by_id([], "H26-5.3") is None
-    assert find_rule_by_id([], "") is None
+def test_service_unknown_id(service):
+    response = service.handle(Message(text="H99-9.9"))
+    assert response.intent is Intent.UNKNOWN
+    assert response.sources == []
+    assert response.degraded is False
 
 
-def test_execute_lookup_by_id_success(stub_responder_success, template_responder):
-    """Verify successful lookup returns RULE intent and correct source."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    res = execute_lookup_by_id(
-        rules=[sample],
-        rule_id="H26-5.3",
-        responder=stub_responder_success,
-        fallback_responder=template_responder,
-    )
-    assert res.intent == Intent.RULE
-    assert not res.degraded
-    assert len(res.sources) == 1
-    assert res.sources[0].id == "H26-5.3"
-    assert "Based on" in res.answer
-
-
-def test_execute_lookup_by_id_fallback_on_provider_error(stub_responder_fail, template_responder):
-    """Verify lookup with failing provider triggers fallback, sets degraded=True, and preserves source."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    res = execute_lookup_by_id(
-        rules=[sample],
-        rule_id="H26-5.3",
-        responder=stub_responder_fail,
-        fallback_responder=template_responder,
-    )
-    assert res.intent == Intent.RULE
-    assert res.degraded is True
-    assert len(res.sources) == 1
-    assert res.sources[0].id == "H26-5.3"
-    assert res.answer == f"{sample.title}: {sample.text}"
-
-
-def test_execute_lookup_by_id_unknown(stub_responder_success, template_responder):
-    """Verify unknown rule ID yields UNKNOWN intent and empty sources."""
-    sample = Rule(id="H26-5.3", title="Graduation Thesis", text="Students must have completed 110 credits.")
-    res = execute_lookup_by_id(
-        rules=[sample],
-        rule_id="H99-9.9",
-        responder=stub_responder_success,
-        fallback_responder=template_responder,
-    )
-    assert res.intent == Intent.UNKNOWN
-    assert not res.degraded
-    assert len(res.sources) == 0
+@pytest.mark.parametrize("failing", [False, True])
+def test_cli_id_lookup(project_root, tmp_path, failing):
+    env = {
+        **os.environ,
+        "PYTHONPATH": str(project_root / "src"),
+        "ASSISTANT_DATA_DIR": str(project_root / "data"),
+        "LLM_PROVIDER": "stub",
+        "CREDIT_RATE_VND": "450000",
+        "RETAKE_MULTIPLIER": "1.5",
+        "MAX_CREDITS": "30",
+        "LOG_LEVEL": "INFO",
+    }
+    args = [sys.executable, "-m", "assistant_core", "--json"]
+    if failing:
+        args.append("--fail-provider")
+    proc = subprocess.run([*args, "h26-5.3"], env=env, cwd=tmp_path, capture_output=True, text=True, timeout=10)
+    assert proc.returncode == 0, proc.stderr
+    response = json.loads(proc.stdout)
+    assert response["intent"] == "rule"
+    assert response["sources"][0]["id"] == "H26-5.3"
+    assert response["degraded"] is failing

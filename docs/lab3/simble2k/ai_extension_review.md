@@ -1,6 +1,6 @@
 # Lab 3 — AI Extension Review (H1)
 
-**Author:** Nguyễn Tấn Bảo (`simble2k`)  
+**Author:** Phạm Quốc Bảo (`simble2k`)  
 **Assigned Feature:** Exact rule lookup by ID (`Handbook.get_by_id` / `find_rule_by_id`)  
 **Target Module:** Knowledge & Service integration layer  
 **Reviewer:** Dương (`baoduong2342007`)
@@ -36,11 +36,12 @@ def get_rule(rules, id):
 
 ---
 
-## 3. Test & Verification Evidence
+## 3. Corrected runtime verification — 2026-10-25
 
-All test cases implemented in `tests/test_h1_rule_by_id.py`:
-- `test_find_rule_by_id_exact_match`: Verifies exact ID lookup.
-- `test_find_rule_by_id_case_insensitive`: Confirms `h26-5.3` matches `H26-5.3`.
-- `test_find_rule_by_id_whitespace_stripping`: Confirms stripped search query.
-- `test_find_rule_by_id_not_found`: Confirms non-existent ID returns `None`.
-- `test_execute_lookup_by_id_fallback_on_provider_error`: Proves provider failure initiates fallback, retains `Source(id="H26-5.3")`, and flags `degraded=True`.
+Dương used Codex to fix the reviewed branch. The earlier implementation and fallback helper lived only in tests. Production now uses `Handbook.get_by_id` from `AssistantService._rule`; the CLI can query `python -m assistant_core --json H26-5.3` (add `--fail-provider` to exercise fallback).
+
+The existing lookup already returned None on misses. This correction adds an explicit blank-ID guard and normalizes stored IDs as well as queries. These are corrections made with Codex, not three new manual improvements claimed for Bảo. Original prompt/review claims above are retained as Bảo's earlier report and require his confirmation.
+
+`tests/test_h1_rule_by_id.py` now imports the real Handbook, calls the real service, and runs CLI subprocess cases for success/failure. It covers exact/case/whitespace matching, unknown/partial/empty IDs, empty handbook, source retention and degraded flags. `tests/test_fallback.py` calls the real service using shared responder fixtures, with runtime protocol checks. No parallel product implementation remains in tests.
+
+Local validation: 107 tests passed; Ruff check/format/BLE passed. Runtime fixes and evidence corrections by Dương with Codex; original responder/fixture work remains credited to simble2k.
