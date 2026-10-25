@@ -47,7 +47,7 @@ from PR1; their presence is not proof that their claimed personal actions happen
 
 - Core PR19: config/logging, 113 tests; CI runs [40204220330](https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40204220330) and [40204220363](https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40204220363) succeeded at 579740b. Later doc commits need their own current checks; see live PR.
 - [H1 draft PR21](https://github.com/baoduong2342007/assistant_core_lab/pull/21): distinct --session-id proposal, 129 tests; depends on core19/HOME-01. --log-level already existed and is not claimed as new.
-- [W3 PR56](https://github.com/baoduong2342007/python-bootcamp/pull/56): 3 official + 40 additional tests; member CI Python 3.10/3.12 passed; overall bootcamp CI has six existing Ruff errors in other owners' W1.
+- [W3 PR56](https://github.com/baoduong2342007/python-bootcamp/pull/56): 3 official + 40 additional tests; member CI Python 3.10/3.12 passed; Ruff 0.6.9 local has six legacy W1 findings; actual CI 0.17.2 subprocess findings are addressed in PR56 (official test bytes preserved); see live PR checks.
 - [E2E draft PR57](https://github.com/baoduong2342007/python-bootcamp/pull/57): 16 cases currently fail because shared CLI dependency #54 has no __main__.py; not ready to merge.
 - [H3](../lab3/tqhuy0602/reflection.md) is an AI-assisted draft awaiting Huy's own reading/confirmation. Personal hours, peer approvals and LMS submission are not inferred.
 - Code owner Trần Quốc Huy; Codex hỗ trợ toàn bộ, including generated implementation/tests/docs, assisted review, validation and Git/PR preparation.
