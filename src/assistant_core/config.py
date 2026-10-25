@@ -2,97 +2,64 @@
 
 import os
 from pathlib import Path
+from typing import Literal
 
 from dotenv import load_dotenv
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
 
 from assistant_core.errors import ConfigError
 
 
 class Settings(BaseModel):
+    """Validated offline configuration; never serialize this model into logs."""
+
+    model_config = ConfigDict(hide_input_in_errors=True)
+
     data_dir: Path = Path("data")
-    llm_provider: str = "stub"
-    llm_api_key: str | None = Field(default=None, repr=False)  # never printed
-    credit_rate_vnd: int = 450_000
-    retake_multiplier: float = 1.5
-    max_credits: int = 30
+    llm_provider: Literal["stub", "template"] = "stub"
+    llm_api_key: str | None = Field(default=None, repr=False, exclude=True)
+    credit_rate_vnd: int = Field(default=450_000, gt=0)
+    retake_multiplier: float = Field(default=1.5, gt=0, allow_inf_nan=False)
+    max_credits: int = Field(default=30, gt=0)
     log_level: str = "INFO"
 
-    @field_validator("credit_rate_vnd")
+    @field_validator("credit_rate_vnd", "max_credits", mode="before")
     @classmethod
-    def validate_rate(cls, v: int) -> int:
-        if v <= 0:
-            raise ValueError("credit_rate_vnd must be positive")
-        return v
-
-    @field_validator("retake_multiplier")
-    @classmethod
-    def validate_multiplier(cls, v: float) -> float:
-        if v <= 0:
-            raise ValueError("retake_multiplier must be positive")
-        return v
-
-    @field_validator("max_credits")
-    @classmethod
-    def validate_max_credits(cls, v: int) -> int:
-        if v <= 0:
-            raise ValueError("max_credits must be positive")
-        return v
+    def validate_integer(cls, value: object) -> object:
+        """Reject decimal environment strings instead of silently coercing them."""
+        if isinstance(value, str):
+            return int(value)
+        return value
 
     @field_validator("log_level")
     @classmethod
     def validate_log_level(cls, v: str) -> str:
-        valid = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
-        if v.upper() not in valid:
-            raise ValueError(f"log_level must be one of {valid}")
-        return v.upper()
+        valid = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
+        level = v.strip().upper()
+        if level not in valid:
+            raise ValueError(f"log_level must be one of {', '.join(valid)}")
+        return level
 
 
-def load_settings(env_file: str | None = ".env") -> Settings:
-    """Load settings from environment variables and optional .env file."""
-    if env_file:
-        load_dotenv(env_file, override=False)
+def load_settings(env_file: str | Path | None = ".env") -> Settings:
+    """Load defaults < .env < existing environment; report expected errors safely."""
+    try:
+        if env_file:
+            load_dotenv(env_file, override=False)
+    except (OSError, UnicodeError) as exc:
+        raise ConfigError("Cannot read the environment file") from exc
 
     try:
-        data_dir_env = os.getenv("ASSISTANT_DATA_DIR", "data")
-        llm_provider_env = os.getenv("LLM_PROVIDER", "stub")
-        llm_api_key_env = os.getenv("LLM_API_KEY") or None
-
-        credit_rate_str = os.getenv("CREDIT_RATE_VND", "450000")
-        try:
-            credit_rate_val = int(credit_rate_str)
-        except ValueError as exc:
-            raise ConfigError(f"CREDIT_RATE_VND must be an integer, got {credit_rate_str!r}") from exc
-
-        retake_mult_str = os.getenv("RETAKE_MULTIPLIER", "1.5")
-        try:
-            retake_mult_val = float(retake_mult_str)
-        except ValueError as exc:
-            raise ConfigError(f"RETAKE_MULTIPLIER must be a float, got {retake_mult_str!r}") from exc
-
-        max_credits_str = os.getenv("MAX_CREDITS", "30")
-        try:
-            max_credits_val = int(max_credits_str)
-        except ValueError as exc:
-            raise ConfigError(f"MAX_CREDITS must be an integer, got {max_credits_str!r}") from exc
-
-        log_level_env = os.getenv("LOG_LEVEL", "INFO")
-
-        settings = Settings(
-            data_dir=Path(data_dir_env),
-            llm_provider=llm_provider_env,
-            llm_api_key=llm_api_key_env,
-            credit_rate_vnd=credit_rate_val,
-            retake_multiplier=retake_mult_val,
-            max_credits=max_credits_val,
-            log_level=log_level_env,
+        return Settings(
+            data_dir=os.getenv("ASSISTANT_DATA_DIR", "data"),
+            llm_provider=os.getenv("LLM_PROVIDER", "stub"),
+            llm_api_key=os.getenv("LLM_API_KEY") or None,
+            credit_rate_vnd=os.getenv("CREDIT_RATE_VND", "450000"),
+            retake_multiplier=os.getenv("RETAKE_MULTIPLIER", "1.5"),
+            max_credits=os.getenv("MAX_CREDITS", "30"),
+            log_level=os.getenv("LOG_LEVEL", "INFO"),
         )
-    except Exception as exc:
-        if isinstance(exc, ConfigError):
-            raise
-        raise ConfigError(f"Configuration error: {exc}") from exc
-
-    if settings.llm_provider != "stub" and not settings.llm_api_key:
-        raise ConfigError(f"LLM_API_KEY is required when LLM_PROVIDER={settings.llm_provider!r}")
-
-    return settings
+    except ValidationError as exc:
+        fields = ", ".join(str(error["loc"][0]) for error in exc.errors())
+        # Do not stringify ValidationError: it can contain environment input values.
+        raise ConfigError(f"Invalid configuration: {fields}") from exc
