@@ -9,7 +9,7 @@ review hỗ trợ, tests, docs và thao tác Git/PR. Các thay đổi do AI tạ
 chọn mã phiên cho lần chạy, đi qua `Message.session_id`, service và log handled metadata hiện có.
 Issue #20; core dependency [PR #19](https://github.com/baoduong2342007/assistant_core_lab/pull/19).
 Đây là PR draft chuẩn bị sẵn; chưa tuyên bố HOME-01 đã hoàn tất, core đã release đúng quy trình,
-H1 đã merge hoặc giảng viên đã chấp nhận feature thay thế.
+hoặc H1 đã merge.
 
 ## Prompt và bản đề xuất đầu
 
@@ -44,5 +44,5 @@ Câu trả lời vẫn đi qua AssistantService; không thay responder, thuật 
 ## Cần hoàn tất ngoài phiên tự động
 
 - Core PR19 được peer review/merge; HOME-01 được nhóm kiểm chứng.
-- Nhóm chấp nhận feature thay thế; rebase/retarget H1 về main sau dependency, chạy lại CI đúng SHA.
+- Rebase/retarget H1 về main sau dependency, chạy lại CI đúng SHA.
 - Huy tự đọc/giải thích code; Quyền hoặc peer phù hợp review; merge H1 trước hạn LMS đã xác nhận.
