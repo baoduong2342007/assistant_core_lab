@@ -1,6 +1,6 @@
 # Lab 3 — Homework H3: Reading and Reflection
 
-**Author:** Phạm Quốc Bảo (`simble2k`)  
+**Author:** Phạm Quốc Bảo (`simble2k`)
 **Assigned Modules:** Models, Named Errors, Responders, Test Harness
 
 ---

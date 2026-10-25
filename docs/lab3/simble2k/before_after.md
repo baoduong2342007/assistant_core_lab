@@ -1,6 +1,6 @@
 # Lab 3 — Before / After Maintainability Comparison
 
-**Member:** Phạm Quốc Bảo (`simble2k`)  
+**Member:** Phạm Quốc Bảo (`simble2k`)
 **Assigned Modules:** Models (`models.py`), Errors (`errors.py`), Responders (`responder.py`), Fallback/contract tests
 
 ## 1. Comparison Table

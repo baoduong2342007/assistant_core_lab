@@ -1,8 +1,8 @@
 # Lab 3 — AI Extension Review (H1)
 
-**Author:** Phạm Quốc Bảo (`simble2k`)  
-**Assigned Feature:** Exact rule lookup by ID (`Handbook.get_by_id` / `find_rule_by_id`)  
-**Target Module:** Knowledge & Service integration layer  
+**Author:** Phạm Quốc Bảo (`simble2k`)
+**Assigned Feature:** Exact rule lookup by ID (`Handbook.get_by_id` / `find_rule_by_id`)
+**Target Module:** Knowledge & Service integration layer
 **Reviewer:** Dương (`baoduong2342007`)
 
 ---
