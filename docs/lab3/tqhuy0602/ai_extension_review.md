@@ -1,29 +1,11 @@
-# Lab 3 — AI Extension Review
+# H1 — Trần Quốc Huy (`tqhuy0602`)
 
-**Author:** Trần Quang Huy (`tqhuy0602`)  
-**Feature:** CLI runtime log level override (`--log-level`)
+`--log-level` đã có trong core PR #1, nên không nhận đó là extension mới của Huy.
+Báo cáo cũ ghi prompt và ba thay đổi chưa có bằng chứng cá nhân được thay bằng trạng thái này.
 
----
+Feature thay thế đề xuất: `--session-id` cho log/request context, đi qua `Message.session_id` và `process_message`.
+Implementation, prompt/AI proposal, ba cải tiến và tests sẽ nằm trong PR H1 riêng.
+PR H1 cần chờ core được review/merge và HOME-01; chưa tuyên bố đạt điều kiện nộp H1.
 
-## 1. Prompt Used
-```text
-Add a --log-level option to the assistant_core CLI to allow overriding the log level for this run (DEBUG, INFO, WARNING, ERROR).
-```
-
----
-
-## 2. Code Review and Three Concrete Improvements
-
-| # | What the AI Generated | Problem Found | What I Changed | Why |
-|---|---|---|---|---|
-| 1 | `logging.basicConfig(level=args.log_level)` directly in CLI. | Did not use our structured `JsonFormatter` and reset configured handlers. | Routed log level change through `Settings` and called `setup_logging(level)`. | Maintains uniform JSON logging formatting on stderr. |
-| 2 | Added duplicate handlers every time `setup_logging()` was called. | Repeated logs in test runs and multiple messages per event. | Added check in `setup_logging()` to prevent duplicate StreamHandlers on stderr. | Ensures idempotent logging setup. |
-| 3 | Accepted invalid log levels like `--log-level RANDOM` which crashed logging. | Crashed at runtime with unhandled `ValueError`. | Added Pydantic validator on `Settings.log_level` checking against valid Python log level names. | Guarantees fail-fast configuration error handling. |
-
----
-
-## 3. Checklist Verification
-
-- [x] **Interfaces respected**: Integrates with `Settings` and `logging_setup.py`.
-- [x] **No secrets leaked**: Masked in `Settings(repr=False)`.
-- [x] **Tests added**: Verified in `tests/test_config.py` and `tests/test_logging.py`.
+Người phụ trách code: **Trần Quốc Huy**. **Codex hỗ trợ toàn bộ**, gồm đề xuất/viết code,
+review hỗ trợ, tests và tài liệu; Huy cần tự đọc và xác nhận.

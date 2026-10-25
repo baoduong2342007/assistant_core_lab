@@ -30,3 +30,15 @@ Review/merge, instructor acceptance of the shared-module workflow, and team rele
 ## Dương — merge closeout (2026-10-25)
 
 Codex assisted the issue/status audit and review of PR #17. PR #16 was approved by simble2k and merged as a2ad759. Dương contributed CLI validation fixes, 19 acceptance cases, source/baseline measurements, packaging verification and integration documentation. Main validation: 90 pytest cases passed. Other members' AI tools remain their own disclosures.
+## Trần Quốc Huy — config/logging owner follow-up (2026-10-25)
+
+Người phụ trách code: **Trần Quốc Huy (`tqhuy0602`)**. **Codex hỗ trợ toàn bộ**: đọc plan và code nền,
+đề xuất và trực tiếp chỉnh implementation/tests, chạy kiểm tra, đo AST/Ruff, sửa tên tác giả,
+soạn worksheet/reflection nháp và chuẩn bị branch/PR. Code/tests/docs do AI tạo được giữ lại.
+Không xác nhận các claim Antigravity/"human verification" trong bảng cũ; đó là dữ liệu nhận từ PR1.
+
+Thay đổi thực tế: giới hạn provider stub/template; validate multiplier hữu hạn và các miền số;
+bỏ broad catch config, thông báo lỗi không chứa giá trị environment; loại key khỏi model serialization;
+quản lý handler JSON theo stream stderr hiện tại. Tests: 113 passed trên Python 3.11, Ruff check/BLE đạt;
+worksheet ghi số đo thật trong `docs/lab3/tqhuy0602/metrics.json`. Peer review, CI đúng SHA,
+đọc H3 cá nhân và nộp LMS được theo dõi riêng, không tự đánh dấu hoàn thành.
