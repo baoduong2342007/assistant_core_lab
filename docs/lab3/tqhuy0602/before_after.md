@@ -18,7 +18,7 @@ Code nền đã có trong PR #1; branch này sửa và kiểm chứng phần c�
 | Ruff issues? | 8 với E,F,I,B,UP,BLE, line length 120, isolated | Ruff check và BLE đạt trên source/tests; reference được giữ nguyên và exclude theo cấu hình nhóm |
 | Đổi responder cần sửa service? | Gọi `llm()` trực tiếp | Inject responder qua constructor/protocol; chỉ provider offline stub/template được chấp nhận |
 
-Đo trên file thực tế: [metrics.json](metrics.json), ngày 2026-10-25, Python 3.11.15/macOS.
+Đo trên file thực tế: [metrics.json](metrics.json), ngày 2026-10-25, Python 3.11.16/macOS.
 Ba lần chạy monolith `--test` đều exit 0, có greeting/9.450.000 VND/Library/H26-5.3;
 không quan sát thấy lỗi random trong ba lần này. Không xem đó là bằng chứng random failure đã được loại bỏ khỏi starter.
 
