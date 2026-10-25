@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-25",
+  "python": "3.11.16",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "base_commit": "a2ad75906e20f6056b9e2057d392a3d013a6e0b5",
+  "definition": "Module-level assigned names excluding imports/classes; inclusive AST def-to-last-statement lines. Ruff E,F,I,B,UP,BLE with line length 120.",
+  "before": {
+    "path": "reference/monolith/assistant_monolith.py",
+    "module_assignments": [
+      "API_KEY",
+      "MODEL",
+      "RATE",
+      "RETAKE_RATE",
+      "DEBUG",
+      "history",
+      "offices",
+      "handbook",
+      "BASE"
+    ],
+    "bare_except": 3,
+    "broad_except_Exception": 1,
+    "longest_function": "handle",
+    "longest_lines": 56
+  },
+  "after": [
+    {
+      "path": "src/assistant_core/__init__.py",
+      "module_assignments": [
+        "__version__",
+        "__all__"
+      ],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/__main__.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "main",
+      "longest_lines": 71
+    },
+    {
+      "path": "src/assistant_core/config.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "load_settings",
+      "longest_lines": 22
+    },
+    {
+      "path": "src/assistant_core/errors.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/knowledge.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 2,
+      "longest_function": "from_csv",
+      "longest_lines": 26
+    },
+    {
+      "path": "src/assistant_core/logging_setup.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "setup_logging",
+      "longest_lines": 19
+    },
+    {
+      "path": "src/assistant_core/models.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "validate_not_whitespace_only",
+      "longest_lines": 4
+    },
+    {
+      "path": "src/assistant_core/responder.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "explain",
+      "longest_lines": 4
+    },
+    {
+      "path": "src/assistant_core/router.py",
+      "module_assignments": [
+        "GREETINGS"
+      ],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "route",
+      "longest_lines": 17
+    },
+    {
+      "path": "src/assistant_core/service.py",
+      "module_assignments": [
+        "log"
+      ],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "handle",
+      "longest_lines": 32
+    },
+    {
+      "path": "src/assistant_core/tools.py",
+      "module_assignments": [],
+      "bare_except": 0,
+      "broad_except_Exception": 0,
+      "longest_function": "parse_credits",
+      "longest_lines": 22
+    }
+  ],
+  "before_ruff_count": 8,
+  "before_ruff_codes": [
+    "BLE001",
+    "E401",
+    "E501",
+    "E711",
+    "E722",
+    "I001"
+  ],
+  "baseline_runs": [
+    {
+      "exit_code": 0,
+      "greeting": true,
+      "fee": true,
+      "library": true,
+      "rule_source": true,
+      "provider_failed": false
+    },
+    {
+      "exit_code": 0,
+      "greeting": true,
+      "fee": true,
+      "library": true,
+      "rule_source": true,
+      "provider_failed": false
+    },
+    {
+      "exit_code": 0,
+      "greeting": true,
+      "fee": true,
+      "library": true,
+      "rule_source": true,
+      "provider_failed": false
+    }
+  ]
+}

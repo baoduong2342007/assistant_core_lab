@@ -26,3 +26,16 @@ overrides and added 19 real acceptance cases (90 total). Initial core/service/CL
 from PR #1 and is not claimed as Dương's original implementation. No personal reports for others were
 written in this work. Earlier table entries are retained from PR1 and require each person's verification.
 Review/merge, instructor acceptance of the shared-module workflow, and team release remain separate gates.
+
+## Trần Quốc Huy — config/logging owner follow-up (2026-10-25)
+
+Người phụ trách code: **Trần Quốc Huy (`tqhuy0602`)**. **Codex hỗ trợ toàn bộ**: đọc plan và code nền,
+đề xuất và trực tiếp chỉnh implementation/tests, chạy kiểm tra, đo AST/Ruff, sửa tên tác giả,
+soạn worksheet/reflection nháp và chuẩn bị branch/PR. Code/tests/docs do AI tạo được giữ lại.
+Không xác nhận các claim Antigravity/"human verification" trong bảng cũ; đó là dữ liệu nhận từ PR1.
+
+Thay đổi thực tế: giới hạn provider stub/template; validate multiplier hữu hạn và các miền số;
+bỏ broad catch config, thông báo lỗi không chứa giá trị environment; loại key khỏi model serialization;
+quản lý handler JSON theo stream stderr hiện tại. Tests: 113 passed trên Python 3.11, Ruff check/BLE đạt;
+worksheet ghi số đo thật trong `docs/lab3/tqhuy0602/metrics.json`. Peer review, CI đúng SHA,
+đọc H3 cá nhân và nộp LMS được theo dõi riêng, không tự đánh dấu hoàn thành.
