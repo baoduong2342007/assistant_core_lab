@@ -1,0 +1,31 @@
+{
+  "snapshot": "f30c605c6ff376ac448ddb00fa82ae36347e29a9",
+  "normalization": "CRLF to LF only",
+  "files": [
+    {
+      "path": "reference/monolith/assistant_monolith.py",
+      "url": "https://raw.githubusercontent.com/CSC10014-at-fit-hcmus/public_materials/f30c605c6ff376ac448ddb00fa82ae36347e29a9/lab03/monolith/assistant_monolith.py",
+      "sha256_lf": "e4c40f649e216839837bf39aefdd1bc7b9be096c0d2702f8035057c145d0208f"
+    },
+    {
+      "path": "reference/monolith/data/offices.csv",
+      "url": "https://raw.githubusercontent.com/CSC10014-at-fit-hcmus/public_materials/f30c605c6ff376ac448ddb00fa82ae36347e29a9/lab03/monolith/data/offices.csv",
+      "sha256_lf": "e26551e58959939188885fb49f45087c12079aa66852fbfa6b80946ac938bc09"
+    },
+    {
+      "path": "reference/monolith/data/handbook.json",
+      "url": "https://raw.githubusercontent.com/CSC10014-at-fit-hcmus/public_materials/f30c605c6ff376ac448ddb00fa82ae36347e29a9/lab03/monolith/data/handbook.json",
+      "sha256_lf": "5d3d235d45be1d625b49e283556437a873bbfe6ed65c79340493c12924e6a4b1"
+    },
+    {
+      "path": "reference/worksheets/before_after_maintainability.md",
+      "url": "https://raw.githubusercontent.com/CSC10014-at-fit-hcmus/public_materials/f30c605c6ff376ac448ddb00fa82ae36347e29a9/lab03/worksheets/before_after_maintainability.md",
+      "sha256_lf": "47b3e6c989a1e76b970222ee775351d1bbee7e91b5be5b765c6046221333ccd6"
+    },
+    {
+      "path": "reference/worksheets/ai_extension_review.md",
+      "url": "https://raw.githubusercontent.com/CSC10014-at-fit-hcmus/public_materials/f30c605c6ff376ac448ddb00fa82ae36347e29a9/lab03/worksheets/ai_extension_review.md",
+      "sha256_lf": "60c6f04588c09581fc2cb11f82944d1b87f0a244016c62d2f2f84c43493fdb6c"
+    }
+  ]
+}

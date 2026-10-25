@@ -1,19 +1,17 @@
-# Team Organization — Team 03
+# Team and review rotation
 
-Lab 3: Maintainable Python Service (`assistant_core_lab`)
+| Owner | Username | Scope | Reviewer |
+| --- | --- | --- | --- |
+| Dương | baoduong2342007 | Foundation, packaging; later service/CLI/architecture | tqhuy0602 |
+| Huy | tqhuy0602 | Config, env, logging and tests | pqquyenn |
+| Quyền | pqquyenn | Knowledge/data and tests | luongnhatinh |
+| Minh | luongnhatinh | Tools/router, Ruff/CI and tests | simble2k |
+| Bảo | simble2k | Models/errors/contracts, responders/fixtures | baoduong2342007 |
 
-## Team Members and Module Ownership
+Five-person module splitting and this review rotation are team adaptations. The tutorial asks for
+individual refactors and comparison; confirm this adaptation with the instructor and disclose it in submission.
+Each person authors their own worksheet, PR and tests. Do not prefill others' reports.
+Huy/Quyền invitations were pending at inspection; acceptance remains their action.
 
-| Member | GitHub Username | Role & Module Responsibilities | Reviewer |
-|---|---|---|---|
-| **Dương** | `baoduong2342007` | Tech Lead, Skeleton, Packaging, Service, CLI, Architecture, Release | Huy (`tqhuy0602`) |
-| **Huy** | `tqhuy0602` | Config (`config.py`), `.env.example`, Logging (`logging_setup.py`), Config tests | Quyền (`pqquyenn`) |
-| **Quyền** | `pqquyenn` | Knowledge (`knowledge.py`: CSV/JSON loader, office directory, handbook search), Knowledge tests | Minh (`luongnhatinh`) |
-| **Minh** | `luongnhatinh` | Tools (`tools.py`: credit parser, tuition math), Router (`router.py`), Ruff linting, CI workflow | Bảo (`simble2k`) |
-| **Bảo** | `simble2k` | Models (`models.py`), Errors (`errors.py`), Responders (`responder.py`), Fallback/contract tests | Dương (`baoduong2342007`) |
-
-## Review & Collaboration Rules
-
-1. **Review Loop**: 5-member peer review rotation: Dương → Huy → Quyền → Minh → Bảo → Dương.
-2. **Branching Convention**: `refactor/assistant-core-<username>` branched from `main`.
-3. **Quality Gates**: Every PR must pass `pytest -q`, `ruff check .`, `ruff format --check .`, and `ruff check --select BLE .` prior to approval and merge.
+Reviewer rotation is guidance per team instruction: another competent available peer can review.
+A peer approval is still required; do not self-approve. No need to redo a valid review just for a different name.

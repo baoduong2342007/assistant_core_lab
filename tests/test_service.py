@@ -1,5 +1,7 @@
 """Integration tests for AssistantService."""
 
+import pytest
+
 from assistant_core.models import Intent, Message
 from assistant_core.responder import StubLLMResponder
 
@@ -63,3 +65,22 @@ def test_service_fallback_when_provider_fails(service):
     assert res.degraded is True
     # Falls back to template format: "Title: Text"
     assert res.answer.startswith("Thesis registration:")
+
+
+@pytest.mark.parametrize("query", ["tuition 0 credits", "tuition 31 credits", "tuition -1 credits"])
+def test_service_invalid_fee_keeps_fee_intent_without_fallback(service, query):
+    response = service.handle(Message(text=query))
+    assert response.intent is Intent.FEE
+    assert response.sources == []
+    assert response.degraded is False
+    assert "Your tuition is" not in response.answer
+
+
+def test_service_does_not_mask_programming_errors_as_provider_fallback(service):
+    class BrokenResponder:
+        def explain(self, question, rule):
+            raise RuntimeError("unexpected programming error")
+
+    service.responder = BrokenResponder()
+    with pytest.raises(RuntimeError, match="unexpected programming error"):
+        service.handle(Message(text="can I register my thesis with 118 credits"))

@@ -1,19 +1,16 @@
-## What
-<one or two sentences>
+## Problem and resulting behavior
 
-## Why
-Closes #<issue>. <use case / acceptance criteria>
+Closes #
 
-## How tested
-- [ ] `pytest -q` passes
-- [ ] manual check: <steps>
+## Scope, owner and dependencies
+
+## Validation actually run
+Commands, results, environment; state pending checks explicitly.
+
+## Worksheet / evidence
 
 ## AI use
-<tool, what it produced, what you changed, how you verified — or "None">
+Tool, generated contributions, human review/corrections; link docs/ai-use-log.md.
 
-## Definition of Done
-- [ ] acceptance criteria met
-- [ ] tests added or updated
-- [ ] no secrets or personal data
-- [ ] README / docs updated if behaviour changed
-- [ ] reviewed and approved by the assigned reviewer
+## Reviewer
+Use docs/team.md; do not self-approve.

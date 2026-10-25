@@ -1,25 +1,47 @@
-# Lab 3 — Before / After Maintainability Comparison
+# Dương — classroom integration worksheet
 
-**Member:** Bảo Dương (`baoduong2342007`)  
-**Assigned Modules:** Skeleton, packaging, `service.py`, `__main__.py` (CLI), architecture documentation, release
+Owner: baoduong2342007. Refactor/integration PR: https://github.com/baoduong2342007/assistant_core_lab/pull/16
 
-## 1. Comparison Table
+The original core, including service/CLI, was introduced by Minh's PR #1, not separately authored by Dương.
+Dương's PR verifies/integrates that base, fixes CLI override validation, adds acceptance tests and prepares
+packaging, source evidence, tracking and documentation. It does not claim authorship of others' modules.
+Initial baseline was captured before these integration changes; see ../baseline-evidence.json.
 
-| Question | Before (Monolith) | After (`assistant_core`) |
-|---|---|---|
-| Where would you change the credit rate? How many places? | 1 constant in code (`RATE = 450000`, line 8) | 1 variable in `.env` (`CREDIT_RATE_VND`) |
-| Can you run the tests without internet or an API key? | No (10% random crash simulation, no automated test harness) | Yes (100% offline unit and integration tests with pytest) |
-| What happens if `handbook.json` is missing? | Prints `"could not load handbook"` and continues silently | Raises `DataError` at startup with clear path information |
-| Is any secret printed or logged? | Yes (`API_KEY` printed in debug output) | No (`repr=False` masks key, structured logging to stderr) |
-| How long does it take a new teammate to find the fee logic? | Had to parse messy branching inside 65-line `handle()` | Immediate lookup in `src/assistant_core/tools.py` |
-| Number of global variables | 9 (including 3 mutable: `history`, `offices`, `handbook`) | 0 (all state passed via dependency injection) |
-| Number of bare `except:` blocks | 3 (`load()` x2, `main()` x1) | 0 (all catches specify concrete domain or standard exceptions) |
-| Lines in the longest function | ~65 lines (`handle()`) | ~25 lines (`AssistantService.handle()`) |
-| `ruff check` issues | 19 issues (E401, I001, E722, E711, BLE001, E501) | 0 issues across all rules (E, F, I, B, UP, BLE) |
-| Can you swap the LLM without touching the service? | No (direct call inside `handle()`) | Yes (`Responder` Protocol decouples implementation) |
+## Before / after (10 rows)
 
-## 2. Three Sentences Reflection
+| Question | Before monolith | Current integrated core |
+| --- | --- | --- |
+| Change credit rate / locations | RATE in one code assignment | One CREDIT_RATE_VND environment setting; Settings passes rate to pure tuition tool |
+| Offline tests without a key | Yes: fake provider is local; manual tests print results and can randomly fallback | Yes: 90 assertion-based pytest cases, deterministic responder; no real key needed |
+| Missing handbook | load catches broadly, prints warning, continues with global handbook | DataError at startup, stderr message, exit 1; subprocess missing-data case covered |
+| Secrets printed or logged | llm prints upstream fake key and part of prompt | CLI acceptance checks fake env key and full query absent from logs; repr=False alone is not a general redaction guarantee |
+| New teammate finds fee logic | Mixed into handle; no human timing measured | tools.py is linked from architecture; no human timing measured |
+| Module-level assigned names | 9 | 4: package version/exports, service logger and router greeting vocabulary; no module-level mutable conversation/data containers |
+| Bare except handlers | 3 | 0 across src/assistant_core; broad except Exception still exists in config/knowledge and is tracked separately |
+| Longest function | handle: 56 inclusive lines | src/assistant_core/__main__.py::main: 71 lines; service.handle: 32 lines |
+| Ruff diagnostics | 8 with Ruff0.6.9 E,F,I,B,UP,BLE / line120 / --isolated | 0 project diagnostics with those rules; reference deliberately excluded |
+| Swap responder without changing service | handle directly calls llm | Constructor-injected Responder; controlled ProviderError uses template with source/degraded preserved |
 
-1. **What improved most**: The central coordinator `AssistantService.handle()` provides a single, unified entry point that decouples the UI/CLI layer from the domain business logic.
-2. **What got more complex**: Managing dependency injection across all modules requires careful wiring during startup in `__main__.py`.
-3. **What you would still change**: I would introduce an async handler method to prepare for FastAPI streaming in Lab 4.
+Measurement definition and per-module results: [metrics.json](metrics.json). Global-name counts include
+constants/logger names, not imports/classes; distinguish these from mutable domain state.
+
+## Code smells and owners
+
+1. Hard-coded config/key: Huy settings and logging.
+2. Mutable global history/offices/handbook: Quyền loaders; Dương constructor injection.
+3. Bare except in loaders/input: Quyền domain errors; Dương explicit CLI handling.
+4. Oversized handle: Dương service delegates to owners' modules.
+5. Business print mixed with logs: Huy JSON logging; Dương stdout/stderr separation.
+6. Fee parsing/math mixed with orchestration: Minh pure tools.
+7. String paths and unclosed JSON file: Quyền Path/context managers.
+8. Random failure and sleep: Bảo deterministic stub.
+9. Print-only tests: each owner assertions; Dương subprocess acceptance.
+10. Repeated routing in stats: Minh route; history/stats intentionally outside core scope.
+
+## Three reflections
+
+The largest improvement is the injected service boundary, which lets CLI tests cover real wiring while
+service tests exercise fallback and validation independently.
+Configuration and dependency wiring add complexity, and the CLI remains the longest function; the numbers
+above describe that tradeoff rather than claiming every function became shorter.
+Next I would coordinate the remaining parser/config/knowledge fixes with their owners before a core release.

@@ -16,3 +16,13 @@ In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.1
 ## PR #1 required-check repair — 2026-10-24
 
 Dương used Codex to diagnose missing Foundation check contexts, copy the reviewed foundation workflow, and preserve Ruff default exclusions. Local validation: 71 pytest tests passed; Ruff check/format/BLE and sdist/wheel build passed. Runtime implementation and other members' reports were left unchanged. This is a CI repair, not a complete runtime code review.
+
+
+## Dương — PR #16 classroom integration (2026-10-24)
+
+Codex, at Dương's request, verified pinned starter files, ran the unchanged baseline, measured AST/Ruff
+metrics, prepared tracking/docs and integrated the main branch. It fixed validation of existing CLI
+overrides and added 19 real acceptance cases (90 total). Initial core/service/CLI implementation came
+from PR #1 and is not claimed as Dương's original implementation. No personal reports for others were
+written in this work. Earlier table entries are retained from PR1 and require each person's verification.
+Review/merge, instructor acceptance of the shared-module workflow, and team release remain separate gates.

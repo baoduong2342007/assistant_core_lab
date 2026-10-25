@@ -1,0 +1,207 @@
+{
+  "date": "2026-10-24",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "command_prefix": "python reference/monolith/assistant_monolith.py",
+  "note": "Executed with cwd reference/monolith; fake upstream key redacted only in saved stdout. No seed or source edits.",
+  "runs": [
+    {
+      "args": [
+        "hi"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "tuition for 18 credits and 2 retake"
+      ],
+      "exit_code": 0,
+      "stdout": "Your tuition is 9450000 VND\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "where is the library"
+      ],
+      "exit_code": 0,
+      "stdout": "Library: room B.201, open Mon-Sat 07:00-20:00\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "can I register my thesis with 118 credits"
+      ],
+      "exit_code": 0,
+      "stdout": "[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nerror LLM timeout\nStudents may register a thesis when they have at least 120 accumulated credits and a GPA of at least 2.0. (source: H26-5.3)\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "--test"
+      ],
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\nYour tuition is 9450000 VND\nLibrary: room B.201, open Mon-Sat 07:00-20:00\n[debug] calling gpt-small with key <upstream fake key redacted> prompt: Answer using this rule: Students may register a thesis when \nHere is what I found: hey have at least 120 accumulated credits and a GPA of at least 2.0. Question: can I register my thesis with 118 credits (source: H26-5.3)\ntoo many credits\nempty\n",
+      "stderr": ""
+    }
+  ],
+  "static_metrics": {
+    "module_assignments": 9,
+    "bare_except": 3,
+    "longest_function": "handle",
+    "longest_function_lines": 56,
+    "ruff_issues": 8
+  }
+}
