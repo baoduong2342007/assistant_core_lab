@@ -1,4 +1,4 @@
-# Week 3 — actual submission status (2026-10-24)
+# Week 3 — actual submission status (2026-10-25)
 
 This index records classroom work and remaining evidence, not a self-awarded rubric score.
 
@@ -18,11 +18,11 @@ This index records classroom work and remaining evidence, not a self-awarded rub
 
 | Member | Refactor / integration evidence | Worksheet | Status |
 | --- | --- | --- | --- |
-| Dương | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16); integrates core introduced by PR1 | [worksheet + measured metrics](../lab3/baoduong2342007/before_after.md) | Preparation, CLI fixes, acceptance tests and documentation in PR16; peer review/merge pending |
+| Dương | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16); integrates core introduced by PR1 | [worksheet + measured metrics](../lab3/baoduong2342007/before_after.md) | Merged as a2ad759 after simble2k approval; CLI validation fixes, 19 added acceptance cases, measured worksheet, packaging and clean-clone evidence |
 | Minh | [PR1 merged](https://github.com/baoduong2342007/assistant_core_lab/pull/1) | [worksheet](../lab3/luongnhatinh/before_after.md) | Tools/router/CI merged; decimal parser and worksheet measurements still need owner follow-up |
 | Huy | Config/logging are present through PR1; no separate owner PR verified | [worksheet](../lab3/tqhuy0602/before_after.md) | Owner verification pending |
 | Quyền | Knowledge is present through PR1; no separate owner PR verified | [worksheet](../lab3/pqquyenn/before_after.md) | Owner verification pending |
-| Bảo | Models/responders are present through PR1; no separate owner PR verified | [worksheet](../lab3/simble2k/before_after.md) | Owner verification pending |
+| Bảo | Models/responders through PR1; [PR17 open](https://github.com/baoduong2342007/assistant_core_lab/pull/17) | [worksheet](../lab3/simble2k/before_after.md) | PR17 review and conflict resolution pending |
 
 Baseline: ../lab3/baseline.md and baseline-evidence.json. Source manifest: reference/manifest.json.
 Owner issues and acceptance criteria: ../tracking.md. Remaining gaps: ../lab3/open-items.md.
