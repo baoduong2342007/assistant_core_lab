@@ -72,3 +72,12 @@ class Responder(Protocol):
 ```
 - `TemplateResponder`: Returns `f"{rule.title}: {rule.text}"`.
 - `StubLLMResponder`: Returns formatted stub answer or raises `ProviderError` when `fail=True`.
+
+
+## Integration status after PR #1
+
+These interfaces now exist in the integrated core; this is no longer a pending skeleton.
+Settings, load_settings, constructor injection and CLI wiring are documented in architecture.md.
+Remaining deviations are tracked in lab3/open-items.md. The initial greeting punctuation extension and
+--json/--log-level/--credit-rate/rule-ID helpers were introduced by PR1; do not claim they are new work
+in a later H1 assignment without a genuinely distinct change and supporting personal evidence.

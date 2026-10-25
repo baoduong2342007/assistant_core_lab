@@ -1,36 +1,44 @@
-# Week 3 Submission Summary — Team 03
+# Week 3 — actual submission status (2026-10-24)
 
-## 1. Repository and Release Metadata
+This index records classroom work and remaining evidence, not a self-awarded rubric score.
 
-- **Repository**: [assistant_core_lab](https://github.com/baoduong2342007/assistant_core_lab)
-- **Tag**: `v0.3-core`
-- **Bootcamp Repository**: `python-boostcamp` (Tag: `py-w3-done`)
-- **Package Distribution Name**: `assistant-core`
-- **Import Name**: `assistant_core`
+## Repository / commits / CI
 
----
+- Repo: https://github.com/baoduong2342007/assistant_core_lab
+- Integrated base: PR #1 (merged), main commit d632215.
+- Dương foundation/integration: PR #16; see live PR for current head, review and merge state.
+- CI: use check links on those PRs for exact commit evidence; the PR16 report records local checks
+  and a clean-clone validation separately in docs/foundation-validation.md.
+- Existing v0.3-core tag points to e975675 before the reviewed merge; it is not presented as completed
+  release verification. No new release tag is created by this classroom integration.
+- Bootcamp repo: https://github.com/baoduong2342007/python-boostcamp . Its W3/homework status was not
+  verified in this task; no py-w3-done completion claim is made.
 
-## 2. Team Member Deliverables & Contribution Matrix
+## Classroom evidence by member
 
-| Member | Username | Module Responsibilities | Refactor PR | Worksheet | H1 Feature & Report | H3 Reflection |
-|---|---|---|---|---|---|---|
-| **Bảo Dương** | `baoduong2342007` | Skeleton, Packaging, Service, CLI, Architecture | `refactor/assistant-core-baoduong2342007` | [Worksheet](../lab3/baoduong2342007/before_after.md) | `--json` export ([Report](../lab3/baoduong2342007/ai_extension_review.md)) | [Reflection](../lab3/baoduong2342007/reflection.md) |
-| **Trần Quang Huy** | `tqhuy0602` | Config, `.env.example`, JSON Logging | `refactor/assistant-core-tqhuy0602` | [Worksheet](../lab3/tqhuy0602/before_after.md) | `--log-level` override ([Report](../lab3/tqhuy0602/ai_extension_review.md)) | [Reflection](../lab3/tqhuy0602/reflection.md) |
-| **Phan Quốc Quyền** | `pqquyenn` | Knowledge (OfficeDirectory, Handbook) | `refactor/assistant-core-pqquyenn` | [Worksheet](../lab3/pqquyenn/before_after.md) | List regulations ([Report](../lab3/pqquyenn/ai_extension_review.md)) | [Reflection](../lab3/pqquyenn/reflection.md) |
-| **Lương Nhật Minh** | `luongnhatinh` | Tools (Tuition, parse credits), Router, Ruff, CI | `refactor/assistant-core-luongnhatinh` | [Worksheet](../lab3/luongnhatinh/before_after.md) | `--credit-rate` override ([Report](../lab3/luongnhatinh/ai_extension_review.md)) | [Reflection](../lab3/luongnhatinh/reflection.md) |
-| **Nguyễn Tấn Bảo** | `simble2k` | Models, Errors, Responders, Fallback tests | `refactor/assistant-core-simble2k` | [Worksheet](../lab3/simble2k/before_after.md) | Exact Rule ID lookup ([Report](../lab3/simble2k/ai_extension_review.md)) | [Reflection](../lab3/simble2k/reflection.md) |
+| Member | Refactor / integration evidence | Worksheet | Status |
+| --- | --- | --- | --- |
+| Dương | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16); integrates core introduced by PR1 | [worksheet + measured metrics](../lab3/baoduong2342007/before_after.md) | Preparation, CLI fixes, acceptance tests and documentation in PR16; peer review/merge pending |
+| Minh | [PR1 merged](https://github.com/baoduong2342007/assistant_core_lab/pull/1) | [worksheet](../lab3/luongnhatinh/before_after.md) | Tools/router/CI merged; decimal parser and worksheet measurements still need owner follow-up |
+| Huy | Config/logging are present through PR1; no separate owner PR verified | [worksheet](../lab3/tqhuy0602/before_after.md) | Owner verification pending |
+| Quyền | Knowledge is present through PR1; no separate owner PR verified | [worksheet](../lab3/pqquyenn/before_after.md) | Owner verification pending |
+| Bảo | Models/responders are present through PR1; no separate owner PR verified | [worksheet](../lab3/simble2k/before_after.md) | Owner verification pending |
 
----
+Baseline: ../lab3/baseline.md and baseline-evidence.json. Source manifest: reference/manifest.json.
+Owner issues and acceptance criteria: ../tracking.md. Remaining gaps: ../lab3/open-items.md.
+AI disclosure: ../ai-use-log.md. PR16 records Dương's actual changes; it does not claim original authorship
+of the runtime modules introduced by Minh.
 
-## 3. Rubric Verification Evidence
+## Workflow and submission notes
 
-| Criterion (Lab 3 Tutorial Page 19) | Max Points | Verification & Location |
-|---|---|---|
-| Clean package structure; one responsibility per module | 2 | Standard `src/assistant_core` layout with 10 single-responsibility modules |
-| Config from environment; `.env.example`; no secret in code or logs | 2 | `config.py` loads from env/`.env`; `.env.example` committed; `repr=False` masks secrets; structured JSON logs to stderr |
-| Typed models; named exceptions; fallback path tested | 2 | Pydantic `Message`/`Response`/`Rule`; `AssistantError` hierarchy; `test_service_fallback_when_provider_fails` passes |
-| Tests pass (≥ 10), including characterisation tests | 1 | **71 passing tests** covering characterisation, unit, integration, and CLI |
-| Ruff check clean; dependencies pinned | 1 | Clean pass on `ruff check .`, `ruff format --check .`, `ruff check --select BLE .`; pinned in `requirements.txt` |
-| Architecture note with interface and 3 decisions | 1 | Documented in `docs/architecture.md` with interface and 3 architectural decisions with rationales |
-| H1: three documented improvements to AI-generated code | 1 | Detailed in `docs/lab3/<username>/ai_extension_review.md` for all 5 team members |
-| **Total** | **10 / 10** | **All criteria fully met** |
+The team integrated one shared refactor through PR1 before merging Dương's separate foundation PR.
+This differs from the plan's foundation-first, owner-module PR order. Five-person module splitting also
+differs from the tutorial's individual-refactor/comparison flow; disclose it and confirm instructor expectations.
+The reviewer rotation is guidance; an available peer review is acceptable. GitHub's one-approval requirement
+still applies; do not self-approve or bypass it. No claim is made that LMS submission has occurred.
+
+## Homework status
+
+H1 individual extension reports/three improvements/merged owner PRs, H2 bootcamp and H3 reflections are
+outside this classroom task and are not marked complete. Existing report files are retained as received
+from PR1; their presence is not proof that their claimed personal actions happened.

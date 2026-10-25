@@ -8,7 +8,7 @@ import time
 
 from pydantic import ValidationError
 
-from assistant_core.config import load_settings
+from assistant_core.config import Settings, load_settings
 from assistant_core.errors import AssistantError, ConfigError, DataError
 from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.logging_setup import setup_logging
@@ -98,13 +98,13 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         settings = load_settings()
-        if args.log_level:
-            settings.log_level = args.log_level.upper()
-        if args.credit_rate:
-            if args.credit_rate <= 0:
-                sys.stderr.write("Error: --credit-rate must be positive.\n")
-                return 1
-            settings.credit_rate_vnd = args.credit_rate
+        overrides = {}
+        if args.log_level is not None:
+            overrides["log_level"] = args.log_level
+        if args.credit_rate is not None:
+            overrides["credit_rate_vnd"] = args.credit_rate
+        if overrides:
+            settings = Settings.model_validate({**settings.model_dump(), **overrides})
 
         logger = setup_logging(level=settings.log_level)
 

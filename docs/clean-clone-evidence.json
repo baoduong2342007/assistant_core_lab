@@ -1,0 +1,262 @@
+{
+  "date": "2026-10-24",
+  "commit": "7ffdb20e1aa7e210439c815ef2caf8b8550849a4",
+  "os": "Windows",
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "independence": "Clean remote clone with new venv/no inherited settings. Executed by the same author agent, not an independent peer release verification.",
+  "results": [
+    {
+      "command": [
+        "git",
+        "clone",
+        "--branch",
+        "refactor/assistant-core-baoduong2342007",
+        "--single-branch",
+        "https://github.com/baoduong2342007/assistant_core_lab.git",
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Cloning into 'F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone'...\n"
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "7ffdb20e1aa7e210439c815ef2caf8b8550849a4\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.venv\\Scripts\\python.exe",
+        "-m",
+        "venv",
+        ".venv"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "-r",
+        "requirements.txt",
+        "build==1.2.2.post1"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Collecting build==1.2.2.post1\n  Downloading build-1.2.2.post1-py3-none-any.whl.metadata (6.5 kB)\nCollecting pydantic==2.9.2 (from -r requirements.txt (line 1))\n  Using cached pydantic-2.9.2-py3-none-any.whl.metadata (149 kB)\nCollecting python-dotenv==1.0.1 (from -r requirements.txt (line 2))\n  Using cached python_dotenv-1.0.1-py3-none-any.whl.metadata (23 kB)\nCollecting pytest==8.3.3 (from -r requirements.txt (line 3))\n  Using cached pytest-8.3.3-py3-none-any.whl.metadata (7.5 kB)\nCollecting ruff==0.6.9 (from -r requirements.txt (line 4))\n  Using cached ruff-0.6.9-py3-none-win_amd64.whl.metadata (25 kB)\nCollecting packaging>=19.1 (from build==1.2.2.post1)\n  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)\nCollecting pyproject_hooks (from build==1.2.2.post1)\n  Using cached pyproject_hooks-1.3.3-py3-none-any.whl.metadata (1.3 kB)\nCollecting colorama (from build==1.2.2.post1)\n  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)\nCollecting annotated-types>=0.6.0 (from pydantic==2.9.2->-r requirements.txt (line 1))\n  Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)\nCollecting pydantic-core==2.23.4 (from pydantic==2.9.2->-r requirements.txt (line 1))\n  Using cached pydantic_core-2.23.4-cp313-none-win_amd64.whl.metadata (6.7 kB)\nCollecting typing-extensions>=4.12.2 (from pydantic==2.9.2->-r requirements.txt (line 1))\n  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting iniconfig (from pytest==8.3.3->-r requirements.txt (line 3))\n  Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)\nCollecting pluggy<2,>=1.5 (from pytest==8.3.3->-r requirements.txt (line 3))\n  Using cached pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)\nDownloading build-1.2.2.post1-py3-none-any.whl (22 kB)\nUsing cached pydantic-2.9.2-py3-none-any.whl (434 kB)\nUsing cached python_dotenv-1.0.1-py3-none-any.whl (19 kB)\nUsing cached pytest-8.3.3-py3-none-any.whl (342 kB)\nUsing cached ruff-0.6.9-py3-none-win_amd64.whl (9.4 MB)\nUsing cached pydantic_core-2.23.4-cp313-none-win_amd64.whl (1.9 MB)\nUsing cached pluggy-1.7.0-py3-none-any.whl (27 kB)\nUsing cached annotated_types-0.8.0-py3-none-any.whl (13 kB)\nUsing cached packaging-26.3-py3-none-any.whl (129 kB)\nUsing cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)\nUsing cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)\nUsing cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)\nUsing cached pyproject_hooks-1.3.3-py3-none-any.whl (10 kB)\nInstalling collected packages: typing-extensions, ruff, python-dotenv, pyproject_hooks, pluggy, packaging, iniconfig, colorama, annotated-types, pytest, pydantic-core, build, pydantic\n\nSuccessfully installed annotated-types-0.8.0 build-1.2.2.post1 colorama-0.4.6 iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pydantic-2.9.2 pydantic-core-2.23.4 pyproject_hooks-1.3.3 pytest-8.3.3 python-dotenv-1.0.1 ruff-0.6.9 typing-extensions-4.16.0\n",
+      "stderr": "\n[notice] A new release of pip is available: 26.1.2 -> 26.2.2\n[notice] To update, run: F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "-e",
+        "."
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Obtaining file:///F:/APCS2627/HK1/ComputationalThinking/Homework/Week3/assistant_core_lab/.git/duong-classroom-clean-clone\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'done'\n  Checking if build backend supports build_editable: started\n  Checking if build backend supports build_editable: finished with status 'done'\n  Getting requirements to build editable: started\n  Getting requirements to build editable: finished with status 'done'\n  Preparing editable metadata (pyproject.toml): started\n  Preparing editable metadata (pyproject.toml): finished with status 'done'\nRequirement already satisfied: pydantic<3,>=2.7 in .\\.venv\\Lib\\site-packages (from assistant-core==0.3.0) (2.9.2)\nRequirement already satisfied: python-dotenv<2,>=1.0 in .\\.venv\\Lib\\site-packages (from assistant-core==0.3.0) (1.0.1)\nRequirement already satisfied: annotated-types>=0.6.0 in .\\.venv\\Lib\\site-packages (from pydantic<3,>=2.7->assistant-core==0.3.0) (0.8.0)\nRequirement already satisfied: pydantic-core==2.23.4 in .\\.venv\\Lib\\site-packages (from pydantic<3,>=2.7->assistant-core==0.3.0) (2.23.4)\nRequirement already satisfied: typing-extensions>=4.12.2 in .\\.venv\\Lib\\site-packages (from pydantic<3,>=2.7->assistant-core==0.3.0) (4.16.0)\nBuilding wheels for collected packages: assistant-core\n  Building editable for assistant-core (pyproject.toml): started\n  Building editable for assistant-core (pyproject.toml): finished with status 'done'\n  Created wheel for assistant-core: filename=assistant_core-0.3.0-0.editable-py3-none-any.whl size=2875 sha256=10cd9a91cdfeb85db9132c8762d7728f5f3f03c1e731a2b137ab5710e28d1a72\n  Stored in directory: C:\\Users\\ASUS\\AppData\\Local\\Temp\\pip-ephem-wheel-cache-r9tyb09m\\wheels\\a2\\25\\12\\022fb5f54a672a4033d2a82735ddcc58997bb7876b3faa43ad\nSuccessfully built assistant-core\nInstalling collected packages: assistant-core\nSuccessfully installed assistant-core-0.3.0\n",
+      "stderr": "\n[notice] A new release of pip is available: 26.1.2 -> 26.2.2\n[notice] To update, run: F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-c",
+        "import assistant_core; print(assistant_core.__file__)"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\src\\assistant_core\\__init__.py\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "........................................................................ [ 80%]\n..................                                                       [100%]\n90 passed in 5.56s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "24 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "--select",
+        "BLE",
+        "."
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "hi"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Hello! I can help with offices, fees and rules.\n",
+      "stderr": "{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"greeting\", \"latency_ms\": 0.02, \"session\": \"local\", \"degraded\": false}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "tuition for 18 credits and 2 retake"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Your tuition is 9,450,000 VND.\n",
+      "stderr": "{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"fee\", \"latency_ms\": 0.12, \"session\": \"local\", \"degraded\": false}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "where is the library"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Library: room B.201, open Mon-Sat 07:00-20:00.\n",
+      "stderr": "{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"office\", \"latency_ms\": 0.03, \"session\": \"local\", \"degraded\": false}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "can I register my thesis with 118 credits"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Based on 'Thesis registration': Students may register a thesis when they have at least 120 accumulated credits and a GPA of at least 2.0.\n",
+      "stderr": "{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"rule\", \"latency_ms\": 0.04, \"session\": \"local\", \"degraded\": false}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "--fail-provider",
+        "can I register my thesis with 118 credits"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a GPA of at least 2.0.\n",
+      "stderr": "{\"level\": \"WARNING\", \"logger\": \"assistant_core\", \"msg\": \"provider failed; using template fallback\"}\n{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"rule\", \"latency_ms\": 0.15, \"session\": \"local\", \"degraded\": true}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "assistant_core",
+        "zzzz qqqq"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Sorry, I don't know that yet.\n",
+      "stderr": "{\"level\": \"INFO\", \"logger\": \"assistant_core\", \"msg\": \"handled\", \"intent\": \"unknown\", \"latency_ms\": 0.03, \"session\": \"local\", \"degraded\": false}\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "build"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "* Creating isolated environment: venv+pip...\n* Installing packages in isolated environment:\n  - setuptools>=68\n* Getting build dependencies for sdist...\nrunning egg_info\nwriting src\\assistant_core.egg-info\\PKG-INFO\nwriting dependency_links to src\\assistant_core.egg-info\\dependency_links.txt\nwriting requirements to src\\assistant_core.egg-info\\requires.txt\nwriting top-level names to src\\assistant_core.egg-info\\top_level.txt\nreading manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\nwriting manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\n* Building sdist...\nrunning sdist\nrunning egg_info\nwriting src\\assistant_core.egg-info\\PKG-INFO\nwriting dependency_links to src\\assistant_core.egg-info\\dependency_links.txt\nwriting requirements to src\\assistant_core.egg-info\\requires.txt\nwriting top-level names to src\\assistant_core.egg-info\\top_level.txt\nreading manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\nwriting manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\nrunning check\ncreating assistant_core-0.3.0\ncreating assistant_core-0.3.0\\src\\assistant_core\ncreating assistant_core-0.3.0\\src\\assistant_core.egg-info\ncreating assistant_core-0.3.0\\tests\ncopying files to assistant_core-0.3.0...\ncopying README.md -> assistant_core-0.3.0\ncopying pyproject.toml -> assistant_core-0.3.0\ncopying src\\assistant_core\\__init__.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\__main__.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\config.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\errors.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\knowledge.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\logging_setup.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\models.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\responder.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\router.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\service.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core\\tools.py -> assistant_core-0.3.0\\src\\assistant_core\ncopying src\\assistant_core.egg-info\\PKG-INFO -> assistant_core-0.3.0\\src\\assistant_core.egg-info\ncopying src\\assistant_core.egg-info\\SOURCES.txt -> assistant_core-0.3.0\\src\\assistant_core.egg-info\ncopying src\\assistant_core.egg-info\\dependency_links.txt -> assistant_core-0.3.0\\src\\assistant_core.egg-info\ncopying src\\assistant_core.egg-info\\requires.txt -> assistant_core-0.3.0\\src\\assistant_core.egg-info\ncopying src\\assistant_core.egg-info\\top_level.txt -> assistant_core-0.3.0\\src\\assistant_core.egg-info\ncopying tests\\test_characterisation.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_cli.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_cli_contract.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_config.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_errors.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_knowledge.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_logging.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_models.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_responder.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_router.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_service.py -> assistant_core-0.3.0\\tests\ncopying tests\\test_tools.py -> assistant_core-0.3.0\\tests\nWriting assistant_core-0.3.0\\setup.cfg\nCreating tar archive\nremoving 'assistant_core-0.3.0' (and everything under it)\n* Building wheel from sdist\n* Creating isolated environment: venv+pip...\n* Installing packages in isolated environment:\n  - setuptools>=68\n* Getting build dependencies for wheel...\nrunning egg_info\nwriting src\\assistant_core.egg-info\\PKG-INFO\nwriting dependency_links to src\\assistant_core.egg-info\\dependency_links.txt\nwriting requirements to src\\assistant_core.egg-info\\requires.txt\nwriting top-level names to src\\assistant_core.egg-info\\top_level.txt\nreading manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\nwriting manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\n* Building wheel...\nrunning bdist_wheel\nrunning build\nrunning build_py\ncreating build\\lib\\assistant_core\ncopying src\\assistant_core\\config.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\errors.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\knowledge.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\logging_setup.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\models.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\responder.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\router.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\service.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\tools.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\__init__.py -> build\\lib\\assistant_core\ncopying src\\assistant_core\\__main__.py -> build\\lib\\assistant_core\nrunning egg_info\nwriting src\\assistant_core.egg-info\\PKG-INFO\nwriting dependency_links to src\\assistant_core.egg-info\\dependency_links.txt\nwriting requirements to src\\assistant_core.egg-info\\requires.txt\nwriting top-level names to src\\assistant_core.egg-info\\top_level.txt\nreading manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\nwriting manifest file 'src\\assistant_core.egg-info\\SOURCES.txt'\ninstalling to build\\bdist.win-amd64\\wheel\nrunning install\nrunning install_lib\ncreating build\\bdist.win-amd64\\wheel\ncreating build\\bdist.win-amd64\\wheel\\assistant_core\ncopying build\\lib\\assistant_core\\config.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\errors.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\knowledge.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\logging_setup.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\models.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\responder.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\router.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\service.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\tools.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\ncopying build\\lib\\assistant_core\\__main__.py -> build\\bdist.win-amd64\\wheel\\.\\assistant_core\nrunning install_egg_info\nCopying src\\assistant_core.egg-info to build\\bdist.win-amd64\\wheel\\.\\assistant_core-0.3.0-py3.13.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\assistant_core-0.3.0.dist-info\\WHEEL\ncreating 'F:\\\\APCS2627\\\\HK1\\\\ComputationalThinking\\\\Homework\\\\Week3\\\\assistant_core_lab\\\\.git\\\\duong-classroom-clean-clone\\\\dist\\\\.tmp-13rl129i\\\\assistant_core-0.3.0-py3-none-any.whl' and adding 'build\\\\bdist.win-amd64\\\\wheel' to it\nadding 'assistant_core/__init__.py'\nadding 'assistant_core/__main__.py'\nadding 'assistant_core/config.py'\nadding 'assistant_core/errors.py'\nadding 'assistant_core/knowledge.py'\nadding 'assistant_core/logging_setup.py'\nadding 'assistant_core/models.py'\nadding 'assistant_core/responder.py'\nadding 'assistant_core/router.py'\nadding 'assistant_core/service.py'\nadding 'assistant_core/tools.py'\nadding 'assistant_core-0.3.0.dist-info/METADATA'\nadding 'assistant_core-0.3.0.dist-info/WHEEL'\nadding 'assistant_core-0.3.0.dist-info/top_level.txt'\nadding 'assistant_core-0.3.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built assistant_core-0.3.0.tar.gz and assistant_core-0.3.0-py3-none-any.whl\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "install",
+        "--force-reinstall",
+        "--no-deps",
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\dist\\assistant_core-0.3.0-py3-none-any.whl"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "Processing .\\dist\\assistant_core-0.3.0-py3-none-any.whl\nInstalling collected packages: assistant-core\n  Attempting uninstall: assistant-core\n    Found existing installation: assistant-core 0.3.0\n    Uninstalling assistant-core-0.3.0:\n      Successfully uninstalled assistant-core-0.3.0\nSuccessfully installed assistant-core-0.3.0\n",
+      "stderr": "\n[notice] A new release of pip is available: 26.1.2 -> 26.2.2\n[notice] To update, run: F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe -m pip install --upgrade pip\n"
+    },
+    {
+      "command": [
+        "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Scripts\\python.exe",
+        "-c",
+        "import assistant_core; from pathlib import Path; p=Path(assistant_core.__file__); assert \"site-packages\" in str(p), p; print(p)"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.git\\wheel-import-cwd",
+      "exit_code": 0,
+      "stdout": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone\\.venv\\Lib\\site-packages\\assistant_core\\__init__.py\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code"
+      ],
+      "cwd": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\.git\\duong-classroom-clean-clone",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

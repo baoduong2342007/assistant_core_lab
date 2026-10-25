@@ -62,4 +62,4 @@ AssistantService.handle(msg: Message) -> Response
 
 ### Decision 3: 12-Factor App Environment Configuration (`config.py`)
 - **Decision**: Configuration is strictly separated from application code using environment variables and optional `.env` loading (`override=False`). Sensitive fields (`llm_api_key`) are configured with `Field(repr=False)`.
-- **Rationale**: In accordance with Twelve-Factor App Principle III (Config) and Principle XI (Logs), secrets and runtime parameters are never hard-coded in source files or repository commits. `repr=False` prevents accidental leakage of API credentials into application logs, error tracebacks, or debugging streams.
+- **Rationale**: In accordance with Twelve-Factor App Principle III (Config) and Principle XI (Logs), secrets and runtime parameters are never hard-coded in source files or repository commits. `repr=False` omits the field from model repr only; it does not redact model_dump(), arbitrary logs or tracebacks. The CLI emits only request metadata; subprocess tests check that a synthetic key and full question do not appear in logs.

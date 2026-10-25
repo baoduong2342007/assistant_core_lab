@@ -19,3 +19,12 @@ Dương used Codex to diagnose missing Foundation check contexts, copy the revie
 
 
 2026-10-24 — Bảo used AI assistance to explore the initial implementation of exact rule ID lookup (H1). The AI drafted a naive loop raising a generic Exception on miss. Bảo conducted a code review, rejected the generic exception in favor of returning None, added whitespace and case normalization, implemented guard clauses against empty inputs, and verified behavior with 8 unit and fallback integration tests in `tests/test_h1_rule_by_id.py`. Full review documented in `docs/lab3/simble2k/ai_extension_review.md`.
+
+## Dương — PR #16 classroom integration (2026-10-24)
+
+Codex, at Dương's request, verified pinned starter files, ran the unchanged baseline, measured AST/Ruff
+metrics, prepared tracking/docs and integrated the main branch. It fixed validation of existing CLI
+overrides and added 19 real acceptance cases (90 total). Initial core/service/CLI implementation came
+from PR #1 and is not claimed as Dương's original implementation. No personal reports for others were
+written in this work. Earlier table entries are retained from PR1 and require each person's verification.
+Review/merge, instructor acceptance of the shared-module workflow, and team release remain separate gates.
