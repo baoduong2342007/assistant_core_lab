@@ -3,6 +3,7 @@
 import argparse
 import json
 import logging
+import re
 import sys
 import time
 
@@ -15,6 +16,14 @@ from assistant_core.logging_setup import setup_logging
 from assistant_core.models import Message, Response
 from assistant_core.responder import StubLLMResponder, TemplateResponder
 from assistant_core.service import AssistantService
+
+
+def parse_session_id(text: str) -> str:
+    """Accept a bounded opaque identifier, keeping arbitrary text out of metadata."""
+    value = text.strip()
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}", value):
+        raise argparse.ArgumentTypeError("session ID must be 1-64 ASCII letters/digits, with optional _ or -")
+    return value
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -37,6 +46,12 @@ def build_parser() -> argparse.ArgumentParser:
         type=str,
         default=None,
         help="Override the log level for this run (DEBUG, INFO, WARNING, ERROR).",
+    )
+    parser.add_argument(
+        "--session-id",
+        type=parse_session_id,
+        default="local",
+        help="Opaque session identifier for request logs (1-64 letters/digits, _ or -).",
     )
     parser.add_argument(
         "--credit-rate",
@@ -84,7 +99,7 @@ def process_message(
         extra={
             "intent": response.intent.value,
             "latency_ms": elapsed_ms,
-            "session": session_id,
+            "session": msg.session_id,
             "degraded": response.degraded,
         },
     )
@@ -135,7 +150,7 @@ def main(argv: list[str] | None = None) -> int:
             sys.stderr.write("Error: Query cannot be empty.\n")
             return 1
         try:
-            process_message(service, query_text, logger, as_json=args.json)
+            process_message(service, query_text, logger, as_json=args.json, session_id=args.session_id)
             return 0
         except (AssistantError, ValidationError, ValueError) as exc:
             sys.stderr.write(f"Runtime error: {exc}\n")
@@ -156,7 +171,7 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             if text.lower() == "quit":
                 break
-            process_message(service, text, logger, as_json=args.json)
+            process_message(service, text, logger, as_json=args.json, session_id=args.session_id)
         except KeyboardInterrupt:
             break
         except (AssistantError, ValidationError, ValueError) as exc:
