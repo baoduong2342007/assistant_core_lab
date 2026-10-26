@@ -76,6 +76,15 @@ def test_service_invalid_fee_keeps_fee_intent_without_fallback(service, query):
     assert "Your tuition is" not in response.answer
 
 
+@pytest.mark.parametrize("query", ["tuition 18.5 credits", "tuition 18 credits and 1.5 retake"])
+def test_service_fractional_counts_return_guidance_not_wrong_fee(service, query):
+    response = service.handle(Message(text=query))
+    assert response.intent is Intent.FEE
+    assert response.answer == "Credits and retake credits must be integers."
+    assert response.sources == []
+    assert response.degraded is False
+
+
 def test_service_does_not_mask_programming_errors_as_provider_fallback(service):
     class BrokenResponder:
         def explain(self, question, rule):

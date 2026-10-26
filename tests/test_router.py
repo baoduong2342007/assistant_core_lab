@@ -53,3 +53,7 @@ def test_route_precedence():
     # Greetings take precedence even with punctuation
     assert route("hello, where is library?", OFFICE_NAMES) is Intent.OFFICE
     assert route("hello!", OFFICE_NAMES) is Intent.GREETING
+
+
+def test_fee_takes_precedence_over_office_match():
+    assert route("tuition at the library", OFFICE_NAMES) is Intent.FEE

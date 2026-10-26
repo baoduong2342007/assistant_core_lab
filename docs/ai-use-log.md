@@ -56,3 +56,11 @@ implementation, assisted review/three real improvements, 16 new cases and the re
 The existing --log-level flag is not claimed as new. Validation: 129 pytest passed, Ruff check/format passed
 on macOS/Python 3.11.16. Initial proposal/report live under docs/lab3/tqhuy0602.
 Draft depends on core PR19/HOME-01; no human approval, H1 merge or personal reading is asserted.
+
+
+## Minh classroom correction — 2026-10-26
+
+Dương requested Codex to fix Minh's remaining classroom items. Codex changed pure credit parsing and
+integer validation, added 25 tests, measured/corrected Minh's worksheet and code-smell mapping, and
+prepared issue/PR tracking. Original implementation and reflections remain attributed to Minh/PR1;
+these follow-up edits are not claimed as Minh's personal actions. H1/H2/H3 are outside this correction.
