@@ -50,3 +50,12 @@ Scope: greeting/fee/office/rule/unknown and controlled provider fallback; no rea
 history/stats/save migration, or claim of finished H1/H2/H3 work. Remaining owner fixes are tracked in
 docs/lab3/open-items.md. The existing v0.3-core tag predates completed release verification; leave it intact
 and do not treat its existence alone as successful release evidence.
+
+### Session context for logs (Huy H1 draft)
+
+Use `python -m assistant_core --session-id run-42 --json "hi"` to correlate handled events.
+The ID is also used for every request in an interactive run; the default is `local`.
+IDs are 1–64 ASCII letters/digits with optional `_`/`-`, starting with a letter/digit.
+Use an opaque ID rather than a name, query or credential. Invalid IDs exit 2 before startup.
+Answers/JSON remain on stdout; log metadata remains on stderr. Existing `--log-level` precedence is preserved.
+This feature is a distinct H1 proposal because `--log-level` was already in the integrated base.

@@ -1,0 +1,21 @@
+Initial AI proposal captured on 2026-10-25; not applied as runnable code.
+Task prompt used to scope this proposal:
+"Add --session-id to the CLI so handled logs can be correlated using the existing
+Message.session_id. Keep Settings/log-level behavior and route through the service."
+
+Proposed additions:
+    parser.add_argument("--session-id", default="local")
+
+One-shot branch only:
+    process_message(service, query_text, logger, as_json=args.json,
+                    session_id=args.session_id)
+
+Assisted review found three gaps before implementation:
+1. Arbitrary/empty/huge or sensitive-looking values enter log metadata unchecked.
+2. Interactive requests keep using the default "local" session.
+3. No CLI regression evidence for precedence, stream separation or repeated setup.
+
+The final implementation adds bounded opaque-ID validation before startup, threads
+the same ID through both modes and Message/log metadata, and adds real subprocess
+and repeated-main tests. Review and edits were assisted by Codex; this record does
+not assert that Trần Quốc Huy personally performed them without AI.
