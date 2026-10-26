@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-26",
+  "main_sha": "22f95b8de7e00976204305859f6cec95329cbde3",
+  "checks": [
+    {
+      "name": "Foundation (3.10)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40278501405/job/121426345844"
+    },
+    {
+      "name": "test-and-lint (3.10)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40278501431/job/121426345654"
+    },
+    {
+      "name": "test-and-lint (3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40278501431/job/121426345631"
+    },
+    {
+      "name": "Foundation (3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/actions/runs/40278501405/job/121426345516"
+    }
+  ],
+  "prs": [
+    {
+      "number": 1,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/1",
+      "title": "refactor(tools, router, ci): implement tuition calculation, intent router, Ruff checks, and CI",
+      "merged": true,
+      "merge_sha": "d63221556e453d56f9c9da3e8716ba561f90e4c2",
+      "merged_at": "2026-10-24T14:33:42Z"
+    },
+    {
+      "number": 16,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/16",
+      "title": "feat(cli): validate overrides and finish Duong classroom integration",
+      "merged": true,
+      "merge_sha": "a2ad75906e20f6056b9e2057d392a3d013a6e0b5",
+      "merged_at": "2026-10-25T03:11:31Z"
+    },
+    {
+      "number": 17,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/17",
+      "title": "feat: integrate exact rule ID lookup and real fallback tests",
+      "merged": true,
+      "merge_sha": "59d025e3d157159418d77cc62a447c130530206e",
+      "merged_at": "2026-10-26T00:43:03Z"
+    },
+    {
+      "number": 18,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/18",
+      "title": "docs: correct Codex disclosure and record Duong contributions",
+      "merged": true,
+      "merge_sha": "99cdf51ece9ac218dbec0e8f4007bc2e54aaa43b",
+      "merged_at": "2026-10-26T00:46:27Z"
+    },
+    {
+      "number": 19,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/19",
+      "title": "fix(core): Huy config, JSON logging and measured worksheet",
+      "merged": true,
+      "merge_sha": "1ee4e9a3a5f6798722206b5b773c7f116d452080",
+      "merged_at": "2026-10-25T15:17:35Z"
+    },
+    {
+      "number": 23,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/23",
+      "title": "fix(tools): reject fractional counts and complete Minh classroom evidence",
+      "merged": true,
+      "merge_sha": "41b5fc4ba2f35a6ad2dd7492f61c1dba4324c013",
+      "merged_at": "2026-10-26T01:11:57Z"
+    },
+    {
+      "number": 24,
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/pull/24",
+      "title": "fix(knowledge): validate malformed records and complete Quyen classroom evidence",
+      "merged": true,
+      "merge_sha": "22f95b8de7e00976204305859f6cec95329cbde3",
+      "merged_at": "2026-10-26T06:12:50Z"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "title": "CORE-00: Foundation, source verification, baseline and packaging",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/2"
+    },
+    {
+      "number": 3,
+      "title": "CORE-01: Models, errors and shared contracts",
+      "state": "open",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/3"
+    },
+    {
+      "number": 4,
+      "title": "CORE-02: Settings, environment and JSON logging",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/4"
+    },
+    {
+      "number": 5,
+      "title": "CORE-03: Office directory and handbook knowledge",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/5"
+    },
+    {
+      "number": 6,
+      "title": "CORE-04: Pure tuition tools and intent router",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/6"
+    },
+    {
+      "number": 7,
+      "title": "CORE-05: Deterministic responders and shared fixtures",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/7"
+    },
+    {
+      "number": 8,
+      "title": "CORE-06: Service, CLI and architecture integration",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/8"
+    },
+    {
+      "number": 9,
+      "title": "CORE-07: Extend foundation CI for runtime tests and Ruff",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/9"
+    },
+    {
+      "number": 10,
+      "title": "CORE-08: Integration audit and worksheet index",
+      "state": "open",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/10"
+    },
+    {
+      "number": 11,
+      "title": "WS-baoduong2342007: Individual before/after worksheet",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/11"
+    },
+    {
+      "number": 12,
+      "title": "WS-tqhuy0602: Individual before/after worksheet",
+      "state": "open",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/12"
+    },
+    {
+      "number": 13,
+      "title": "WS-pqquyenn: Individual before/after worksheet",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/13"
+    },
+    {
+      "number": 14,
+      "title": "WS-luongnhatinh: Individual before/after worksheet",
+      "state": "closed",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/14"
+    },
+    {
+      "number": 15,
+      "title": "WS-simble2k: Individual before/after worksheet",
+      "state": "open",
+      "url": "https://github.com/baoduong2342007/assistant_core_lab/issues/15"
+    }
+  ],
+  "members": [
+    {
+      "login": "baoduong2342007",
+      "push": true
+    },
+    {
+      "login": "luongnhatinh",
+      "push": true
+    },
+    {
+      "login": "simble2k",
+      "push": true
+    },
+    {
+      "login": "tqhuy0602",
+      "push": true
+    },
+    {
+      "login": "pqquyenn",
+      "push": true
+    }
+  ],
+  "pending_invitations": [],
+  "scope": "Classroom CL-00 through CL-04 only. Snapshot, not a release or LMS submission confirmation.",
+  "tests": {
+    "cases": 208,
+    "source": "PR24 validation at 04c2fe0 (runtime integrated by main 22f95b8); not rerun for this documentation-only change",
+    "pr": "https://github.com/baoduong2342007/assistant_core_lab/pull/24"
+  }
+}

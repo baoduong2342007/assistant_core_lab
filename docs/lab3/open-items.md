@@ -1,17 +1,25 @@
-# Remaining classroom / core items
+# Remaining classroom items — verified 2026-10-26
 
-These do not erase completed integration work or imply the entire team is finished.
+## Resolved technical findings
 
-| Item | Owner / tracking | Evidence / action |
+- Minh decimal-credit parsing: merged [PR23](https://github.com/baoduong2342007/assistant_core_lab/pull/23), issues #6/#14 closed; CI issue #9 closed.
+- Huy unsupported-provider/config/logging findings: merged [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19), #4 closed.
+- Quyền CSV short rows, schema/null values and expected loader errors: merged [PR24](https://github.com/baoduong2342007/assistant_core_lab/pull/24), #5/#13 closed.
+- Bảo runtime fallback/protocol and corrected measurements: merged [PR17](https://github.com/baoduong2342007/assistant_core_lab/pull/17), #7 closed.
+- All five members have write access; no outstanding invitations.
+
+## Evidence / coordination still open
+
+| Owner | Issue | Remaining action |
 | --- | --- | --- |
-| Decimal credits/retakes silently parsed as integers | Minh, CORE-04 #6 | Fixed on branch fix/minh-classroom-closeout: reject non-integer expressions; 25 new tests and measured worksheet; awaiting peer review/merge |
-| Unsupported provider accepted with a key | Huy, CORE-02 #4 | load_settings currently accepts arbitrary LLM_PROVIDER with a key; fixed in [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19), stub/template only; awaiting merge |
-| Broad except Exception in config/knowledge | Huy/Quyền, #4/#5 | Config fixed in merged PR19; knowledge validation and specific catches corrected in PR24, pending reviewed merge |
-| Member acceptance / personal evidence | Each member; docs/tracking.md | Huy/Quyền invitations pending at last inspection; each person validates their own worksheet and PR ownership |
-| Bảo's owner PR review / integration | PR #17 | Open and conflicts with main; H1/test wiring and worksheet evidence need follow-up |
-| Bảo's owner PR review / integration | PR #17 | Main conflict resolved; real service/CLI H1 and fallback tests, corrected metrics added; peer review and personal confirmation remain |
-| Release and fresh-clone at team level | CORE-08 #10, HOME-01 | Existing v0.3-core tag points to e975675 before review; do not force-move or claim it is verified release |
-| Individual-refactor vs module-split process | Dương/team/instructor | Disclose five-person shared-module approach and confirm any required individual refactor evidence |
+| Bảo | [#3](https://github.com/baoduong2342007/assistant_core_lab/issues/3) | Attach model/error/contract tests and reviewed merged PR evidence, then close tracking |
+| Huy | [#12](https://github.com/baoduong2342007/assistant_core_lab/issues/12) | Read/confirm personal worksheet, attach merged PR19/evidence and close |
+| Bảo | [#15](https://github.com/baoduong2342007/assistant_core_lab/issues/15) | Read/confirm retained personal worksheet/reflections and close |
+| Dương | [#10](https://github.com/baoduong2342007/assistant_core_lab/issues/10) | Index and actual PR/worksheet/check links prepared; final close after member confirmations and peer-reviewed index merge |
 
-H1/H2/H3 are separate homework. Existing features/reports in PR #1 do not prove individual prompt,
-three real improvements, personal PR or verified completion. Other members' reports are not edited here.
+[Submission handoff](../submissions/week3.md) records 208 passed and four successful checks on named
+main commit 22f95b8. No known reproduced loader/parser finding above remains unresolved; this is not a
+guarantee that all possible bugs are excluded. Personal statements/reading/hours are not confirmed by automation.
+
+HOME-01 release, H1/H2/H3 and bootcamp are outside this classroom closeout. Existing release tags are
+left intact. Disclose the team's shared-module workflow rather than claiming independent full refactors.

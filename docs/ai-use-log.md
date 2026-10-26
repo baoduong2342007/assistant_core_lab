@@ -73,3 +73,12 @@ CSV/JSON validation and concrete exception handling, 37 regression cases, measur
 and issue/PR evidence. Existing runtime authorship and original reflections remain attributed to PR1/Quyền;
 these fixes and measurements are not described as Quyền's personal manual work. No reading/hours or
 H1/H2/H3 completion is invented.
+
+
+## Dương classroom coordination/index closeout — 2026-10-26
+
+At Dương's request, Codex verified live merged PRs, issue states, main checks and collaborator access,
+prepared the five-member classroom submission/worksheet index and corrected stale tracking. Runtime
+code and personal worksheets/reflections are unchanged in this documentation-only task. The source
+commit, test provenance and dated API snapshot are linked in docs/submissions/week3.md. Huy/Bảo personal
+confirmations, peer review, final issue #10 closure and LMS submission are not fabricated.
