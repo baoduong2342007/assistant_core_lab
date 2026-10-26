@@ -3,6 +3,17 @@
 **Thành viên:** Trần Quốc Huy (`tqhuy0602`). **Phạm vi code:** config, `.env.example`, logging và tests liên quan.
 Code nền đã có trong PR #1; branch này sửa và kiểm chứng phần của Huy, không nhận là tự viết toàn bộ package.
 
+**Xác nhận cá nhân — 2026-10-26:** Huy xác nhận đã đọc, hiểu và đồng ý với 10 code smells
+và ba phản hồi trong worksheet này. Nội dung vẫn được khai báo là có Codex hỗ trợ toàn bộ.
+Issue [#12](https://github.com/baoduong2342007/assistant_core_lab/issues/12) đã đóng sau xác nhận.
+PR owner [#19](https://github.com/baoduong2342007/assistant_core_lab/pull/19) được Dương approved
+và merge tại `1ee4e9a3a5f6798722206b5b773c7f116d452080` ngày 2026-10-25.
+
+Bảng và metrics dưới đây đo snapshot Core PR19, trước H1 và các sửa đổi knowledge về sau.
+Ngày 2026-10-26, Codex đọc lại monolith cùng 11 file core bằng `git show 1ee4e9a:<path>` và
+đo AST theo định nghĩa trong metrics.json: cả 12 entries đều khớp số tên gán, bare/broad except
+và hàm dài nhất. Không dùng số đo cũ để mô tả mọi commit mới hơn.
+
 ## 10 hàng worksheet
 
 | Câu hỏi | Monolith | Core sau thay đổi của Huy |
@@ -35,7 +46,7 @@ không quan sát thấy lỗi random trong ba lần này. Không xem đó là b�
 9. Random lỗi/sleep: Bảo dùng deterministic stub.
 10. Nối đường dẫn bằng chuỗi: Huy/Quyền dùng pathlib.
 
-## Ba câu phản hồi — bản nháp để Huy xác nhận
+## Ba câu phản hồi — Huy đã đọc, hiểu và đồng ý ngày 2026-10-26
 
 1. Cải thiện lớn nhất là lỗi config được phát hiện sớm mà không in giá trị environment, cùng log JSON tách khỏi câu trả lời.
 2. Điểm phức tạp hơn là validation và quản lý handler phải xét môi trường test/nhúng thay stderr; đổi lại có tests bắt hồi quy.
@@ -45,4 +56,5 @@ không quan sát thấy lỗi random trong ba lần này. Không xem đó là b�
 
 Người phụ trách code: **Trần Quốc Huy**. **Codex hỗ trợ toàn bộ**: đọc kế hoạch/code,
 đề xuất và trực tiếp chỉnh code/tests/docs, chạy kiểm tra, đo metrics và chuẩn bị Git/PR.
-Các thay đổi do AI tạo được giữ lại; Huy cần tự đọc, xác nhận reflection và giải thích được code trước khi nộp.
+Các thay đổi do AI tạo được giữ lại. Huy đã xác nhận worksheet như trên; xác nhận này không
+đồng nghĩa H3 reading/reflection riêng hoặc thao tác nộp LMS đã hoàn tất.

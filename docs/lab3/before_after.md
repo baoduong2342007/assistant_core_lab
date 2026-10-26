@@ -7,7 +7,7 @@ AI-assisted/team edits instead of inventing original personal actions. PRs linke
 | --- | --- | --- | --- |
 | Dương | [worksheet](baoduong2342007/before_after.md) | [metrics](baoduong2342007/metrics.json) | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16), [PR18](https://github.com/baoduong2342007/assistant_core_lab/pull/18); #11 closed |
 | Minh | [worksheet](luongnhatinh/before_after.md) | [metrics](luongnhatinh/metrics.json) | [PR23](https://github.com/baoduong2342007/assistant_core_lab/pull/23); #14 closed |
-| Huy | [worksheet](tqhuy0602/before_after.md) | [metrics](tqhuy0602/metrics.json) | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19); owner closeout #12 remains |
+| Huy | [worksheet](tqhuy0602/before_after.md) | [metrics](tqhuy0602/metrics.json) | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19); Huy confirmed worksheet on 2026-10-26; #12 closed |
 | Quyền | [worksheet](pqquyenn/before_after.md) | [metrics](pqquyenn/metrics.json) | [PR24](https://github.com/baoduong2342007/assistant_core_lab/pull/24); #13 closed |
 | Bảo | [worksheet](simble2k/before_after.md) | [metrics](simble2k/metrics.json) | [PR17](https://github.com/baoduong2342007/assistant_core_lab/pull/17); owner closeout #15 remains |
 
