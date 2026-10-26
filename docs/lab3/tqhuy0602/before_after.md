@@ -1,25 +1,48 @@
-# Lab 3 — Before / After Maintainability Comparison
+# Lab 3 — Before / After: Trần Quốc Huy
 
-**Member:** Trần Quang Huy (`tqhuy0602`)  
-**Assigned Modules:** Config (`src/assistant_core/config.py`), `.env.example`, Logging (`src/assistant_core/logging_setup.py`)
+**Thành viên:** Trần Quốc Huy (`tqhuy0602`). **Phạm vi code:** config, `.env.example`, logging và tests liên quan.
+Code nền đã có trong PR #1; branch này sửa và kiểm chứng phần của Huy, không nhận là tự viết toàn bộ package.
 
-## 1. Comparison Table
+## 10 hàng worksheet
 
-| Question | Before (Monolith) | After (`assistant_core`) |
-|---|---|---|
-| Where would you change the credit rate? How many places? | 1 constant in code (`RATE = 450000`, line 8) | 1 variable in `.env` (`CREDIT_RATE_VND`) |
-| Can you run the tests without internet or an API key? | No (10% random crash simulation, no automated test harness) | Yes (100% offline unit and integration tests with pytest) |
-| What happens if `handbook.json` is missing? | Prints `"could not load handbook"` and continues silently | Raises `DataError` at startup with clear path information |
-| Is any secret printed or logged? | Yes (`API_KEY` printed in debug output) | No (`repr=False` masks key, structured logging to stderr) |
-| How long does it take a new teammate to find the fee logic? | Had to parse messy branching inside 65-line `handle()` | Immediate lookup in `src/assistant_core/tools.py` |
-| Number of global variables | 9 (including 3 mutable: `history`, `offices`, `handbook`) | 0 (all state passed via dependency injection) |
-| Number of bare `except:` blocks | 3 (`load()` x2, `main()` x1) | 0 (all catches specify concrete domain or standard exceptions) |
-| Lines in the longest function | ~65 lines (`handle()`) | ~25 lines (`AssistantService.handle()`) |
-| `ruff check` issues | 19 issues (E401, I001, E722, E711, BLE001, E501) | 0 issues across all rules (E, F, I, B, UP, BLE) |
-| Can you swap the LLM without touching the service? | No (direct call inside `handle()`) | Yes (`Responder` Protocol decouples implementation) |
+| Câu hỏi | Monolith | Core sau thay đổi của Huy |
+| --- | --- | --- |
+| Đổi credit rate ở đâu? | Hằng `RATE` trong source; không chỉnh `RETAKE_RATE` khi chỉ đổi rate | `CREDIT_RATE_VND` qua `load_settings`; default < .env < environment; CLI override có sẵn |
+| Test không internet/API key? | Stub vốn chạy offline, có random lỗi và sleep; `--test` chỉ in kết quả | Pytest assertions chạy offline; stub/template không cần key; lỗi provider có cờ kiểm soát |
+| Thiếu handbook? | In lỗi rồi tiếp tục với dữ liệu thiếu | `DataError` ở startup, CLI exit 1; thuộc knowledge/service của đồng đội |
+| Secret có bị in/log? | `llm()` in key giả và prompt khi DEBUG | Log request chỉ có event và metadata cho phép; key bị loại khỏi repr/model_dump; không log settings/full text |
+| Tìm fee logic ở đâu? | Trong `handle()` nhiều trách nhiệm | `tools.py`; service chỉ điều phối (đây là cấu trúc nhóm) |
+| Số tên gán ở module? | 9, gồm 3 container mutable | 4 trên toàn core: `__version__`, `__all__`, `GREETINGS`, `log`; config/logging không có tên gán cấp module |
+| Bare `except:`? | 3 | 0; broad `except Exception` của config đã bỏ; broad catch trong knowledge vẫn thuộc Quyền |
+| Hàm dài nhất? | `handle`: 56 dòng theo AST | `main`: 71 dòng; `service.handle`: 32 dòng. Tách trách nhiệm không đồng nghĩa mọi hàm đều ngắn hơn |
+| Ruff issues? | 8 với E,F,I,B,UP,BLE, line length 120, isolated | Ruff check và BLE đạt trên source/tests; reference được giữ nguyên và exclude theo cấu hình nhóm |
+| Đổi responder cần sửa service? | Gọi `llm()` trực tiếp | Inject responder qua constructor/protocol; chỉ provider offline stub/template được chấp nhận |
 
-## 2. Three Sentences Reflection
+Đo trên file thực tế: [metrics.json](metrics.json), ngày 2026-10-25, Python 3.11.16/macOS.
+Ba lần chạy monolith `--test` đều exit 0, có greeting/9.450.000 VND/Library/H26-5.3;
+không quan sát thấy lỗi random trong ba lần này. Không xem đó là bằng chứng random failure đã được loại bỏ khỏi starter.
 
-1. **What improved most**: Configuration and logging are completely separated from code; secrets are protected using `repr=False`, and logs are emitted as structured JSON on `stderr`.
-2. **What got more complex**: Validating types and environment defaults with Pydantic adds schema code.
-3. **What you would still change**: I would add support for file-based rotating log handlers for production deployments.
+## Code smells và người xử lý
+
+1. Key/config hard-code: Huy chuyển sang Settings/environment; starter giữ nguyên làm reference.
+2. In key/prompt: Huy kiểm tra event JSON, không ghi full message hoặc key.
+3. Print dùng làm logging: Huy đưa structured logs ra stderr; CLI giữ answer ở stdout.
+4. Config bắt `Exception` quá rộng: Huy chỉ bọc lỗi đọc env và `ValidationError`, để programming errors nổi lên.
+5. Handler bám stderr cũ: Huy thay handler do package sở hữu khi stream đổi, không nhân đôi handler.
+6. Global mutable history/offices/handbook: Quyền/Dương quản lý dữ liệu và dependency injection.
+7. `handle` gánh mọi việc: Dương điều phối qua module.
+8. Tests chỉ in output: mỗi owner thêm assertions; Huy thêm config/logging cases.
+9. Random lỗi/sleep: Bảo dùng deterministic stub.
+10. Nối đường dẫn bằng chuỗi: Huy/Quyền dùng pathlib.
+
+## Ba câu phản hồi — bản nháp để Huy xác nhận
+
+1. Cải thiện lớn nhất là lỗi config được phát hiện sớm mà không in giá trị environment, cùng log JSON tách khỏi câu trả lời.
+2. Điểm phức tạp hơn là validation và quản lý handler phải xét môi trường test/nhúng thay stderr; đổi lại có tests bắt hồi quy.
+3. Điều muốn cải tiến tiếp là context phiên do người dùng chọn để truy vết nhiều request; H1 đề xuất `--session-id` riêng vì `--log-level` đã có.
+
+## AI usage
+
+Người phụ trách code: **Trần Quốc Huy**. **Codex hỗ trợ toàn bộ**: đọc kế hoạch/code,
+đề xuất và trực tiếp chỉnh code/tests/docs, chạy kiểm tra, đo metrics và chuẩn bị Git/PR.
+Các thay đổi do AI tạo được giữ lại; Huy cần tự đọc, xác nhận reflection và giải thích được code trước khi nộp.

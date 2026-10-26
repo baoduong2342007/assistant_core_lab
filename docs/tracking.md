@@ -19,4 +19,4 @@ Milestone: https://github.com/baoduong2342007/assistant_core_lab/milestone/1
 | WS-luongnhatinh | luongnhatinh | [issue](https://github.com/baoduong2342007/assistant_core_lab/issues/14) |
 | WS-simble2k | simble2k | [issue](https://github.com/baoduong2342007/assistant_core_lab/issues/15) |
 
-Huy/Quyền assignment awaits invitation acceptance. No LMS due date has been invented.
+Huy write access was verified and CORE-02 #4 assigned on 2026-10-25; owner PR19 requests pqquyenn review. Quyền invitation status was not rechecked. No LMS due date has been invented.

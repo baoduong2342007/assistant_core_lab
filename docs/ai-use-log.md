@@ -36,3 +36,15 @@ Codex assisted the issue/status audit and review of PR #17. PR #16 was approved 
 ## PR #17 branch correction — 2026-10-25
 
 At Dương's request, Codex merged main and the AI-disclosure closeout branch into simble2k's branch, preserving both histories. Dương/Codex wired exact ID lookup into the production service, replaced duplicate test-only implementations with real service/CLI tests, and corrected factual worksheet metrics with source hashes. Local result: 107 tests passed; Ruff check/format/BLE passed. Original responder/fixture commits remain credited to simble2k; these fixes are Dương's Codex-assisted contribution. No new personal reflection or independent human verification by Bảo is claimed.
+## Trần Quốc Huy — config/logging owner follow-up (2026-10-25)
+
+Người phụ trách code: **Trần Quốc Huy (`tqhuy0602`)**. **Codex hỗ trợ toàn bộ**: đọc plan và code nền,
+đề xuất và trực tiếp chỉnh implementation/tests, chạy kiểm tra, đo AST/Ruff, sửa tên tác giả,
+soạn worksheet/reflection nháp và chuẩn bị branch/PR. Code/tests/docs do AI tạo được giữ lại.
+Không xác nhận các claim Antigravity/"human verification" trong bảng cũ; đó là dữ liệu nhận từ PR1.
+
+Thay đổi thực tế: giới hạn provider stub/template; validate multiplier hữu hạn và các miền số;
+bỏ broad catch config, thông báo lỗi không chứa giá trị environment; loại key khỏi model serialization;
+quản lý handler JSON theo stream stderr hiện tại. Tests: 113 passed trên Python 3.11, Ruff check/BLE đạt;
+worksheet ghi số đo thật trong `docs/lab3/tqhuy0602/metrics.json`. Peer review, CI đúng SHA,
+đọc H3 cá nhân và nộp LMS được theo dõi riêng, không tự đánh dấu hoàn thành.
