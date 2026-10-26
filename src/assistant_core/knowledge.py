@@ -110,4 +110,6 @@ class Handbook:
     def get_by_id(self, rule_id: str) -> Rule | None:
         """Find a rule by exact rule ID (e.g. 'H26-5.3')."""
         target = rule_id.strip().lower()
-        return next((r for r in self._rules if r.id.lower() == target), None)
+        if not target:
+            return None
+        return next((r for r in self._rules if r.id.strip().lower() == target), None)
