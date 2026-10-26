@@ -6,7 +6,7 @@ Each member verifies their own contribution, ten comparison rows and three refle
 - [Dương — measured integration worksheet](baoduong2342007/before_after.md)
 - [Minh — owner verification / metric corrections pending](luongnhatinh/before_after.md)
 - [Trần Quốc Huy — measured worksheet; peer review pending](tqhuy0602/before_after.md)
-- [Quyền — owner verification pending](pqquyenn/before_after.md)
+- [Phan Quỳnh Quyền — verified worksheet](pqquyenn/before_after.md)
 - [Bảo — owner verification pending](simble2k/before_after.md)
 
 Measured shared baseline and per-core-module AST results:

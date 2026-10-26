@@ -1,25 +1,57 @@
-# Lab 3 — Before / After Maintainability Comparison
+# Phan Quỳnh Quyền — classroom knowledge worksheet
 
-**Member:** Phan Quốc Quyền (`pqquyenn`)  
-**Assigned Modules:** Knowledge (`src/assistant_core/knowledge.py`), Office CSV loader, Handbook JSON search
+Owner: pqquyenn. PR: https://github.com/baoduong2342007/assistant_core_lab/pull/24
+Core knowledge implementation came from PR1. Quyền's initial PR24 standardized the name and recorded
+verification. Dương subsequently requested Codex to fix loader validation, add real coverage and correct
+this worksheet. These corrections are not claimed as Quyền's personal manual actions.
 
-## 1. Comparison Table
+## 1. Before / after (10 rows)
 
-| Question | Before (Monolith) | After (`assistant_core`) |
-|---|---|---|
-| Where would you change the credit rate? How many places? | 1 constant in code (`RATE = 450000`, line 8) | 1 variable in `.env` (`CREDIT_RATE_VND`) |
-| Can you run the tests without internet or an API key? | No (10% random crash simulation, no automated test harness) | Yes (100% offline unit and integration tests with pytest) |
-| What happens if `handbook.json` is missing? | Prints `"could not load handbook"` and continues silently | Raises `DataError` at startup with clear path information |
-| Is any secret printed or logged? | Yes (`API_KEY` printed in debug output) | No (`repr=False` masks key, structured logging to stderr) |
-| How long does it take a new teammate to find the fee logic? | Had to parse messy branching inside 65-line `handle()` | Immediate lookup in `src/assistant_core/tools.py` |
-| Number of global variables | 9 (including 3 mutable: `history`, `offices`, `handbook`) | 0 (all state passed via dependency injection) |
-| Number of bare `except:` blocks | 3 (`load()` x2, `main()` x1) | 0 (all catches specify concrete domain or standard exceptions) |
-| Lines in the longest function | ~65 lines (`handle()`) | ~25 lines (`AssistantService.handle()`) |
-| `ruff check` issues | 19 issues (E401, I001, E722, E711, BLE001, E501) | 0 issues across all rules (E, F, I, B, UP, BLE) |
-| Can you swap the LLM without touching the service? | No (direct call inside `handle()`) | Yes (`Responder` Protocol decouples implementation) |
+| Question | Before monolith | Current integrated core |
+| --- | --- | --- |
+| Change credit rate / locations | RATE in one code assignment | One CREDIT_RATE_VND setting; pure tuition receives rate |
+| Tests offline without a key | Yes: upstream fake provider is local, random fallback and print-only checks | Yes: 208 assertion-based offline tests, no real API credential |
+| Missing / corrupt handbook | Bare except prints warning and continues with global data | DataError for missing/invalid JSON/schema/UTF-8; CLI startup exits1 on invalid data |
+| Secret logging | Upstream fake key and prompt printed by llm | CLI regressions check synthetic key/full query absence; repr=False alone is not universal redaction |
+| Find fee logic | Inside handle; no human lookup time measured | Dedicated tools.py; no human lookup time measured |
+| Module-level assigned names | 9 | 4 assigned names, including package exports/version/logger/constants; no global conversation/data containers |
+| Bare except handlers | 3 | 0 in src; knowledge now catches expected I/O/decoding/parser errors only |
+| Longest function | handle: 56 inclusive lines | src/assistant_core/__main__.py::main: 71 lines; service.handle: 32 |
+| Ruff diagnostics | 8 with Ruff0.6.9 isolated E,F,I,B,UP,BLE / line120 | 0 project diagnostics; original reference source deliberately excluded |
+| Swap responder without service edits | handle directly calls llm | Shared Responder protocol/injection; sources preserved on controlled fallback |
 
-## 2. Three Sentences Reflection
+Actual definitions, source hashes and per-module AST metrics: [metrics.json](metrics.json).
+
+## 2. Three reflections retained from the original owner report
+
+The following statements are retained as the original report, not newly invented personal reflections.
+Quyền should read/confirm them and explain the loader changes.
 
 1. **What improved most**: Loading office directory and handbook data is now cleanly isolated into `OfficeDirectory` and `Handbook` with strong validation that raises `DataError` on missing or corrupt files.
 2. **What got more complex**: Creating custom dataclasses and models requires more structure than loading raw JSON dictionaries.
 3. **What you would still change**: I would add BM25 or embedding-based vector search in a future iteration to improve retrieval precision beyond keyword overlap.
+
+## 3. Code smells / responsible modules
+
+1. Hard-coded configuration/key — Huy config/logging.
+2. Mutable global offices/handbook — Quyền one-time loaders, Dương injection.
+3. Bare loader exceptions — Quyền concrete expected errors and DataError.
+4. Oversized handle — Dương orchestration, delegated owner modules.
+5. File path concatenation — Quyền pathlib.Path.
+6. File lifecycle leaks — Quyền context-managed UTF-8 reads.
+7. Mixed print diagnostics/answers — Huy logging and Dương CLI streams.
+8. Random/sleep-based provider — Bảo deterministic responders.
+9. Print-only manual tests — owner assertions; Quyền fixtures/error/tie tests.
+10. Parsing/calculation mixed with routing — Minh pure tools/router.
+
+## 4. Actual correction and validation
+
+CSV validates every required cell before strip(), rejects missing/blank/extra cells, and reports path/line.
+Strict CSV parsing and specific OSError/UnicodeError/csv.Error catches map expected failures to DataError.
+JSON requires non-empty strings for id/title/text instead of coercing null/numbers/containers to strings;
+schema errors identify the file and record. No new business algorithm or homework extension is added.
+
+Added 37 tests: malformed CSV/encoding, wrong JSON container/record/field types and missing fields,
+stable ties/no match, file-order office selection, loaded data surviving removal of source files, and
+two CLI subprocess regressions for malformed data producing exit1 without a traceback.
+Windows/Python3.13.14: 208 pytest passed; Ruff check/format/BLE passed. CI validates Python3.10/3.12.

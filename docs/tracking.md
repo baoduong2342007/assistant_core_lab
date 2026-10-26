@@ -20,3 +20,5 @@ Milestone: https://github.com/baoduong2342007/assistant_core_lab/milestone/1
 | WS-simble2k | simble2k | [issue](https://github.com/baoduong2342007/assistant_core_lab/issues/15) |
 
 Huy write access was verified and CORE-02 #4 assigned on 2026-10-25; owner PR19 requests pqquyenn review. Quyền invitation status was not rechecked. No LMS due date has been invented.
+
+2026-10-26: Quyền accepted repository access and opened PR24. Classroom CSV/JSON fixes, tests and corrected worksheet are included there; issues #5/#13 close only after reviewed merge.

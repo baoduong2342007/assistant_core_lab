@@ -1,6 +1,6 @@
 # Lab 3 — Homework H3: Reading and Reflection
 
-**Author:** Phan Quốc Quyền (`pqquyenn`)
+**Author:** Phan Quỳnh Quyền (`pqquyenn`)
 
 ## 1. Readings Completed
 - The Twelve-Factor App: Factors I, II, III, XI.

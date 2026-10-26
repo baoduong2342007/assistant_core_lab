@@ -28,23 +28,18 @@ class OfficeDirectory:
 
         try:
             with path.open(encoding="utf-8", newline="") as f:
-                reader = csv.DictReader(f)
+                reader = csv.DictReader(f, strict=True)
                 if reader.fieldnames is None or not {"name", "room", "hours"}.issubset(set(reader.fieldnames)):
                     raise DataError(f"Missing required CSV columns in {path}")
-                rows = list(reader)
-        except Exception as exc:
-            if isinstance(exc, DataError):
-                raise
+                offices = {}
+                for row in reader:
+                    values = [row.get(field) for field in ("name", "room", "hours")]
+                    if None in row or any(not isinstance(value, str) or not value.strip() for value in values):
+                        raise DataError(f"Invalid office row at {path}:{reader.line_num}")
+                    name, room, hours = (value.strip() for value in values)
+                    offices[name.lower()] = Office(name=name, room=room, hours=hours)
+        except (OSError, UnicodeError, csv.Error) as exc:
             raise DataError(f"Error reading office CSV file: {exc}") from exc
-
-        offices = {}
-        for r in rows:
-            name = r.get("name", "").strip()
-            room = r.get("room", "").strip()
-            hours = r.get("hours", "").strip()
-            if not name or not room or not hours:
-                raise DataError(f"Invalid office row: {r}")
-            offices[name.lower()] = Office(name=name, room=room, hours=hours)
 
         return cls(offices)
 
@@ -76,17 +71,19 @@ class Handbook:
         try:
             with path.open(encoding="utf-8") as f:
                 data = json.load(f)
-        except Exception as exc:
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             raise DataError(f"Error reading handbook JSON file: {exc}") from exc
 
         if not isinstance(data, list):
             raise DataError(f"Handbook JSON must be a list, got {type(data).__name__}")
 
         rules: list[Rule] = []
-        for item in data:
+        for index, item in enumerate(data, start=1):
             if not isinstance(item, dict) or not {"id", "title", "text"}.issubset(item.keys()):
-                raise DataError(f"Rule missing required fields (id, title, text): {item}")
-            rules.append(Rule(id=str(item["id"]), title=str(item["title"]), text=str(item["text"])))
+                raise DataError(f"Rule missing required fields (id, title, text) in {path}, record {index}")
+            if any(not isinstance(item[key], str) or not item[key].strip() for key in ("id", "title", "text")):
+                raise DataError(f"Rule fields must be non-empty strings in {path}, record {index}")
+            rules.append(Rule(id=item["id"], title=item["title"], text=item["text"]))
 
         return cls(rules)
 

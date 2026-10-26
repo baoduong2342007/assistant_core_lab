@@ -64,3 +64,12 @@ Dương requested Codex to fix Minh's remaining classroom items. Codex changed p
 integer validation, added 25 tests, measured/corrected Minh's worksheet and code-smell mapping, and
 prepared issue/PR tracking. Original implementation and reflections remain attributed to Minh/PR1;
 these follow-up edits are not claimed as Minh's personal actions. H1/H2/H3 are outside this correction.
+
+
+## Quyền classroom correction — 2026-10-26
+
+Dương asked Codex to fix Quyền's remaining classroom work and merge PR24 after validation. Codex wrote
+CSV/JSON validation and concrete exception handling, 37 regression cases, measured worksheet corrections
+and issue/PR evidence. Existing runtime authorship and original reflections remain attributed to PR1/Quyền;
+these fixes and measurements are not described as Quyền's personal manual work. No reading/hours or
+H1/H2/H3 completion is invented.
