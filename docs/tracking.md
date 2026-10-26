@@ -14,13 +14,15 @@ Milestone: https://github.com/baoduong2342007/assistant_core_lab/milestone/1
 | [#9](https://github.com/baoduong2342007/assistant_core_lab/issues/9) | CORE-07: Extend foundation CI for runtime tests and Ruff | closed |
 | [#10](https://github.com/baoduong2342007/assistant_core_lab/issues/10) | CORE-08: Integration audit and worksheet index | open |
 | [#11](https://github.com/baoduong2342007/assistant_core_lab/issues/11) | WS-baoduong2342007: Individual before/after worksheet | closed |
-| [#12](https://github.com/baoduong2342007/assistant_core_lab/issues/12) | WS-tqhuy0602: Individual before/after worksheet | open |
+| [#12](https://github.com/baoduong2342007/assistant_core_lab/issues/12) | WS-tqhuy0602: Individual before/after worksheet | closed; Huy confirmed personal worksheet on 2026-10-26; reviewed PR19 and metrics verified |
 | [#13](https://github.com/baoduong2342007/assistant_core_lab/issues/13) | WS-pqquyenn: Individual before/after worksheet | closed |
 | [#14](https://github.com/baoduong2342007/assistant_core_lab/issues/14) | WS-luongnhatinh: Individual before/after worksheet | closed |
 | [#15](https://github.com/baoduong2342007/assistant_core_lab/issues/15) | WS-simble2k: Individual before/after worksheet | open |
 
-The remaining open classroom items are #3 (Bảo model/error evidence), #12 (Huy worksheet),
-#15 (Bảo worksheet), and #10 (Dương final index and coordination). The index is prepared with actual
+The earlier snapshot listed #3 (Bảo model/error evidence), #12 (Huy worksheet),
+#15 (Bảo worksheet), and #10 (Dương final index and coordination). Huy's #12 is now closed after
+his direct confirmation and the verified PR19/measurement evidence. Other rows retain their snapshot states.
+The index is prepared with actual
 merged PR/worksheet links; do not infer personal confirmations or close all dependencies automatically.
 All five collaborators have write access; no invitations are pending. No LMS deadline is guessed.
 Machine-readable verification: [snapshot](submissions/classroom-evidence-2026-10-26.json).

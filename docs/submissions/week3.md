@@ -30,7 +30,7 @@ are credited separately instead of claiming every member originally authored the
 | --- | --- | --- | --- |
 | Dương — foundation, packaging, service/CLI integration, architecture and coordination | [PR16](https://github.com/baoduong2342007/assistant_core_lab/pull/16), [PR18](https://github.com/baoduong2342007/assistant_core_lab/pull/18); correction assistance on PR17/23/24 disclosed | [10-row worksheet, smells and reflections](../lab3/baoduong2342007/before_after.md), [metrics](../lab3/baoduong2342007/metrics.json) | #2/#8/#11 closed; #10 awaits peer review of this index and remaining member confirmations |
 | Minh — pure tuition tools, router, Ruff/CI | [PR1](https://github.com/baoduong2342007/assistant_core_lab/pull/1), [PR23 parser/tests/worksheet correction](https://github.com/baoduong2342007/assistant_core_lab/pull/23) | [worksheet](../lab3/luongnhatinh/before_after.md), [metrics](../lab3/luongnhatinh/metrics.json) | #6/#9/#14 closed; follow-up corrections by Dương/Codex are attributed explicitly |
-| Trần Quốc Huy — config, environment and JSON logging | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19) | [measured worksheet](../lab3/tqhuy0602/before_after.md), [metrics](../lab3/tqhuy0602/metrics.json) | #4 closed; [#12](https://github.com/baoduong2342007/assistant_core_lab/issues/12) remains for owner worksheet confirmation and evidence closeout |
+| Trần Quốc Huy — config, environment and JSON logging | [PR19](https://github.com/baoduong2342007/assistant_core_lab/pull/19) | [measured worksheet](../lab3/tqhuy0602/before_after.md), [metrics](../lab3/tqhuy0602/metrics.json) | #4/#12 closed; Huy confirmed worksheet on 2026-10-26; all 12 AST measurement entries reverified against reviewed Core snapshot |
 | Phan Quỳnh Quyền — offices/handbook, sample data and search | [PR24 schema/CSV fixes, tests and owner documentation](https://github.com/baoduong2342007/assistant_core_lab/pull/24) | [worksheet](../lab3/pqquyenn/before_after.md), [metrics](../lab3/pqquyenn/metrics.json) | #5/#13 closed; corrections made with Dương/Codex are disclosed; no invented personal reading/hours |
 | Phạm Quốc Bảo — models/errors, responder protocol, shared fixtures and fallback | [PR17](https://github.com/baoduong2342007/assistant_core_lab/pull/17), original shared models in [PR1](https://github.com/baoduong2342007/assistant_core_lab/pull/1) | [corrected worksheet](../lab3/simble2k/before_after.md), [metrics](../lab3/simble2k/metrics.json) | #7 closed; [#3](https://github.com/baoduong2342007/assistant_core_lab/issues/3) technical evidence closeout and [#15](https://github.com/baoduong2342007/assistant_core_lab/issues/15) personal worksheet confirmation remain |
 
@@ -58,10 +58,11 @@ The five PR/worksheet pairs above can be used as the end-of-class link list. Eac
 their own contribution/reflection before submitting. Dương prepares the shared package/index; each person
 provides their own PR and worksheet. No deadline or LMS upload is invented here.
 
-Remaining classroom issues at this snapshot: **#3, #12, #15 and #10**. The code fixes identified during
-review are merged; this does not claim all possible bugs are excluded. Huy/Bảo close their evidence and
-personal-confirmation items. Dương's index is prepared now; #10 stays open until those dependencies and
-this index's peer review/merge are satisfied. Do not auto-close #10 from this partial dependency state.
+The earlier snapshot listed classroom issues **#3, #12, #15 and #10**. Huy subsequently confirmed
+his worksheet on 2026-10-26; #12 is now closed with reviewed PR19 and reverified measurement evidence.
+Other issue states in the [machine-readable snapshot](classroom-evidence-2026-10-26.json) remain historical;
+consult GitHub for their current state. The code fixes identified during review are merged; this does not
+claim all possible bugs are excluded. Dương coordinates the final shared index and submission.
 
 ## Workflow disclosure and homework boundary
 
