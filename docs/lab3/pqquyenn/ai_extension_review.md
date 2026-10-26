@@ -1,6 +1,6 @@
 # Lab 3 — AI Extension Review
 
-**Author:** Phan Quốc Quyền (`pqquyenn`)  
+**Author:** Phan Quỳnh Quyền (`pqquyenn`)  
 **Feature:** List available academic handbook regulations
 
 ---

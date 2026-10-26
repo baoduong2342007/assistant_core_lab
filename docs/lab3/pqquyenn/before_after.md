@@ -1,6 +1,6 @@
 # Lab 3 — Before / After Maintainability Comparison
 
-**Member:** Phan Quốc Quyền (`pqquyenn`)  
+**Member:** Phan Quỳnh Quyền (`pqquyenn`)  
 **Assigned Modules:** Knowledge (`src/assistant_core/knowledge.py`), Office CSV loader, Handbook JSON search
 
 ## 1. Comparison Table
