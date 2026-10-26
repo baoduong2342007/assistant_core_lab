@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-25",
+  "source": "PR17 after merging a2ad759 and correcting runtime/test wiring; file hashes identify measured source",
+  "definition": "Top-level AST Assign names excluding imports/classes; inclusive function lines; Ruff 0.6.9 isolated E,F,I,B,UP,BLE line120",
+  "files": [
+    {
+      "path": "reference/monolith/assistant_monolith.py",
+      "sha256": "1a28c10dae6fa19a26ae73b0cc924a235f6c1d05996181a081aaa545f05ae0b9",
+      "module_assigned_names": [
+        "API_KEY",
+        "MODEL",
+        "RATE",
+        "RETAKE_RATE",
+        "DEBUG",
+        "history",
+        "offices",
+        "handbook",
+        "BASE"
+      ],
+      "bare_except": 3,
+      "longest_function": "handle",
+      "longest_lines": 56
+    },
+    {
+      "path": "src/assistant_core/__init__.py",
+      "sha256": "bf9847addebeddce87ad1fac076cf4673c8b92bf28e6074296323d330190dd1a",
+      "module_assigned_names": [
+        "__version__",
+        "__all__"
+      ],
+      "bare_except": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/__main__.py",
+      "sha256": "a1326a4640ddf0b804de4d7cdd15676a65212f30a404ab8e54b567cebccf987d",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "main",
+      "longest_lines": 71
+    },
+    {
+      "path": "src/assistant_core/config.py",
+      "sha256": "b79e7ed03f5ed7b909a2cfcec1e2a3f5ef28816aaa4af49403d92b2418481b9c",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "load_settings",
+      "longest_lines": 48
+    },
+    {
+      "path": "src/assistant_core/errors.py",
+      "sha256": "cff9c0cc6f9f1266ecb431aac1bb7b70a76ab533a3269475b847b66dcc081ebf",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/knowledge.py",
+      "sha256": "5a229f192055437d1bd51019f728a759592cf46b50e97718ad0c76f3208ba67d",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "from_csv",
+      "longest_lines": 26
+    },
+    {
+      "path": "src/assistant_core/logging_setup.py",
+      "sha256": "850e3ee45c67ac273cdeddf49a06f02836ad54a0f3596af9802c23cf0b7b1af9",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "setup_logging",
+      "longest_lines": 13
+    },
+    {
+      "path": "src/assistant_core/models.py",
+      "sha256": "ac5adab46196b3f16ba88bf0546cb9bc7e21de59efe399d6fda82d51c960454a",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "validate_not_whitespace_only",
+      "longest_lines": 4
+    },
+    {
+      "path": "src/assistant_core/responder.py",
+      "sha256": "30671137642457aa99db7947801bbab650453514b95e86e279fa85080fbc5c56",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "explain",
+      "longest_lines": 5
+    },
+    {
+      "path": "src/assistant_core/router.py",
+      "sha256": "f191d60469cd88f61639775949e1f338b38fa05292d7a13fd887327a8799978a",
+      "module_assigned_names": [
+        "GREETINGS"
+      ],
+      "bare_except": 0,
+      "longest_function": "route",
+      "longest_lines": 17
+    },
+    {
+      "path": "src/assistant_core/service.py",
+      "sha256": "37bbdd0a26f5231483c8d8ac2e4f3a76a73ffede8d843a678dd31e7cd2489c2d",
+      "module_assigned_names": [
+        "log"
+      ],
+      "bare_except": 0,
+      "longest_function": "handle",
+      "longest_lines": 32
+    },
+    {
+      "path": "src/assistant_core/tools.py",
+      "sha256": "e62c5b20815b46e13df25ea9d69af49e41ffd39cca9546b338a2157103f79b88",
+      "module_assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "parse_credits",
+      "longest_lines": 22
+    }
+  ],
+  "ruff": [
+    {
+      "target": "reference\\monolith\\assistant_monolith.py",
+      "count": 8,
+      "codes": [
+        "E401",
+        "I001",
+        "E722",
+        "E722",
+        "E711",
+        "BLE001",
+        "E501",
+        "E722"
+      ]
+    },
+    {
+      "target": "src/assistant_core",
+      "count": 0,
+      "codes": []
+    }
+  ]
+}
