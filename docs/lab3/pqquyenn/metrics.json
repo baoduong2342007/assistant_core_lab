@@ -1,0 +1,306 @@
+{
+  "date": "2026-10-26",
+  "measured_by": "Codex at Duong request",
+  "definitions": "Module Assign names excluding imports/classes; inclusive def-to-last-statement AST spans; src core modules only",
+  "before": {
+    "path": "reference/monolith/assistant_monolith.py",
+    "sha256_lf": "e4c40f649e216839837bf39aefdd1bc7b9be096c0d2702f8035057c145d0208f",
+    "assigned_names": [
+      "API_KEY",
+      "MODEL",
+      "RATE",
+      "RETAKE_RATE",
+      "DEBUG",
+      "history",
+      "offices",
+      "handbook",
+      "BASE"
+    ],
+    "bare_except": 3,
+    "longest_function": "handle",
+    "longest_lines": 56
+  },
+  "after": [
+    {
+      "path": "src/assistant_core/__init__.py",
+      "sha256_lf": "0ae742834dd30689ff9ebcca909b2aa7511b8c1552295b266cfc7d1db9e95efe",
+      "assigned_names": [
+        "__version__",
+        "__all__"
+      ],
+      "bare_except": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/__main__.py",
+      "sha256_lf": "3509e8617c232888b1bcab62123968d0f74050c6ec3348a8ab1530a33c0e58fe",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "main",
+      "longest_lines": 71
+    },
+    {
+      "path": "src/assistant_core/config.py",
+      "sha256_lf": "7ded6c130c5a3da0b5b293ece8a88dcb37c05d0a5d02d290c9b7b01391991f76",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "load_settings",
+      "longest_lines": 22
+    },
+    {
+      "path": "src/assistant_core/errors.py",
+      "sha256_lf": "7ce972b1edf02b2f9d1cfc77f441465eba066f33ed0afa6067ed6b9b0a1308c1",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": null,
+      "longest_lines": 0
+    },
+    {
+      "path": "src/assistant_core/knowledge.py",
+      "sha256_lf": "4b782f679f8bf2ef882d88cf4a5075252f3e45873eb75591f61e56c9236fe40c",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "from_json",
+      "longest_lines": 23
+    },
+    {
+      "path": "src/assistant_core/logging_setup.py",
+      "sha256_lf": "7c0fb160da523178aaf3df6332f2e8552380a10b2c679a4fa5623cdea55cfc7d",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "setup_logging",
+      "longest_lines": 19
+    },
+    {
+      "path": "src/assistant_core/models.py",
+      "sha256_lf": "903667b206663638e589d9ab25f956954a9ec284c14c5ef9d6066957292e4ff2",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "validate_not_whitespace_only",
+      "longest_lines": 4
+    },
+    {
+      "path": "src/assistant_core/responder.py",
+      "sha256_lf": "f864cf78bd3bb8f68bd717d751bad0ae86a6aa05f2631f90bef61aec6b15a53b",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "explain",
+      "longest_lines": 5
+    },
+    {
+      "path": "src/assistant_core/router.py",
+      "sha256_lf": "ee3f6702a9d66a316fa6696123c317cb1308e7fc5c8543198e2c0ceb641c8f12",
+      "assigned_names": [
+        "GREETINGS"
+      ],
+      "bare_except": 0,
+      "longest_function": "route",
+      "longest_lines": 17
+    },
+    {
+      "path": "src/assistant_core/service.py",
+      "sha256_lf": "d1c73663f1a6cc1eff844c05afa58dd8e79e40d46b03f0c1db0c275eda718bfb",
+      "assigned_names": [
+        "log"
+      ],
+      "bare_except": 0,
+      "longest_function": "handle",
+      "longest_lines": 32
+    },
+    {
+      "path": "src/assistant_core/tools.py",
+      "sha256_lf": "6f42920d5607cf460606338e254567c9fc4a985585662bf14e4339b4fb47c747",
+      "assigned_names": [],
+      "bare_except": 0,
+      "longest_function": "parse_credits",
+      "longest_lines": 29
+    }
+  ],
+  "before_ruff_diagnostics": [
+    {
+      "cell": null,
+      "code": "E401",
+      "end_location": {
+        "column": 40,
+        "row": 4
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": {
+        "applicability": "safe",
+        "edits": [
+          {
+            "content": "import csv\r\nimport json\r\nimport sys\r\nimport time\r\nimport random\r\nimport os",
+            "end_location": {
+              "column": 40,
+              "row": 4
+            },
+            "location": {
+              "column": 1,
+              "row": 4
+            }
+          }
+        ],
+        "message": "Split imports"
+      },
+      "location": {
+        "column": 1,
+        "row": 4
+      },
+      "message": "Multiple imports on one line",
+      "noqa_row": 4,
+      "url": "https://docs.astral.sh/ruff/rules/multiple-imports-on-one-line"
+    },
+    {
+      "cell": null,
+      "code": "I001",
+      "end_location": {
+        "column": 1,
+        "row": 6
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": {
+        "applicability": "safe",
+        "edits": [
+          {
+            "content": "import csv\r\nimport json\r\nimport os\r\nimport random\r\nimport sys\r\nimport time\r\n\r\n",
+            "end_location": {
+              "column": 1,
+              "row": 6
+            },
+            "location": {
+              "column": 1,
+              "row": 4
+            }
+          }
+        ],
+        "message": "Organize imports"
+      },
+      "location": {
+        "column": 1,
+        "row": 4
+      },
+      "message": "Import block is un-sorted or un-formatted",
+      "noqa_row": 4,
+      "url": "https://docs.astral.sh/ruff/rules/unsorted-imports"
+    },
+    {
+      "cell": null,
+      "code": "E722",
+      "end_location": {
+        "column": 11,
+        "row": 26
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": null,
+      "location": {
+        "column": 5,
+        "row": 26
+      },
+      "message": "Do not use bare `except`",
+      "noqa_row": 26,
+      "url": "https://docs.astral.sh/ruff/rules/bare-except"
+    },
+    {
+      "cell": null,
+      "code": "E722",
+      "end_location": {
+        "column": 11,
+        "row": 30
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": null,
+      "location": {
+        "column": 5,
+        "row": 30
+      },
+      "message": "Do not use bare `except`",
+      "noqa_row": 30,
+      "url": "https://docs.astral.sh/ruff/rules/bare-except"
+    },
+    {
+      "cell": null,
+      "code": "E711",
+      "end_location": {
+        "column": 20,
+        "row": 92
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": {
+        "applicability": "unsafe",
+        "edits": [
+          {
+            "content": "best is not None",
+            "end_location": {
+              "column": 20,
+              "row": 92
+            },
+            "location": {
+              "column": 8,
+              "row": 92
+            }
+          }
+        ],
+        "message": "Replace with `cond is not None`"
+      },
+      "location": {
+        "column": 16,
+        "row": 92
+      },
+      "message": "Comparison to `None` should be `cond is not None`",
+      "noqa_row": 92,
+      "url": "https://docs.astral.sh/ruff/rules/none-comparison"
+    },
+    {
+      "cell": null,
+      "code": "BLE001",
+      "end_location": {
+        "column": 25,
+        "row": 96
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": null,
+      "location": {
+        "column": 16,
+        "row": 96
+      },
+      "message": "Do not catch blind exception: `Exception`",
+      "noqa_row": 96,
+      "url": "https://docs.astral.sh/ruff/rules/blind-except"
+    },
+    {
+      "cell": null,
+      "code": "E501",
+      "end_location": {
+        "column": 124,
+        "row": 115
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": null,
+      "location": {
+        "column": 121,
+        "row": 115
+      },
+      "message": "Line too long (123 > 120)",
+      "noqa_row": 115,
+      "url": "https://docs.astral.sh/ruff/rules/line-too-long"
+    },
+    {
+      "cell": null,
+      "code": "E722",
+      "end_location": {
+        "column": 15,
+        "row": 136
+      },
+      "filename": "F:\\APCS2627\\HK1\\ComputationalThinking\\Homework\\Week3\\assistant_core_lab\\reference\\monolith\\assistant_monolith.py",
+      "fix": null,
+      "location": {
+        "column": 9,
+        "row": 136
+      },
+      "message": "Do not use bare `except`",
+      "noqa_row": 136,
+      "url": "https://docs.astral.sh/ruff/rules/bare-except"
+    }
+  ]
+}

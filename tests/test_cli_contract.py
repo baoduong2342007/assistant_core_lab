@@ -119,3 +119,21 @@ def test_cli_unknown_has_no_source_or_degraded_flag(cli_env, tmp_path):
     assert response["intent"] == "unknown"
     assert response["sources"] == []
     assert response["degraded"] is False
+
+
+@pytest.mark.parametrize("broken_source", ["office", "handbook"])
+def test_cli_malformed_knowledge_is_clean_startup_error(cli_env, tmp_path, broken_source, project_root):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    for name in ("offices.csv", "handbook.json"):
+        (data_dir / name).write_bytes((project_root / "data" / name).read_bytes())
+    if broken_source == "office":
+        (data_dir / "offices.csv").write_text("name,room,hours\nLibrary\n", encoding="utf-8")
+    else:
+        (data_dir / "handbook.json").write_text('[{"id": null, "title": "Title", "text": "Rule"}]', encoding="utf-8")
+    cli_env["ASSISTANT_DATA_DIR"] = str(data_dir)
+    proc = run_cli(["hi"], cli_env, tmp_path)
+    assert proc.returncode == 1
+    assert proc.stdout == ""
+    assert "Startup error:" in proc.stderr
+    assert "Traceback" not in proc.stderr
