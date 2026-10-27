@@ -82,3 +82,14 @@ prepared the five-member classroom submission/worksheet index and corrected stal
 code and personal worksheets/reflections are unchanged in this documentation-only task. The source
 commit, test provenance and dated API snapshot are linked in docs/submissions/week3.md. Huy/Bảo personal
 confirmations, peer review, final issue #10 closure and LMS submission are not fabricated.
+
+## Dương H1 follow-up — 2026-10-27
+
+At Dương's request Codex implemented `--show-sources` after finding that the planned
+`--json` feature already existed in the core. It displays the IDs and titles returned
+by the service in plain text, supports interactive mode and fallback, and rejects a
+redundant combination with `--json`. Tests cover those cases and source-free answers.
+Codex wrote the implementation, tests, and this disclosure; Dương's independent
+review, a preserved initial proposal with three documented review improvements,
+peer review, and a merged H1 PR remain outstanding. No claim of personal completion
+is made by this entry.

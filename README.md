@@ -59,3 +59,10 @@ IDs are 1–64 ASCII letters/digits with optional `_`/`-`, starting with a lette
 Use an opaque ID rather than a name, query or credential. Invalid IDs exit 2 before startup.
 Answers/JSON remain on stdout; log metadata remains on stderr. Existing `--log-level` precedence is preserved.
 This feature is a distinct H1 proposal because `--log-level` was already in the integrated base.
+
+### Displaying rule sources in plain text
+
+`python -m assistant_core --show-sources H26-5.3` displays the answer followed by
+source IDs and titles. It also works in interactive mode and with provider fallback.
+Responses without sources do not show a source section. `--json` already includes
+sources and cannot be combined with `--show-sources`.
