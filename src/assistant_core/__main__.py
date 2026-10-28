@@ -42,6 +42,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Output the response formatted as JSON instead of plain text.",
     )
     parser.add_argument(
+        "--show-sources",
+        action="store_true",
+        help="Include source IDs and titles in plain-text responses.",
+    )
+    parser.add_argument(
         "--log-level",
         type=str,
         default=None,
@@ -67,7 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def format_output(response: Response, as_json: bool) -> str:
+def format_output(response: Response, as_json: bool, show_sources: bool = False) -> str:
     if as_json:
         return json.dumps(
             {
@@ -79,6 +84,9 @@ def format_output(response: Response, as_json: bool) -> str:
             ensure_ascii=False,
             indent=2,
         )
+    if show_sources and response.sources:
+        citations = "\n".join(f"- {source.id}: {source.title}" for source in response.sources)
+        return f"{response.answer}\nSources:\n{citations}"
     return response.answer
 
 
@@ -88,6 +96,7 @@ def process_message(
     logger: logging.Logger,
     as_json: bool,
     session_id: str = "local",
+    show_sources: bool = False,
 ) -> None:
     start_time = time.perf_counter()
     msg = Message(text=text, session_id=session_id)
@@ -103,13 +112,15 @@ def process_message(
             "degraded": response.degraded,
         },
     )
-    sys.stdout.write(format_output(response, as_json) + "\n")
+    sys.stdout.write(format_output(response, as_json, show_sources) + "\n")
     sys.stdout.flush()
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.json and args.show_sources:
+        parser.error("--show-sources is for plain text; --json already includes sources")
 
     try:
         settings = load_settings()
@@ -150,7 +161,14 @@ def main(argv: list[str] | None = None) -> int:
             sys.stderr.write("Error: Query cannot be empty.\n")
             return 1
         try:
-            process_message(service, query_text, logger, as_json=args.json, session_id=args.session_id)
+            process_message(
+                service,
+                query_text,
+                logger,
+                as_json=args.json,
+                session_id=args.session_id,
+                show_sources=args.show_sources,
+            )
             return 0
         except (AssistantError, ValidationError, ValueError) as exc:
             sys.stderr.write(f"Runtime error: {exc}\n")
@@ -171,7 +189,14 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             if text.lower() == "quit":
                 break
-            process_message(service, text, logger, as_json=args.json, session_id=args.session_id)
+            process_message(
+                service,
+                text,
+                logger,
+                as_json=args.json,
+                session_id=args.session_id,
+                show_sources=args.show_sources,
+            )
         except KeyboardInterrupt:
             break
         except (AssistantError, ValidationError, ValueError) as exc:
