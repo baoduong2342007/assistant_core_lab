@@ -42,6 +42,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Output the response formatted as JSON instead of plain text.",
     )
     parser.add_argument(
+        "--list-rules",
+        action="store_true",
+        help="List the titles of the loaded handbook rules and exit.",
+    )
+    parser.add_argument(
         "--show-sources",
         action="store_true",
         help="Include source IDs and titles in plain-text responses.",
@@ -121,6 +126,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.json and args.show_sources:
         parser.error("--show-sources is for plain text; --json already includes sources")
+    if args.list_rules and args.query:
+        parser.error("--list-rules cannot be combined with a query")
 
     try:
         settings = load_settings()
@@ -154,6 +161,10 @@ def main(argv: list[str] | None = None) -> int:
     except (ConfigError, DataError, AssistantError, ValidationError, OSError) as exc:
         sys.stderr.write(f"Startup error: {exc}\n")
         return 1
+
+    if args.list_rules:
+        sys.stdout.write(format_output(service.list_rules(), args.json, args.show_sources) + "\n")
+        return 0
 
     if args.query:
         query_text = " ".join(args.query).strip()

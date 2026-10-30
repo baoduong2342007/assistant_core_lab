@@ -66,3 +66,7 @@ This feature is a distinct H1 proposal because `--log-level` was already in the 
 source IDs and titles. It also works in interactive mode and with provider fallback.
 Responses without sources do not show a source section. `--json` already includes
 sources and cannot be combined with `--show-sources`.
+
+### List handbook titles
+
+Use `python -m assistant_core --list-rules` to show loaded titles in file order. Add `--json` for structured output or `--show-sources` for IDs; a query cannot be combined with this option. An empty handbook produces a clear message.

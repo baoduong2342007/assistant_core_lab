@@ -93,3 +93,7 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+## Quyền H1 draft — 2026-10-30
+
+At the user’s request Codex implemented and tested the `--list-rules` feature, added documentation and flagged unverified claims in the existing report. Quyền’s independent review, three evidenced improvements, personal confirmation and peer review remain pending.
