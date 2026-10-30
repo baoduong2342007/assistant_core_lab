@@ -28,4 +28,4 @@ Extend the assistant_core CLI to support a --credit-rate option that lets the us
 - [x] **No new unwanted dependencies**: Uses standard `argparse` and existing `Settings`.
 - [x] **No secrets leaked**: Masked in `Settings(repr=False)`.
 - [x] **No user data logged**: Only operational metadata logged to `stderr`.
-- [x] **Tests added**: Parameterized tests verifying default rate vs overridden rate.
+- [x] **Tests added**: Dedicated test suite in `tests/test_h1_credit_rate.py` (6 passed) covering rate calculation, JSON export, default rate preservation, rejection of non-positive rates, argument type errors, and interactive mode.
