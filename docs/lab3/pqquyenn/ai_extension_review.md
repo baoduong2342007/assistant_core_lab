@@ -3,6 +3,8 @@
 **Author:** Phan Quỳnh Quyền (`pqquyenn`)  
 **Feature:** List available academic handbook regulations
 
+> Owner confirmation and independent review are pending. This pre-existing report has not been verified against a preserved initial proposal. In particular, Rule is a mutable Pydantic model, not a frozen dataclass. Do not treat these claims as evidence of three completed personal improvements.
+
 ---
 
 ## 1. Prompt Used
