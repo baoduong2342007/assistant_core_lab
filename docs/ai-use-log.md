@@ -93,3 +93,8 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+
+## Minh H1 feature — 2026-10-30
+
+Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
