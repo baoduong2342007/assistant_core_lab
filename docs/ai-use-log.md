@@ -1,5 +1,18 @@
 # AI Use Disclosure Log
 
+## Trần Quốc Huy — Lab04 (01/11/2026)
+
+Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
+dùng scaffold/học liệu chính thức tại a848a96, triển khai P1–P5, T1–T4, H1 cá nhân,
+Settings/env/admin auth và các test config/weather bằng MockTransport/clock giả.
+Codex hỗ trợ toàn bộ code, tests, contract, bản nháp reflection, Git và minh chứng curl/Swagger;
+các phần AI tạo được giữ lại và disclose. Core nhóm tuần 3 và fixtures chung được bảo toàn.
+
+Kết quả local Python 3.11.16: 274 passed, 1 skipped bonus; practice 5 passed;
+Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng status.
+Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
+Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
+
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 ## Log Entries

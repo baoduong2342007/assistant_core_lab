@@ -1,0 +1,58 @@
+{
+  "official_curl_codes_verified": [
+    200,
+    200,
+    200,
+    422,
+    422,
+    201,
+    422,
+    401,
+    200,
+    200,
+    404
+  ],
+  "offices": {
+    "status": 200,
+    "body": [
+      {
+        "name": "IT Helpdesk",
+        "room": "E.005",
+        "hours": "Mon-Fri 08:00-17:00"
+      },
+      {
+        "name": "Library",
+        "room": "B.201",
+        "hours": "Mon-Sat 07:00-20:00"
+      },
+      {
+        "name": "Student Affairs",
+        "room": "I.102",
+        "hours": "Mon-Fri 08:00-16:00"
+      },
+      {
+        "name": "Training Office",
+        "room": "I.101",
+        "hours": "Mon-Fri 07:30-16:30"
+      }
+    ]
+  },
+  "whitespace": {
+    "status": 422,
+    "body": {
+      "error": {
+        "code": "invalid_request",
+        "message": "message: Value error, message cannot be whitespace only"
+      }
+    }
+  },
+  "wrong_admin_key": {
+    "status": 401,
+    "body": {
+      "error": {
+        "code": "missing_or_invalid_api_key",
+        "message": "Missing or invalid API key"
+      }
+    }
+  }
+}
