@@ -12,6 +12,7 @@ In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.1
 | 2026-10-24 | Quyền (`pqquyenn`) | Knowledge Loaders | Antigravity AI | Office CSV & Handbook JSON parser classes | Wrapped file/schema errors in `DataError`, implemented case-insensitive matching |
 | 2026-10-24 | Minh (`luongnhatinh`) | Deterministic Tools & CI Workflow | Antigravity AI | Parsing regex for credits, GitHub Actions YAML | Added negative number rejection, matrix testing across Python 3.10 and 3.12 |
 | 2026-10-24 | Bảo (`simble2k`) | Domain Models & Error Hierarchy | Antigravity AI | Pydantic models and Exception classes | Added `Field(default_factory=list)` to avoid mutable default sharing, whitespace rejection |
+| 2026-11-01 | Minh (`luongnhatinh`) | Lab 04 REST API, CI, H1 & Reflection | Antigravity AI | Scaffolding FastAPI routes, Pydantic schemas, sorting offices, unit tests | Verified with pytest, curl script, Swagger /docs, and manual code inspection |
 
 ## PR #1 required-check repair — 2026-10-24
 
