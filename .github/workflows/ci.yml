@@ -36,6 +36,7 @@ jobs:
       - name: Run Pytest suite
         run: |
           python -m pytest -q
+          python -m pytest -q practice/
 
       - name: Check code with Ruff
         run: |

@@ -52,6 +52,10 @@ class OfficeDirectory:
         t = text.lower()
         return next((o for name, o in self._offices.items() if name in t), None)
 
+    def all(self) -> list[Office]:
+        """Return a new list of the loaded offices sorted by name (Lab04 H1)."""
+        return sorted(self._offices.values(), key=lambda office: office.name)
+
 
 class Handbook:
     def __init__(self, rules: list[Rule]):
