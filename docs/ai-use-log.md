@@ -105,3 +105,5 @@ practice run passed 17 tests with 1 optional skip. Ruff checks passed; the curl 
 is in docs/lab4/curl-results.txt. GitHub CI passed on Python 3.10 and 3.12. Dương
 must review and explain the work and write the required personal reflection. No
 human review, hours, LMS submission or group approval are claimed.
+
+Codex also captured the Swagger chat screenshot and drafted the five-line reflection; the draft is AI-written and requires Dương to review and rewrite it in his own words.
