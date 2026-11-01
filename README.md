@@ -66,3 +66,10 @@ This feature is a distinct H1 proposal because `--log-level` was already in the 
 source IDs and titles. It also works in interactive mode and with provider fallback.
 Responses without sources do not show a source section. `--json` already includes
 sources and cannot be combined with `--show-sources`.
+
+
+## Lab04 REST API
+
+Install `requirements.txt` and the package with `pip install -e .`, copy `.env.example` to `.env`, and set a private `API_ADMIN_KEY`. From the repository root run `uvicorn assistant_api.main:create_app --factory`, then open `/docs`. Use `python -m pytest -q` for core/API regression and `python -m pytest -q practice/test_hello_api.py` for the warm-up. See `docs/lab4/api_contract.md` and `api-tests/curl_tests.sh`. Feedback is stored in memory and resets on restart; the optional rate limiter is not enabled. API and practice material was adapted from CSC10014 public_materials commit `a848a96d44876d4baee5eabe645114cf56d0b82f`.
+
+AI assistance: Codex assisted with Lab04 implementation, tests, and documentation; review and personal reflection remain the student's responsibility.
