@@ -106,4 +106,4 @@ is in docs/lab4/curl-results.txt. GitHub CI passed on Python 3.10 and 3.12. Dư�
 must review and explain the work and write the required personal reflection. No
 human review, hours, LMS submission or group approval are claimed.
 
-Codex also captured the Swagger chat screenshot and drafted the five-line reflection; the draft is AI-written and requires Dương to review and rewrite it in his own words.
+Codex also captured the Swagger chat screenshot and wrote the five-line reflection in docs/lab4/baoduong2342007/reflection.md; it is AI-written and Dương should review and personalize it before submission.
