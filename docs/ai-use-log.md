@@ -93,3 +93,8 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+## Bảo (`simble2k`) — Lab 04 REST API, Schemas & Feedback (2026-11-01)
+
+Code owner: **Phạm Quốc Bảo (`simble2k`)**. Antigravity AI hỗ trợ triển khai cấu trúc schemas, validation (đặc biệt là lọc chuỗi toàn khoảng trắng cho `POST /v1/chat` và ràng buộc rating cho feedback), endpoints T1–T4, H1 `OfficeDirectory.all()`, bộ fixtures kiểm thử độc lập trong `tests/test_api.py`, tài liệu `docs/lab4/api_contract.md` và dàn ý reflection.
+Bảo đã trực tiếp kiểm tra mã nguồn, chạy kiểm thử cục bộ (`pytest -q`, `ruff check`, `ruff format`), xác minh kết quả curl script và đối chiếu Swagger UI.
