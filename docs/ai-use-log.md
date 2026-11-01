@@ -93,3 +93,15 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+## Dương — Lab04 API (2026-11-01)
+
+At Dương's request, Codex adapted the public Lab04 starter and warm-up, wired the
+existing Lab03 core into FastAPI, implemented chat, feedback, weather and offices,
+added tests, extended CI and wrote the API contract. Source: CSC10014
+public_materials commit a848a96d44876d4baee5eabe645114cf56d0b82f. Local checks:
+223 passed and 1 optional skip before the added settings test; the focused API and
+practice run passed 17 tests with 1 optional skip. Ruff checks passed; the curl log
+is in docs/lab4/curl-results.txt. GitHub CI passed on Python 3.10 and 3.12. Dương
+must review and explain the work and write the required personal reflection. No
+human review, hours, LMS submission or group approval are claimed.
