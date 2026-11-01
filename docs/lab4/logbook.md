@@ -7,3 +7,7 @@
 - [Python bootcamp W3 tag](https://github.com/baoduong2342007/python-bootcamp/releases/tag/py-w3-done) was pushed at Dương's request. The tag does not establish peer review or independent teammate verification.
 - Swagger `/docs` returned 200 for chat; the screenshot is `swagger-chat.png`. Codex prepared the five-line reflection at `baoduong2342007/reflection.md`; AI assistance is disclosed and Dương should review it before submission.
 - Pending: Dương’s review of the reflection, peer review, LMS submission, group integration and Lab04 tag. Actual human hours and peer contributions have not been provided.
+
+## Updated homework requirement
+
+Dương supplied an instruction requiring Part F rate limiting. Codex enabled the limiter on chat, unskipped the Lab04 rate-limit test and added client-isolation and expiry coverage. Existing Week 3 tests remain unchanged.

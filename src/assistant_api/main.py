@@ -9,6 +9,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
+from assistant_api.ratelimit import RateLimiter
 from assistant_api.schemas import ChatRequest, ChatResponse, ErrorResponse, FeedbackIn, FeedbackOut, Weather
 from assistant_api.weather import ExternalServiceError, WeatherClient
 from assistant_core import AssistantService, Message
@@ -32,6 +33,7 @@ def create_app(
     weather = weather or WeatherClient(
         settings.weather_url, settings.campus_lat, settings.campus_lon, timeout_s=settings.weather_timeout_s
     )
+    limiter = RateLimiter(settings.rate_limit_per_min)
     feedback_store: list[FeedbackOut] = []  # Lab 5 replaces this with a database
 
     app = FastAPI(
@@ -65,7 +67,10 @@ def create_app(
         tags=["chat"],
         responses={422: {"model": ErrorResponse}, 429: {"model": ErrorResponse}},
     )
-    def chat(req: ChatRequest) -> ChatResponse:
+    def chat(req: ChatRequest, request: Request) -> ChatResponse:
+        client = request.client.host if request.client else "unknown"
+        if not limiter.allow(client):
+            raise HTTPException(status.HTTP_429_TOO_MANY_REQUESTS, "Too many requests")
         resp = service.handle(Message(text=req.message, session_id=req.session_id))
         return ChatResponse(**resp.model_dump(), request_id=uuid.uuid4().hex[:12])
 

@@ -107,3 +107,5 @@ must review and explain the work and write the required personal reflection. No
 human review, hours, LMS submission or group approval are claimed.
 
 Codex also captured the Swagger chat screenshot and wrote the five-line reflection in docs/lab4/baoduong2342007/reflection.md; it is AI-written and Dương should review and personalize it before submission.
+
+On 2026-11-01, after Dương supplied the updated homework instruction requiring Part F, Codex enabled the chat rate limit and updated Lab04 tests and documentation. Existing Week 3 tests were not modified.
