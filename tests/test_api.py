@@ -103,12 +103,54 @@ def test_weather_stale_cache_when_upstream_fails():
     assert w.current().stale
 
 
-@pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])
-def test_weather_upstream_malformed_json_returns_503(sample_settings, service, bad_payload):
+@pytest.mark.parametrize(
+    "bad_payload",
+    [
+        [],
+        {"current": None},
+        {"current": []},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "NaN", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "Infinity", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "-inf", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": 25.0, "wind_speed_10m": "NaN", "weather_code": 3}},
+    ],
+)
+def test_weather_upstream_malformed_or_non_finite_returns_503_without_cache(sample_settings, service, bad_payload):
     settings = sample_settings
     app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=bad_payload)))
     r = TestClient(app).get("/v1/weather")
     assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+
+
+def test_weather_upstream_non_finite_returns_stale_cache_when_cached(sample_settings, service):
+    settings = sample_settings
+    calls = {"n": 0}
+    nan_payload = {
+        "current": {"time": "2026-11-02T10:00", "temperature_2m": "NaN", "wind_speed_10m": 5, "weather_code": 3}
+    }
+
+    def handler(req):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return httpx.Response(200, json=OK_JSON)
+        return httpx.Response(200, json=nan_payload)
+
+    weather = weather_with(handler)
+    weather.cache_ttl_s = 0  # force a refresh on the second call
+    app = create_app(settings, service, weather)
+    client = TestClient(app)
+
+    # First call: healthy, caches valid finite values
+    r1 = client.get("/v1/weather")
+    assert r1.status_code == 200 and not r1.json()["stale"]
+    assert r1.json()["temperature_c"] == 31.2
+
+    # Second call: upstream returns NaN, client rejects NaN before caching and serves stale cache
+    r2 = client.get("/v1/weather")
+    assert r2.status_code == 200
+    body = r2.json()
+    assert body["stale"] is True
+    assert body["temperature_c"] == 31.2
 
 
 def test_offices_status(client):

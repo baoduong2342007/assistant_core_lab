@@ -6,6 +6,7 @@ Shows the three habits for any external service: timeout, limited retries, grace
 from __future__ import annotations
 
 import logging
+import math
 import time
 
 import httpx
@@ -65,11 +66,19 @@ class WeatherClient:
                 cur = data.get("current")
                 if not isinstance(cur, dict):
                     raise ValueError("weather 'current' must be a JSON object")
+                temp = cur.get("temperature_2m")
+                wind = cur.get("wind_speed_10m")
+                if temp is None or wind is None:
+                    raise ValueError("weather 'current' missing temperature or wind speed")
+                temp_f = float(temp)
+                wind_f = float(wind)
+                if not (math.isfinite(temp_f) and math.isfinite(wind_f)):
+                    raise ValueError(f"non-finite weather values: temp={temp}, wind={wind}")
                 w = Weather(
-                    temperature_c=cur["temperature_2m"],
-                    wind_kmh=cur["wind_speed_10m"],
-                    description=WMO.get(cur["weather_code"], f"code {cur['weather_code']}"),
-                    observed_at=cur["time"],
+                    temperature_c=temp_f,
+                    wind_kmh=wind_f,
+                    description=WMO.get(cur.get("weather_code"), f"code {cur.get('weather_code')}"),
+                    observed_at=str(cur.get("time")),
                 )
                 self._cache = (time.monotonic(), w)
                 return w
