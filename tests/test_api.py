@@ -38,16 +38,17 @@ def test_chat_validation_error(client):
     assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
 
 
-@pytest.mark.skip(reason="BONUS task — remove this line when you add rate limiting")
 def test_rate_limit(client):
     codes = [client.post("/v1/chat", json={"message": "hi"}).status_code for _ in range(6)]
-    assert codes[-1] == 429
+    assert codes == [200, 200, 200, 200, 200, 429]
+    assert client.post("/v1/chat", json={"message": "hi"}).json()["error"]["code"] == "too_many_requests"
 
 
 def test_feedback_roundtrip(client):
     r = client.post("/v1/feedback", json={"request_id": "abc123", "rating": 1})
     assert r.status_code == 201 and r.json()["id"] == 1
     assert client.get("/v1/feedback").status_code == 401
+    assert client.get("/v1/feedback", headers={"X-API-Key": "wrong-key"}).status_code == 401
     listed = client.get("/v1/feedback", headers={"X-API-Key": "secret-admin"})
     assert listed.status_code == 200 and len(listed.json()) == 1
 
@@ -102,6 +103,14 @@ def test_weather_stale_cache_when_upstream_fails():
     assert w.current().stale
 
 
+@pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])
+def test_weather_upstream_malformed_json_returns_503(sample_settings, service, bad_payload):
+    settings = sample_settings
+    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=bad_payload)))
+    r = TestClient(app).get("/v1/weather")
+    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+
+
 def test_offices_status(client):
     assert client.get("/v1/offices").status_code == 200
 
@@ -126,3 +135,16 @@ def test_api_settings_environment(monkeypatch):
     assert settings.api_admin_key == "private-test-key"
     assert settings.weather_timeout_s == 2.5
     assert "private-test-key" not in repr(settings)
+
+
+def test_rate_limit_clients_and_expiry(monkeypatch):
+    from assistant_api.ratelimit import RateLimiter
+
+    now = [100.0]
+    monkeypatch.setattr("assistant_api.ratelimit.time.monotonic", lambda: now[0])
+    limiter = RateLimiter(1)
+    assert limiter.allow("first")
+    assert not limiter.allow("first")
+    assert limiter.allow("second")
+    now[0] += 61
+    assert limiter.allow("first")

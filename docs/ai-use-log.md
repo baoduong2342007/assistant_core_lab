@@ -98,3 +98,5 @@ is made by this entry.
 
 Code owner: **Phạm Quốc Bảo (`simble2k`)**. Antigravity AI hỗ trợ triển khai cấu trúc schemas, validation (đặc biệt là lọc chuỗi toàn khoảng trắng cho `POST /v1/chat` và ràng buộc rating cho feedback), endpoints T1–T4, H1 `OfficeDirectory.all()`, bộ fixtures kiểm thử độc lập trong `tests/test_api.py`, tài liệu `docs/lab4/api_contract.md` và dàn ý reflection.
 Bảo đã trực tiếp kiểm tra mã nguồn, chạy kiểm thử cục bộ (`pytest -q`, `ruff check`, `ruff format`), xác minh kết quả curl script và đối chiếu Swagger UI.
+
+On 2026-11-02, following updated homework guidance designating Part F rate limiting as required for team submission, Antigravity AI assisted in implementing thread-safe rate limiting on `POST /v1/chat`, unskipping unit test coverage, adding client isolation and sliding window expiry tests, and handling upstream malformed weather JSON payloads without modifying Week 3 tests. Bảo verified all 231 pytest unit tests, Ruff lint and format checks locally.

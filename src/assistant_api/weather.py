@@ -59,7 +59,12 @@ class WeatherClient:
             try:
                 r = self._client.get(self.url, params=params)
                 r.raise_for_status()
-                cur = r.json()["current"]
+                data = r.json()
+                if not isinstance(data, dict):
+                    raise ValueError("weather payload must be a JSON object")
+                cur = data.get("current")
+                if not isinstance(cur, dict):
+                    raise ValueError("weather 'current' must be a JSON object")
                 w = Weather(
                     temperature_c=cur["temperature_2m"],
                     wind_kmh=cur["wind_speed_10m"],
@@ -68,7 +73,7 @@ class WeatherClient:
                 )
                 self._cache = (time.monotonic(), w)
                 return w
-            except (httpx.HTTPError, KeyError, ValueError) as exc:
+            except (httpx.HTTPError, KeyError, ValueError, TypeError) as exc:
                 last_exc = exc
                 log.warning("weather attempt %d failed: %s", attempt + 1, type(exc).__name__)
                 time.sleep(0.2 * (attempt + 1))
