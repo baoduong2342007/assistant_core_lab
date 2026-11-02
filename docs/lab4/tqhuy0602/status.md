@@ -4,6 +4,9 @@ Ngày thực hiện: 01/11/2026 (Asia/Ho_Chi_Minh). Nhánh: `feat/lab04-tqhuy060
 Base main: `fc103c7572b487c3fc47706c88af00330876dda7`.
 Theo dõi: [Issue #40](https://github.com/baoduong2342007/assistant_core_lab/issues/40).
 Huy đã cho phép push code/tests/tài liệu/ảnh minh chứng và tạo draft PR ngày 01/11/2026.
+Ngày 02/11/2026, Huy yêu cầu nộp bản H2 hiện tại qua
+[PR #41](https://github.com/baoduong2342007/assistant_core_lab/pull/41) trên GitHub.
+Nội dung vẫn ghi nhận có Codex hỗ trợ; yêu cầu nộp không được coi là xác nhận tự viết hoặc peer approval.
 
 ## Phần đã thực hiện với Codex
 
@@ -15,7 +18,7 @@ Huy đã cho phép push code/tests/tài liệu/ảnh minh chứng và tạo draf
 - [x] Contract, hướng dẫn chạy và [weather checks](weather-checks.md).
 - [x] Đã chạy curl thật, đối chiếu mã status trong [log](curl-results.txt).
 - [x] [Ảnh Swagger](swagger-chat.png) là request POST `/v1/chat` thực sự với session `tqhuy0602-lab04`, trả 200.
-- [x] H2 có [bản nháp đúng 5 dòng do AI hỗ trợ](reflection.md).
+- [x] H2 có [bản đúng 5 dòng do AI hỗ trợ](reflection.md), được Huy chọn nộp qua PR #41 ngày 02/11/2026.
 - [x] Có [nhận xét review hỗ trợ PR36](review-duong.md), tái hiện lỗi weather JSON sai cấu trúc; chưa gửi review thay Huy.
 
 ## Kiểm tra local đã chạy
@@ -47,7 +50,6 @@ Weather curl dùng Open-Meteo thật; các tình huống 503/stale được ki�
 
 ## Những xác nhận cá nhân/nhóm còn lại
 
-- [ ] Huy đọc và tự diễn đạt/xác nhận H2; không coi bản nháp AI là lời tự viết đã xác nhận.
 - [ ] Review bản của Dương theo vòng phân công; chưa có peer approval do Huy thực hiện.
 - [ ] Quyền review phần config/weather của Huy; chưa nhận là đã có approval.
 - [ ] Nộp link PR lên LMS và xác nhận hạn ngày trước Lab05 (chưa có ngày Lab05).
@@ -64,5 +66,6 @@ Tests API mẫu được thích nghi bằng fixture cục bộ và cleanup clien
 Ruff chỉ chuẩn hóa trình bày của practice tests mẫu; không đổi assertions.
 
 Codex hỗ trợ toàn bộ code/tests/docs, chạy kiểm tra, thao tác Git và tạo minh chứng Swagger/curl.
-Reflection là nháp AI; không xác nhận thay Huy việc tự học, diễn đạt hay review.
+Reflection có AI hỗ trợ và được Huy yêu cầu nộp qua PR #41; không xác nhận thay Huy việc tự học,
+tự viết hay review. Chưa nộp LMS hoặc nhận giảng viên chấp nhận bài.
 Xem thêm [AI-use log](../../ai-use-log.md).

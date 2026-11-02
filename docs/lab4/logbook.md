@@ -4,7 +4,8 @@
 |---|---|---|---|---|
 | 01/11/2026 | Trần Quốc Huy, Codex hỗ trợ toàn bộ | P1–P5, T1–T4, H1; Settings/admin/weather; test và tài liệu | [Status](tqhuy0602/status.md), [weather checks](tqhuy0602/weather-checks.md), [curl](tqhuy0602/curl-results.txt), [Swagger](tqhuy0602/swagger-chat.png) | Huy tự xác nhận/diễn đạt H2 và nộp LMS; peer review; nhóm chọn candidate |
 | 01/11/2026 | Codex hỗ trợ Huy | Rà PR36 ở commit 2a4f269, tái hiện lỗi upstream JSON sai cấu trúc trả 500 | [Nhận xét có bằng chứng](tqhuy0602/review-duong.md) | Huy đọc, quyết định gửi nhận xét; chưa nhận là human review/approval |
+| 02/11/2026 | Trần Quốc Huy yêu cầu, Codex thực hiện | Chọn bản H2 hiện tại để nộp qua PR #41, giữ AI-use disclosure | [H2](tqhuy0602/reflection.md), [PR #41](https://github.com/baoduong2342007/assistant_core_lab/pull/41) | Peer review và quy trình tích hợp nhóm; chưa nộp LMS |
 
 Giờ công cá nhân: chưa được Huy cung cấp, không dùng thời gian chạy AI để tự điền.
-H2 là bản nháp AI đúng 5 dòng; xem trạng thái riêng trong hồ sơ cá nhân.
+H2 do Codex hỗ trợ, đúng 5 dòng; Huy yêu cầu nộp bản hiện tại qua PR #41 ngày 02/11/2026.
 Không ghi thay đóng góp, review hay xác nhận của các thành viên khác.

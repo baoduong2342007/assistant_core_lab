@@ -1,5 +1,12 @@
 # AI Use Disclosure Log
 
+## Trần Quốc Huy — nộp H2 qua GitHub PR #41 (02/11/2026)
+
+Huy yêu cầu nộp bài và chọn rõ “Nộp qua PR #41 trên GitHub”. Codex giữ nội dung H2
+hiện tại đúng 5 dòng, cập nhật hồ sơ/PR để gửi review, giữ ghi nhận AI hỗ trợ.
+Đây là chỉ định nộp bản hiện tại; không khẳng định Huy tự viết, đã tự đọc/diễn đạt lại,
+đã có peer approval hoặc đã nộp LMS.
+
 ## Trần Quốc Huy — Lab04 (01/11/2026)
 
 Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
