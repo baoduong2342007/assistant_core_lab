@@ -43,6 +43,10 @@ class OfficeDirectory:
 
         return cls(offices)
 
+    def all(self) -> list[Office]:
+        """Return offices sorted by name."""
+        return sorted(self._offices.values(), key=lambda office: office.name)
+
     @property
     def names(self) -> set[str]:
         return set(self._offices.keys())
