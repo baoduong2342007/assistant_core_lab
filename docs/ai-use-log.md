@@ -93,3 +93,16 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+
+## Phan Quỳnh Quyền — Lab04 REST API, Offices H1 & Part F Rate Limiting (2026-11-02)
+
+Người thực hiện: **Phan Quỳnh Quyền (pqquyenn)**. Hỗ trợ bởi **Antigravity AI**:
+- Hỗ trợ triển khai bài thực hành Warm-up P1–P5 (practice/hello_api.py, practice/test_hello_api.py).
+- Xây dựng tầng HTTP API src/assistant_api/ kết nối với AssistantService của core Lab 3:
+  - POST /v1/chat (T1) hỗ trợ validation chuỗi trắng, trả đầy đủ trường ChatResponse.
+  - POST /v1/feedback (T2) và GET /v1/feedback (T3) bảo vệ bởi admin key.
+  - GET /v1/weather (T4) với kiểm thực cấu trúc upstream và fallback cache cũ stale=True.
+- Hoàn thiện bài tập H1 chuyên trách: thêm OfficeDirectory.all() trong src/assistant_core/knowledge.py, endpoint GET /v1/offices trả danh sách văn phòng sắp xếp theo thứ tự bảng chữ cái và kiểm thử 2 test case theo yêu cầu.
+- Bật Part F rate limiting bắt buộc theo IP client bằng RateLimiter và RATE_LIMIT_PER_MIN.
+- Kiểm thử độc lập: toàn bộ 240 tests trong 	ests/ và 5 tests warm-up đều pass; kiểm tra lint/format Ruff 100% đạt chuẩn; chạy kiểm chứng curl thực tế lưu tại docs/lab4/pqquyenn/curl_tests.log.
