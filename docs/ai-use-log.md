@@ -109,3 +109,7 @@ human review, hours, LMS submission or group approval are claimed.
 Codex also captured the Swagger chat screenshot and wrote the five-line reflection in docs/lab4/baoduong2342007/reflection.md; it is AI-written and Dương should review and personalize it before submission.
 
 On 2026-11-01, after Dương supplied the updated homework instruction requiring Part F, Codex enabled the chat rate limit and updated Lab04 tests and documentation. Existing Week 3 tests were not modified.
+
+## 2026-11-02 — Dương weather correction and assisted review
+
+Codex validated the upstream weather structure and finite numeric values before caching, added 14 regression cases in a new Lab04 test file, and ran the full suite: 240 passed; practice: 5 passed; Ruff lint/format passed. Week 3 tests were not edited. Codex also inspected PR39 head e253d54 and ran focused API/practice checks (24 passed), finding a remaining non-finite-temperature serialization failure; see docs/lab4/baoduong2342007/review-bao.md. No human approval or LMS submission is asserted.
