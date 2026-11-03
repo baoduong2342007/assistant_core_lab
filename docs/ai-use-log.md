@@ -106,3 +106,6 @@ Người thực hiện: **Phan Quỳnh Quyền (pqquyenn)**. Hỗ trợ bởi **
 - Hoàn thiện bài tập H1 chuyên trách: thêm OfficeDirectory.all() trong src/assistant_core/knowledge.py, endpoint GET /v1/offices trả danh sách văn phòng sắp xếp theo thứ tự bảng chữ cái và kiểm thử 2 test case theo yêu cầu.
 - Bật Part F rate limiting bắt buộc theo IP client bằng RateLimiter và RATE_LIMIT_PER_MIN.
 - Kiểm thử độc lập: toàn bộ 240 tests trong 	ests/ và 5 tests warm-up đều pass; kiểm tra lint/format Ruff 100% đạt chuẩn; chạy kiểm chứng curl thực tế lưu tại docs/lab4/pqquyenn/curl_tests.log.
+## Minh H1 feature — 2026-10-30
+
+Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
