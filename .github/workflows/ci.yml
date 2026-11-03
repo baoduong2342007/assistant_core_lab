@@ -31,7 +31,7 @@ jobs:
 
       - name: Check for unresolved conflict markers
         run: |
-          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/
+          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ practice/
 
       - name: Run Pytest suite
         run: |

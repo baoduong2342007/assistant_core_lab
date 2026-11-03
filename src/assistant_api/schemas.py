@@ -15,10 +15,10 @@ class ChatRequest(BaseModel):
 
     @field_validator("message")
     @classmethod
-    def nonblank_message(cls, value: str) -> str:
-        if not value.strip():
-            raise ValueError("message cannot be blank")
-        return value
+    def validate_message(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("String should have at least 1 character")
+        return v
 
 
 class ChatResponse(BaseModel):
