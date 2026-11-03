@@ -14,20 +14,11 @@ def weather_with(handler) -> WeatherClient:
 
 
 @pytest.fixture
-def settings(sample_settings):
-    """Keep API-only fixture names local; preserve the shared core fixtures."""
-    return sample_settings
-
-
-@pytest.fixture
-def client(settings, service):
+def client(sample_settings, service):
+    settings = sample_settings
     settings = settings.model_copy(update={"api_admin_key": "secret-admin", "rate_limit_per_min": 5})
-    weather = weather_with(lambda req: httpx.Response(200, json=OK_JSON))
-    try:
-        with TestClient(create_app(settings, service, weather)) as client:
-            yield client
-    finally:
-        weather.close()
+    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=OK_JSON)))
+    return TestClient(app)
 
 
 def test_health(client):
@@ -70,17 +61,15 @@ def test_weather_ok(client):
     assert r.status_code == 200 and r.json()["description"] == "overcast"
 
 
-def test_weather_down_returns_503(settings, service):
+def test_weather_down_returns_503(sample_settings, service):
+    settings = sample_settings
+
     def boom(req):
         raise httpx.ConnectTimeout("timeout", request=req)
 
-    weather = weather_with(boom)
-    try:
-        with TestClient(create_app(settings, service, weather)) as client:
-            r = client.get("/v1/weather")
-        assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
-    finally:
-        weather.close()
+    app = create_app(settings, service, weather_with(boom))
+    r = TestClient(app).get("/v1/weather")
+    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
 
 
 def test_weather_stale_cache_when_upstream_fails():
@@ -93,16 +82,54 @@ def test_weather_stale_cache_when_upstream_fails():
         return httpx.Response(500)
 
     w = weather_with(flaky)
-    try:
-        w.cache_ttl_s = 0  # force a refresh on the second call
-        assert not w.current().stale
-        assert w.current().stale
-    finally:
-        w.close()
+    w.cache_ttl_s = 0  # force a refresh on the second call
+    assert not w.current().stale
+    assert w.current().stale
 
 
 def test_offices_status(client):
     assert client.get("/v1/offices").status_code == 200
+
+
+def test_offices_sorted_and_include_library(client):
+    offices = client.get("/v1/offices").json()
+    assert any(office["name"] == "Library" for office in offices)
+    assert [office["name"] for office in offices] == sorted(office["name"] for office in offices)
+
+
+def test_chat_blank_message(client):
+    r = client.post("/v1/chat", json={"message": "   "})
+    assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
+
+
+def test_api_settings_environment(monkeypatch):
+    from assistant_core.config import load_settings
+
+    monkeypatch.setenv("API_ADMIN_KEY", "private-test-key")
+    monkeypatch.setenv("WEATHER_TIMEOUT_S", "2.5")
+    settings = load_settings(env_file=None)
+    assert settings.api_admin_key == "private-test-key"
+    assert settings.weather_timeout_s == 2.5
+    assert "private-test-key" not in repr(settings)
+
+
+def test_rate_limit_clients_and_expiry(monkeypatch):
+    from assistant_api.ratelimit import RateLimiter
+
+    now = [100.0]
+    monkeypatch.setattr("assistant_api.ratelimit.time.monotonic", lambda: now[0])
+    limiter = RateLimiter(1)
+    assert limiter.allow("first")
+    assert not limiter.allow("first")
+    assert limiter.allow("second")
+    now[0] += 61
+    assert limiter.allow("first")
+
+
+@pytest.fixture
+def settings(sample_settings):
+    """Keep API-only fixture names local; preserve the shared core fixtures."""
+    return sample_settings
 
 
 def test_offices_include_library_and_sorted_core_data(client, service):
@@ -174,41 +201,6 @@ def test_weather_upstream_non_finite_returns_stale_cache_when_cached(sample_sett
     body = r2.json()
     assert body["stale"] is True
     assert body["temperature_c"] == 31.2
-
-
-def test_offices_sorted_and_include_library(client):
-    offices = client.get("/v1/offices").json()
-    assert any(office["name"] == "Library" for office in offices)
-    assert [office["name"] for office in offices] == sorted(office["name"] for office in offices)
-
-
-def test_chat_blank_message(client):
-    r = client.post("/v1/chat", json={"message": "   "})
-    assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
-
-
-def test_api_settings_environment(monkeypatch):
-    from assistant_core.config import load_settings
-
-    monkeypatch.setenv("API_ADMIN_KEY", "private-test-key")
-    monkeypatch.setenv("WEATHER_TIMEOUT_S", "2.5")
-    settings = load_settings(env_file=None)
-    assert settings.api_admin_key == "private-test-key"
-    assert settings.weather_timeout_s == 2.5
-    assert "private-test-key" not in repr(settings)
-
-
-def test_rate_limit_clients_and_expiry(monkeypatch):
-    from assistant_api.ratelimit import RateLimiter
-
-    now = [100.0]
-    monkeypatch.setattr("assistant_api.ratelimit.time.monotonic", lambda: now[0])
-    limiter = RateLimiter(1)
-    assert limiter.allow("first")
-    assert not limiter.allow("first")
-    assert limiter.allow("second")
-    now[0] += 61
-    assert limiter.allow("first")
 
 
 @pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])

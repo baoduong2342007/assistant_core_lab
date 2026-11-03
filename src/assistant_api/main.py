@@ -76,7 +76,11 @@ def create_app(
     async def on_http(_: Request, exc: HTTPException):
         return error(exc.status_code, str(exc.detail).lower().replace(" ", "_"), str(exc.detail))
 
-    def require_admin(x_api_key: str | None = Header(default=None)) -> None:
+    def require_admin(
+        x_api_key: str | None = Header(default=None),
+        x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+    ) -> None:
+        x_api_key = x_api_key or x_admin_key
         if (
             not settings.api_admin_key
             or not x_api_key

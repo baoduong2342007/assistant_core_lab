@@ -1,25 +1,5 @@
 # AI Use Disclosure Log
 
-## Trần Quốc Huy — nộp H2 qua GitHub PR #41 (02/11/2026)
-
-Huy yêu cầu nộp bài và chọn rõ “Nộp qua PR #41 trên GitHub”. Codex giữ nội dung H2
-hiện tại đúng 5 dòng, cập nhật hồ sơ/PR để gửi review, giữ ghi nhận AI hỗ trợ.
-Đây là chỉ định nộp bản hiện tại; không khẳng định Huy tự viết, đã tự đọc/diễn đạt lại,
-đã có peer approval hoặc đã nộp LMS.
-
-## Trần Quốc Huy — Lab04 (01/11/2026)
-
-Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
-dùng scaffold/học liệu chính thức tại a848a96, triển khai P1–P5, T1–T4, H1 cá nhân,
-Settings/env/admin auth và các test config/weather bằng MockTransport/clock giả.
-Codex hỗ trợ toàn bộ code, tests, contract, bản nháp reflection, Git và minh chứng curl/Swagger;
-các phần AI tạo được giữ lại và disclose. Core nhóm tuần 3 và fixtures chung được bảo toàn.
-
-Kết quả local Python 3.11.16: 274 passed, 1 skipped bonus; practice 5 passed;
-Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng status.
-Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
-Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
-
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 ## Log Entries
@@ -115,6 +95,49 @@ review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
 
+
+## Phan Quỳnh Quyền — Lab04 REST API, Offices H1 & Part F Rate Limiting (2026-11-02)
+
+Người thực hiện: **Phan Quỳnh Quyền (pqquyenn)**. Hỗ trợ bởi **Antigravity AI**:
+- Hỗ trợ triển khai bài thực hành Warm-up P1–P5 (practice/hello_api.py, practice/test_hello_api.py).
+- Xây dựng tầng HTTP API src/assistant_api/ kết nối với AssistantService của core Lab 3:
+  - POST /v1/chat (T1) hỗ trợ validation chuỗi trắng, trả đầy đủ trường ChatResponse.
+  - POST /v1/feedback (T2) và GET /v1/feedback (T3) bảo vệ bởi admin key.
+  - GET /v1/weather (T4) với kiểm thực cấu trúc upstream và fallback cache cũ stale=True.
+- Hoàn thiện bài tập H1 chuyên trách: thêm OfficeDirectory.all() trong src/assistant_core/knowledge.py, endpoint GET /v1/offices trả danh sách văn phòng sắp xếp theo thứ tự bảng chữ cái và kiểm thử 2 test case theo yêu cầu.
+- Bật Part F rate limiting bắt buộc theo IP client bằng RateLimiter và RATE_LIMIT_PER_MIN.
+- Kiểm thử độc lập: toàn bộ 240 tests trong 	ests/ và 5 tests warm-up đều pass; kiểm tra lint/format Ruff 100% đạt chuẩn; chạy kiểm chứng curl thực tế lưu tại docs/lab4/pqquyenn/curl_tests.log.
+## Minh H1 feature — 2026-10-30
+
+Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
+
+
+## Trần Quốc Huy — nộp H2 qua GitHub PR #41 (02/11/2026)
+
+Huy yêu cầu nộp bài và chọn rõ “Nộp qua PR #41 trên GitHub”. Codex giữ nội dung H2
+hiện tại đúng 5 dòng, cập nhật hồ sơ/PR để gửi review, giữ ghi nhận AI hỗ trợ.
+Đây là chỉ định nộp bản hiện tại; không khẳng định Huy tự viết, đã tự đọc/diễn đạt lại,
+đã có peer approval hoặc đã nộp LMS.
+
+
+
+## Trần Quốc Huy — Lab04 (01/11/2026)
+
+Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
+dùng scaffold/học liệu chính thức tại a848a96, triển khai P1–P5, T1–T4, H1 cá nhân,
+Settings/env/admin auth và các test config/weather bằng MockTransport/clock giả.
+Codex hỗ trợ toàn bộ code, tests, contract, bản nháp reflection, Git và minh chứng curl/Swagger;
+các phần AI tạo được giữ lại và disclose. Core nhóm tuần 3 và fixtures chung được bảo toàn.
+
+Kết quả local Python 3.11.16: 274 passed, 1 skipped bonus; practice 5 passed;
+Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng status.
+Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
+Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
+
+In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
+
+
+
 ## 2026-11-03 — Dương-requested correction of Huy PR41
 
 At Dương's request, Codex enabled Part F for chat, removed the Lab04 rate-limit
@@ -122,6 +145,8 @@ skip, and restored the Week 3 tests/test_config.py byte-for-byte. API configurat
 cases and their environment fixture now live in tests/test_api_config.py.
 RateLimiter uses a lock for concurrent chat handlers. These corrections are
 AI-assisted, not claimed as Huy's independent manual work.
+
+
 
 
 ## Bảo (`simble2k`) — Lab 04 REST API, Schemas & Feedback (2026-11-01)
@@ -135,6 +160,8 @@ On 2026-11-02 (follow-up review P2 fix), following peer review by Dương (`baod
 
 
 
+
+
 ## 2026-11-03 — Dương-requested correction of Bảo PR39
 
 At Dương's request, Codex validated all required upstream fields before caching,
@@ -142,6 +169,8 @@ including time/weather_code, and added 18 Lab04 regressions for invalid payloads
 with/without a stale cache. Missing metadata now follows retry/503 or stale-cache
 fallback. This correction is AI-assisted; no independent manual work is claimed.
 Existing Week 3 tests are unchanged.
+
+
 
 
 
@@ -166,9 +195,13 @@ On 2026-11-01, after Dương supplied the updated homework instruction requiring
 
 
 
+
+
 ## 2026-11-02 — Dương weather correction and assisted review
 
 Codex validated the upstream weather structure and finite numeric values before caching, added 14 regression cases in a new Lab04 test file, and ran the full suite: 240 passed; practice: 5 passed; Ruff lint/format passed. Week 3 tests were not edited. Codex also inspected PR39 head e253d54 and ran focused API/practice checks (24 passed), finding a remaining non-finite-temperature serialization failure; see docs/lab4/baoduong2342007/review-bao.md. No human approval or LMS submission is asserted.
+
+
 
 
 
@@ -188,6 +221,3 @@ Minh's independent manual work. Existing Week 3 tests are unchanged.
 
 
 
-## Minh H1 feature — 2026-10-30
-
-Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
