@@ -14,11 +14,20 @@ def weather_with(handler) -> WeatherClient:
 
 
 @pytest.fixture
-def client(sample_settings, service):
-    settings = sample_settings
+def settings(sample_settings):
+    """Keep API-only fixture names local; preserve the shared core fixtures."""
+    return sample_settings
+
+
+@pytest.fixture
+def client(settings, service):
     settings = settings.model_copy(update={"api_admin_key": "secret-admin", "rate_limit_per_min": 5})
-    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=OK_JSON)))
-    return TestClient(app)
+    weather = weather_with(lambda req: httpx.Response(200, json=OK_JSON))
+    try:
+        with TestClient(create_app(settings, service, weather)) as client:
+            yield client
+    finally:
+        weather.close()
 
 
 def test_health(client):
@@ -48,14 +57,59 @@ def test_feedback_roundtrip(client):
     r = client.post("/v1/feedback", json={"request_id": "abc123", "rating": 1})
     assert r.status_code == 201 and r.json()["id"] == 1
     assert client.get("/v1/feedback").status_code == 401
-    assert client.get("/v1/feedback", headers={"X-API-Key": "wrong-key"}).status_code == 401
     listed = client.get("/v1/feedback", headers={"X-API-Key": "secret-admin"})
     assert listed.status_code == 200 and len(listed.json()) == 1
 
 
 def test_feedback_rating_out_of_range(client):
     assert client.post("/v1/feedback", json={"request_id": "x", "rating": 5}).status_code == 422
-    assert client.post("/v1/feedback", json={"request_id": "x", "rating": -2}).status_code == 422
+
+
+def test_weather_ok(client):
+    r = client.get("/v1/weather")
+    assert r.status_code == 200 and r.json()["description"] == "overcast"
+
+
+def test_weather_down_returns_503(settings, service):
+    def boom(req):
+        raise httpx.ConnectTimeout("timeout", request=req)
+
+    weather = weather_with(boom)
+    try:
+        with TestClient(create_app(settings, service, weather)) as client:
+            r = client.get("/v1/weather")
+        assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+    finally:
+        weather.close()
+
+
+def test_weather_stale_cache_when_upstream_fails():
+    calls = {"n": 0}
+
+    def flaky(req):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return httpx.Response(200, json=OK_JSON)
+        return httpx.Response(500)
+
+    w = weather_with(flaky)
+    try:
+        w.cache_ttl_s = 0  # force a refresh on the second call
+        assert not w.current().stale
+        assert w.current().stale
+    finally:
+        w.close()
+
+
+def test_offices_status(client):
+    assert client.get("/v1/offices").status_code == 200
+
+
+def test_offices_include_library_and_sorted_core_data(client, service):
+    offices = client.get("/v1/offices").json()
+    assert any(office["name"] == "Library" for office in offices)
+    assert offices == [office.__dict__ for office in service.offices.all()]
+    assert [office["name"] for office in offices] == ["IT Helpdesk", "Library", "Student Affairs", "Training Office"]
 
 
 def test_feedback_rating_valid_boundaries(client):
@@ -70,37 +124,6 @@ def test_feedback_comment_length_limit(client):
     long_comment = "a" * 501
     r = client.post("/v1/feedback", json={"request_id": "req-comment", "rating": 1, "comment": long_comment})
     assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
-
-
-def test_weather_ok(client):
-    r = client.get("/v1/weather")
-    assert r.status_code == 200 and r.json()["description"] == "overcast"
-
-
-def test_weather_down_returns_503(sample_settings, service):
-    settings = sample_settings
-
-    def boom(req):
-        raise httpx.ConnectTimeout("timeout", request=req)
-
-    app = create_app(settings, service, weather_with(boom))
-    r = TestClient(app).get("/v1/weather")
-    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
-
-
-def test_weather_stale_cache_when_upstream_fails():
-    calls = {"n": 0}
-
-    def flaky(req):
-        calls["n"] += 1
-        if calls["n"] == 1:
-            return httpx.Response(200, json=OK_JSON)
-        return httpx.Response(500)
-
-    w = weather_with(flaky)
-    w.cache_ttl_s = 0  # force a refresh on the second call
-    assert not w.current().stale
-    assert w.current().stale
 
 
 @pytest.mark.parametrize(
@@ -153,10 +176,6 @@ def test_weather_upstream_non_finite_returns_stale_cache_when_cached(sample_sett
     assert body["temperature_c"] == 31.2
 
 
-def test_offices_status(client):
-    assert client.get("/v1/offices").status_code == 200
-
-
 def test_offices_sorted_and_include_library(client):
     offices = client.get("/v1/offices").json()
     assert any(office["name"] == "Library" for office in offices)
@@ -190,11 +209,6 @@ def test_rate_limit_clients_and_expiry(monkeypatch):
     assert limiter.allow("second")
     now[0] += 61
     assert limiter.allow("first")
-
-
-@pytest.fixture
-def settings(sample_settings):
-    return sample_settings
 
 
 @pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])

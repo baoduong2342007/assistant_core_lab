@@ -31,19 +31,21 @@ WMO = {
 }
 
 
+class ExternalServiceError(Exception):
+    """The upstream service failed and no cached value is available."""
+
+
 class _CurrentWeather(BaseModel):
+    """Validate the upstream shape before indexing it or caching its values."""
+
     time: str = Field(min_length=1)
     temperature_2m: float = Field(allow_inf_nan=False)
-    wind_speed_10m: float = Field(allow_inf_nan=False)
-    weather_code: int = Field(strict=True)
+    wind_speed_10m: float = Field(ge=0, allow_inf_nan=False)
+    weather_code: int
 
 
 class _Forecast(BaseModel):
     current: _CurrentWeather
-
-
-class ExternalServiceError(Exception):
-    """The upstream service failed and no cached value is available."""
 
 
 class WeatherClient:
@@ -61,6 +63,10 @@ class WeatherClient:
         self.retries, self.cache_ttl_s = retries, cache_ttl_s
         self._client = httpx.Client(timeout=timeout_s, transport=transport)
         self._cache: tuple[float, Weather] | None = None
+
+    def close(self) -> None:
+        """Release the HTTP connection pool; the creator owns this client."""
+        self._client.close()
 
     def current(self) -> Weather:
         if self._cache and time.monotonic() - self._cache[0] < self.cache_ttl_s:
@@ -80,10 +86,11 @@ class WeatherClient:
                 )
                 self._cache = (time.monotonic(), w)
                 return w
-            except (httpx.HTTPError, KeyError, ValueError) as exc:
+            except (httpx.HTTPError, ValueError) as exc:
                 last_exc = exc
                 log.warning("weather attempt %d failed: %s", attempt + 1, type(exc).__name__)
-                time.sleep(0.2 * (attempt + 1))
+                if attempt < self.retries:
+                    time.sleep(0.2 * (attempt + 1))
         if self._cache:  # graceful: stale but useful
             return self._cache[1].model_copy(update={"stale": True})
         raise ExternalServiceError("weather service unavailable") from last_exc

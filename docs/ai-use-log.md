@@ -1,5 +1,25 @@
 # AI Use Disclosure Log
 
+## Trần Quốc Huy — nộp H2 qua GitHub PR #41 (02/11/2026)
+
+Huy yêu cầu nộp bài và chọn rõ “Nộp qua PR #41 trên GitHub”. Codex giữ nội dung H2
+hiện tại đúng 5 dòng, cập nhật hồ sơ/PR để gửi review, giữ ghi nhận AI hỗ trợ.
+Đây là chỉ định nộp bản hiện tại; không khẳng định Huy tự viết, đã tự đọc/diễn đạt lại,
+đã có peer approval hoặc đã nộp LMS.
+
+## Trần Quốc Huy — Lab04 (01/11/2026)
+
+Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
+dùng scaffold/học liệu chính thức tại a848a96, triển khai P1–P5, T1–T4, H1 cá nhân,
+Settings/env/admin auth và các test config/weather bằng MockTransport/clock giả.
+Codex hỗ trợ toàn bộ code, tests, contract, bản nháp reflection, Git và minh chứng curl/Swagger;
+các phần AI tạo được giữ lại và disclose. Core nhóm tuần 3 và fixtures chung được bảo toàn.
+
+Kết quả local Python 3.11.16: 274 passed, 1 skipped bonus; practice 5 passed;
+Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng status.
+Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
+Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
+
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 ## Log Entries
@@ -95,6 +115,15 @@ review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
 
+## 2026-11-03 — Dương-requested correction of Huy PR41
+
+At Dương's request, Codex enabled Part F for chat, removed the Lab04 rate-limit
+skip, and restored the Week 3 tests/test_config.py byte-for-byte. API configuration
+cases and their environment fixture now live in tests/test_api_config.py.
+RateLimiter uses a lock for concurrent chat handlers. These corrections are
+AI-assisted, not claimed as Huy's independent manual work.
+
+
 ## Bảo (`simble2k`) — Lab 04 REST API, Schemas & Feedback (2026-11-01)
 
 Code owner: **Phạm Quốc Bảo (`simble2k`)**. Antigravity AI hỗ trợ triển khai cấu trúc schemas, validation (đặc biệt là lọc chuỗi toàn khoảng trắng cho `POST /v1/chat` và ràng buộc rating cho feedback), endpoints T1–T4, H1 `OfficeDirectory.all()`, bộ fixtures kiểm thử độc lập trong `tests/test_api.py`, tài liệu `docs/lab4/api_contract.md` và dàn ý reflection.
@@ -104,6 +133,8 @@ On 2026-11-02, following updated homework guidance designating Part F rate limit
 
 On 2026-11-02 (follow-up review P2 fix), following peer review by Dương (`baoduong2342007`) on PR #39, Antigravity AI assisted in preventing non-finite numbers (NaN, Infinity, -Infinity) from entering the weather cache by configuring `Field(allow_inf_nan=False)` on `Weather` schema and adding explicit `math.isfinite()` validation in `WeatherClient.current()`. Non-finite values are caught, triggering upstream retries, falling back to stale cache if present (HTTP 200 stale), or raising `ExternalServiceError` (HTTP 503) without crashing serialization (HTTP 500). Added regression tests for both cached and non-cached scenarios (236 passed, 0 skipped).
 
+
+
 ## 2026-11-03 — Dương-requested correction of Bảo PR39
 
 At Dương's request, Codex validated all required upstream fields before caching,
@@ -111,6 +142,8 @@ including time/weather_code, and added 18 Lab04 regressions for invalid payloads
 with/without a stale cache. Missing metadata now follows retry/503 or stale-cache
 fallback. This correction is AI-assisted; no independent manual work is claimed.
 Existing Week 3 tests are unchanged.
+
+
 
 
 ## Dương — Lab04 API (2026-11-01)
@@ -131,9 +164,13 @@ On 2026-11-01, after Dương supplied the updated homework instruction requiring
 
 
 
+
+
 ## 2026-11-02 — Dương weather correction and assisted review
 
 Codex validated the upstream weather structure and finite numeric values before caching, added 14 regression cases in a new Lab04 test file, and ran the full suite: 240 passed; practice: 5 passed; Ruff lint/format passed. Week 3 tests were not edited. Codex also inspected PR39 head e253d54 and ran focused API/practice checks (24 passed), finding a remaining non-finite-temperature serialization failure; see docs/lab4/baoduong2342007/review-bao.md. No human approval or LMS submission is asserted.
+
+
 
 
 
@@ -144,6 +181,8 @@ At Dương's request, Codex validated the upstream weather payload before cachin
 including finite temperature and wind values, and added 14 Lab04 regression cases
 for 503 and stale-cache fallback. This assisted correction is not attributed as
 Minh's independent manual work. Existing Week 3 tests are unchanged.
+
+
 
 
 
