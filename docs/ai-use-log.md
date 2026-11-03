@@ -94,3 +94,10 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+## 2026-11-03 — Dương-requested correction of Minh PR35
+
+At Dương's request, Codex validated the upstream weather payload before caching,
+including finite temperature and wind values, and added 14 Lab04 regression cases
+for 503 and stale-cache fallback. This assisted correction is not attributed as
+Minh's independent manual work. Existing Week 3 tests are unchanged.

@@ -9,6 +9,7 @@ import logging
 import time
 
 import httpx
+from pydantic import BaseModel, Field
 
 from assistant_api.schemas import Weather
 
@@ -28,6 +29,17 @@ WMO = {
     81: "heavy showers",
     95: "thunderstorm",
 }
+
+
+class _CurrentWeather(BaseModel):
+    time: str = Field(min_length=1)
+    temperature_2m: float = Field(allow_inf_nan=False)
+    wind_speed_10m: float = Field(allow_inf_nan=False)
+    weather_code: int = Field(strict=True)
+
+
+class _Forecast(BaseModel):
+    current: _CurrentWeather
 
 
 class ExternalServiceError(Exception):
@@ -59,21 +71,16 @@ class WeatherClient:
             try:
                 r = self._client.get(self.url, params=params)
                 r.raise_for_status()
-                data = r.json()
-                if not isinstance(data, dict):
-                    raise ValueError("malformed payload: expected dict")
-                cur = data.get("current")
-                if not isinstance(cur, dict):
-                    raise ValueError("malformed payload: current must be a dict")
+                cur = _Forecast.model_validate(r.json()).current
                 w = Weather(
-                    temperature_c=cur["temperature_2m"],
-                    wind_kmh=cur["wind_speed_10m"],
-                    description=WMO.get(cur["weather_code"], f"code {cur['weather_code']}"),
-                    observed_at=cur["time"],
+                    temperature_c=cur.temperature_2m,
+                    wind_kmh=cur.wind_speed_10m,
+                    description=WMO.get(cur.weather_code, f"code {cur.weather_code}"),
+                    observed_at=cur.time,
                 )
                 self._cache = (time.monotonic(), w)
                 return w
-            except (httpx.HTTPError, KeyError, ValueError, TypeError) as exc:
+            except (httpx.HTTPError, KeyError, ValueError) as exc:
                 last_exc = exc
                 log.warning("weather attempt %d failed: %s", attempt + 1, type(exc).__name__)
                 time.sleep(0.2 * (attempt + 1))
