@@ -102,3 +102,11 @@ Bảo đã trực tiếp kiểm tra mã nguồn, chạy kiểm thử cục bộ 
 On 2026-11-02, following updated homework guidance designating Part F rate limiting as required for team submission, Antigravity AI assisted in implementing thread-safe rate limiting on `POST /v1/chat`, unskipping unit test coverage, adding client isolation and sliding window expiry tests, and handling upstream malformed weather JSON payloads without modifying Week 3 tests. Bảo verified all 231 pytest unit tests, Ruff lint and format checks locally.
 
 On 2026-11-02 (follow-up review P2 fix), following peer review by Dương (`baoduong2342007`) on PR #39, Antigravity AI assisted in preventing non-finite numbers (NaN, Infinity, -Infinity) from entering the weather cache by configuring `Field(allow_inf_nan=False)` on `Weather` schema and adding explicit `math.isfinite()` validation in `WeatherClient.current()`. Non-finite values are caught, triggering upstream retries, falling back to stale cache if present (HTTP 200 stale), or raising `ExternalServiceError` (HTTP 503) without crashing serialization (HTTP 500). Added regression tests for both cached and non-cached scenarios (236 passed, 0 skipped).
+
+## 2026-11-03 — Dương-requested correction of Bảo PR39
+
+At Dương's request, Codex validated all required upstream fields before caching,
+including time/weather_code, and added 18 Lab04 regressions for invalid payloads
+with/without a stale cache. Missing metadata now follows retry/503 or stale-cache
+fallback. This correction is AI-assisted; no independent manual work is claimed.
+Existing Week 3 tests are unchanged.
