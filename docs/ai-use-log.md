@@ -12,6 +12,7 @@ In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.1
 | 2026-10-24 | Quyền (`pqquyenn`) | Knowledge Loaders | Antigravity AI | Office CSV & Handbook JSON parser classes | Wrapped file/schema errors in `DataError`, implemented case-insensitive matching |
 | 2026-10-24 | Minh (`luongnhatinh`) | Deterministic Tools & CI Workflow | Antigravity AI | Parsing regex for credits, GitHub Actions YAML | Added negative number rejection, matrix testing across Python 3.10 and 3.12 |
 | 2026-10-24 | Bảo (`simble2k`) | Domain Models & Error Hierarchy | Antigravity AI | Pydantic models and Exception classes | Added `Field(default_factory=list)` to avoid mutable default sharing, whitespace rejection |
+| 2026-11-01 | Minh (`luongnhatinh`) | Lab 04 REST API, CI, H1 & Reflection | Antigravity AI | Scaffolding FastAPI routes, Pydantic schemas, sorting offices, unit tests | Verified with pytest, curl script, Swagger /docs, and manual code inspection |
 
 ## PR #1 required-check repair — 2026-10-24
 
@@ -94,6 +95,12 @@ review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
 
+## 2026-11-03 — Dương-requested correction of Minh PR35
+
+At Dương's request, Codex validated the upstream weather payload before caching,
+including finite temperature and wind values, and added 14 Lab04 regression cases
+for 503 and stale-cache fallback. This assisted correction is not attributed as
+Minh's independent manual work. Existing Week 3 tests are unchanged.
 
 ## Minh H1 feature — 2026-10-30
 
