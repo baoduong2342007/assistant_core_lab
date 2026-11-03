@@ -113,3 +113,11 @@ Codex wrote the implementation, tests, and this disclosure; Dương's independen
 review, a preserved initial proposal with three documented review improvements,
 peer review, and a merged H1 PR remain outstanding. No claim of personal completion
 is made by this entry.
+
+## 2026-11-03 — Dương-requested correction of Huy PR41
+
+At Dương's request, Codex enabled Part F for chat, removed the Lab04 rate-limit
+skip, and restored the Week 3 tests/test_config.py byte-for-byte. API configuration
+cases and their environment fixture now live in tests/test_api_config.py.
+RateLimiter uses a lock for concurrent chat handlers. These corrections are
+AI-assisted, not claimed as Huy's independent manual work.

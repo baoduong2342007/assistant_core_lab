@@ -69,3 +69,11 @@ Codex hỗ trợ toàn bộ code/tests/docs, chạy kiểm tra, thao tác Git v�
 Reflection có AI hỗ trợ và được Huy yêu cầu nộp qua PR #41; không xác nhận thay Huy việc tự học,
 tự viết hay review. Chưa nộp LMS hoặc nhận giảng viên chấp nhận bài.
 Xem thêm [AI-use log](../../ai-use-log.md).
+
+## Part F update — 2026-11-03
+
+Chat now enforces RATE_LIMIT_PER_MIN per client address and returns
+429 with error.code=too_many_requests on excess requests. Lab04 API tests include
+the enabled rate-limit check. API config tests are in tests/test_api_config.py;
+Week 3 tests are unchanged. Full validation: 275 passed; practice: 5 passed;
+Ruff lint and format passed.

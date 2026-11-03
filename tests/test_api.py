@@ -47,10 +47,10 @@ def test_chat_validation_error(client):
     assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
 
 
-@pytest.mark.skip(reason="BONUS task — remove this line when you add rate limiting")
 def test_rate_limit(client):
     codes = [client.post("/v1/chat", json={"message": "hi"}).status_code for _ in range(6)]
-    assert codes[-1] == 429
+    assert codes == [200, 200, 200, 200, 200, 429]
+    assert client.post("/v1/chat", json={"message": "hi"}).json()["error"]["code"] == "too_many_requests"
 
 
 def test_feedback_roundtrip(client):
