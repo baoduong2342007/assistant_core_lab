@@ -101,3 +101,7 @@ At Dương's request, Codex validated the upstream weather payload before cachin
 including finite temperature and wind values, and added 14 Lab04 regression cases
 for 503 and stale-cache fallback. This assisted correction is not attributed as
 Minh's independent manual work. Existing Week 3 tests are unchanged.
+
+## Minh H1 feature — 2026-10-30
+
+Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
