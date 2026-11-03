@@ -21,15 +21,17 @@ class Settings(BaseModel):
     credit_rate_vnd: int = Field(default=450_000, gt=0)
     retake_multiplier: float = Field(default=1.5, gt=0, allow_inf_nan=False)
     max_credits: int = Field(default=30, gt=0)
+    log_level: str = "INFO"
+
+    # Lab 4 — API settings
     api_admin_key: str | None = Field(default=None, repr=False, exclude=True)
     weather_url: str = "https://api.open-meteo.com/v1/forecast"
     weather_timeout_s: float = Field(default=3.0, gt=0, allow_inf_nan=False)
-    campus_lat: float = Field(default=10.7626, ge=-90, le=90)
-    campus_lon: float = Field(default=106.6822, ge=-180, le=180)
+    campus_lat: float = Field(default=10.7626, ge=-90, le=90, allow_inf_nan=False)
+    campus_lon: float = Field(default=106.6822, ge=-180, le=180, allow_inf_nan=False)
     rate_limit_per_min: int = Field(default=30, gt=0)
-    log_level: str = "INFO"
 
-    @field_validator("credit_rate_vnd", "max_credits", mode="before")
+    @field_validator("credit_rate_vnd", "max_credits", "rate_limit_per_min", mode="before")
     @classmethod
     def validate_integer(cls, value: object) -> object:
         """Reject decimal environment strings instead of silently coercing them."""
@@ -66,7 +68,7 @@ def load_settings(env_file: str | Path | None = ".env") -> Settings:
             log_level=os.getenv("LOG_LEVEL", "INFO"),
             api_admin_key=os.getenv("API_ADMIN_KEY") or None,
             weather_url=os.getenv("WEATHER_URL", "https://api.open-meteo.com/v1/forecast"),
-            weather_timeout_s=os.getenv("WEATHER_TIMEOUT_S", "3"),
+            weather_timeout_s=os.getenv("WEATHER_TIMEOUT_S", "3.0"),
             campus_lat=os.getenv("CAMPUS_LAT", "10.7626"),
             campus_lon=os.getenv("CAMPUS_LON", "106.6822"),
             rate_limit_per_min=os.getenv("RATE_LIMIT_PER_MIN", "30"),

@@ -190,3 +190,29 @@ def test_rate_limit_clients_and_expiry(monkeypatch):
     assert limiter.allow("second")
     now[0] += 61
     assert limiter.allow("first")
+
+
+@pytest.fixture
+def settings(sample_settings):
+    return sample_settings
+
+
+@pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])
+def test_weather_malformed_json_returns_503(settings, service, bad_payload):
+    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=bad_payload)))
+    r = TestClient(app).get("/v1/weather")
+    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+
+
+def test_offices_ok(client):
+    r = client.get("/v1/offices")
+    assert r.status_code == 200
+
+
+def test_offices_contains_library(client):
+    r = client.get("/v1/offices")
+    assert r.status_code == 200
+    offices = r.json()
+    assert any(o.get("name") == "Library" for o in offices)
+    names = [o["name"] for o in offices]
+    assert names == sorted(names)

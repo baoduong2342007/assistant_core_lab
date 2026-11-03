@@ -1,4 +1,9 @@
-"""Study assistant HTTP API. Run: uvicorn assistant_api.main:create_app --factory."""
+"""FastAPI application — Lab 4 STARTER.  Run:  uvicorn assistant_api.main:create_app --factory --reload
+
+Most of the file is given. Complete the four TODOs (T1–T4); the tests in tests/test_api.py tell you when you are done.
+
+Endpoints (v1): GET /health, POST /v1/chat, POST /v1/feedback, GET /v1/feedback (admin), GET /v1/weather
+"""
 
 from __future__ import annotations
 
@@ -12,24 +17,15 @@ from fastapi.responses import JSONResponse
 from assistant_api.ratelimit import RateLimiter
 from assistant_api.schemas import ChatRequest, ChatResponse, ErrorResponse, FeedbackIn, FeedbackOut, Weather
 from assistant_api.weather import ExternalServiceError, WeatherClient
-from assistant_core import AssistantService, Message
+from assistant_core import AssistantService, Message, build_service
 from assistant_core.config import Settings, load_settings
-from assistant_core.knowledge import Handbook, OfficeDirectory
-from assistant_core.responder import StubLLMResponder, TemplateResponder
 
 
 def create_app(
     settings: Settings | None = None, service: AssistantService | None = None, weather: WeatherClient | None = None
 ) -> FastAPI:
     settings = settings or load_settings()
-    if service is None:
-        responder = StubLLMResponder() if settings.llm_provider == "stub" else TemplateResponder()
-        service = AssistantService(
-            settings,
-            OfficeDirectory.from_csv(settings.data_dir / "offices.csv"),
-            Handbook.from_json(settings.data_dir / "handbook.json"),
-            responder,
-        )
+    service = service or build_service(settings)
     weather = weather or WeatherClient(
         settings.weather_url, settings.campus_lat, settings.campus_lon, timeout_s=settings.weather_timeout_s
     )
@@ -76,7 +72,11 @@ def create_app(
 
     @app.post("/v1/feedback", response_model=FeedbackOut, status_code=201, tags=["feedback"])
     def add_feedback(fb: FeedbackIn) -> FeedbackOut:
-        item = FeedbackOut(**fb.model_dump(), id=len(feedback_store) + 1, created_at=datetime.now(timezone.utc))
+        item = FeedbackOut(
+            **fb.model_dump(),
+            id=len(feedback_store) + 1,
+            created_at=datetime.now(timezone.utc),
+        )
         feedback_store.append(item)
         return item
 
@@ -84,15 +84,15 @@ def create_app(
     def list_feedback() -> list[FeedbackOut]:
         return feedback_store
 
-    @app.get("/v1/offices", tags=["knowledge"])
-    def list_offices() -> list[dict]:
-        return [office.__dict__ for office in service.offices.all()]
-
     @app.get("/v1/weather", response_model=Weather, tags=["external"], responses={503: {"model": ErrorResponse}})
     def campus_weather() -> Weather:
         try:
             return weather.current()
         except ExternalServiceError:
             raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Weather service unavailable") from None
+
+    @app.get("/v1/offices", tags=["knowledge"])
+    def list_offices() -> list[dict]:
+        return [o.__dict__ for o in service.offices.all()]
 
     return app

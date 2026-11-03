@@ -1,56 +1,28 @@
-# Lab 4 — API Contract
+# Lab 4 — API Contract Worksheet
 
-| Method | Path | Request | Success | Errors | Caller |
+| Method | Path | Request body / params | Success (code + body) | Errors (code + error.code) | Who calls it |
 |---|---|---|---|---|---|
-| GET | /health | — | 200: status, version | — | ops, UI |
-| POST | /v1/chat | message: nonblank string, 1–2000 chars; optional session_id up to 64 | 200: answer, intent, sources, degraded, request_id | 422 invalid_request; 429 too_many_requests | UI, tests |
-| POST | /v1/feedback | request_id 1–64 chars, rating -1..1, optional comment up to 500 | 201: input plus id and created_at (UTC) | 422 invalid_request | UI |
-| GET | /v1/feedback | X-API-Key header | 200: feedback array | 401 missing_or_invalid_api_key | staff |
-| GET | /v1/weather | — | 200: temperature_c, wind_kmh, description, observed_at, stale | 503 weather_service_unavailable | UI |
-| GET | /v1/offices | — | 200: name-sorted array of name, room, hours | — | UI |
+| GET | `/health` | — | 200 `{"status": "ok", "version": "1.0.0"}` | — | ops, UI |
+| POST | `/v1/chat` | `{"message": str, "session_id": str}` | 200 `{"answer", "intent", "sources", "degraded", "request_id"}` | 422 `invalid_request`, 429 `too_many_requests` | UI, tests |
+| POST | `/v1/feedback` | `{"request_id": str, "rating": int, "comment": str}` | 201 `{"id", "request_id", "rating", "comment", "created_at"}` | 422 `invalid_request` | UI |
+| GET | `/v1/feedback` | header `X-API-Key: <key>` | 200 `list[FeedbackOut]` | 401 `missing_or_invalid_api_key` | staff dashboard |
+| GET | `/v1/weather` | — | 200 `{"temperature_c", "wind_kmh", "description", "observed_at", "stale"}` | 503 `weather_service_unavailable` | UI |
+| GET | `/v1/offices` | — | 200 `list[Office]` sorted by name | — | UI, tests |
 
-## Contract Specifications & Error Handling
+### Questions
 
-- **Request Validation:** Input validation is enforced by Pydantic schemas. Any validation failure yields HTTP `422 Unprocessable Entity` with JSON body:
-  ```json
-  {
-    "error": {
-      "code": "invalid_request",
-      "message": "<field_location>: <error_message>"
-    }
-  }
-  ```
-  Specifically for `POST /v1/chat`, messages consisting solely of whitespace characters are rejected with `422 invalid_request` rather than triggering unhandled 500 domain exceptions.
-- **Rate Limiting (Part F):** Chat requests are rate-limited per client IP address (`request.client.host`) using an in-memory sliding window (`RateLimiter`) configured via `RATE_LIMIT_PER_MIN` (default 30). Requests exceeding the rate limit return HTTP `429 Too Many Requests`:
-  ```json
-  {
-    "error": {
-      "code": "too_many_requests",
-      "message": "Too many requests"
-    }
-  }
-  ```
-- **Admin Authentication:** The endpoint `GET /v1/feedback` requires the header `X-API-Key` matching `Settings.api_admin_key`. Missing or mismatched keys return HTTP `401 Unauthorized`:
-  ```json
-  {
-    "error": {
-      "code": "missing_or_invalid_api_key",
-      "message": "Missing or invalid API key"
-    }
-  }
-  ```
-- **External Weather Integration:** `GET /v1/weather` proxies Open-Meteo with a default 3-second timeout, 1 retry, and in-memory TTL caching (600s). In the event of an upstream outage:
-  - If a cached report is present, it returns HTTP `200` with `stale: true`.
-  - If no cache exists, or upstream returns malformed JSON payloads, it raises `ExternalServiceError`, mapped by FastAPI to HTTP `503 Service Unavailable`:
-    ```json
-    {
-      "error": {
-        "code": "weather_service_unavailable",
-        "message": "Weather service unavailable"
-      }
-    }
-    ```
-- **Offices Directory (H1):** `GET /v1/offices` queries `OfficeDirectory.all()`, returning university offices sorted alphabetically by name.
-- **Feedback Storage:** In-memory list (RAM) for Lab 4; persistence to PostgreSQL/SQLite is scheduled for Lab 5.
+**1. Which fields are required, and what are their limits?**
+* `/v1/chat`: `message` là bắt buộc, chuỗi từ 1 đến 2000 ký tự (không được là chuỗi rỗng hoặc toàn khoảng trắng). `session_id` là tùy chọn, mặc định `"anonymous"`, tối đa 64 ký tự.
+* `/v1/feedback`: `request_id` là bắt buộc, chuỗi từ 1 đến 64 ký tự; `rating` là số nguyên trong khoảng [-1, 1] (-1: không hài lòng, 0: trung lập, 1: hài lòng); `comment` là tùy chọn (hoặc null), chuỗi tối đa 500 ký tự.
 
-The starter and worksheet were adapted from CSC10014 public_materials, commit `a848a96d44876d4baee5eabe645114cf56d0b82f`; the existing Lab03 core remains the source of business logic.
+**2. What does the UI show for each error code?**
+* `401`: Hiển thị thông báo "Yêu cầu quyền quản trị viên. Vui lòng kiểm tra lại API Key".
+* `422`: Hiển thị lỗi kiểm thực dữ liệu chi tiết ngay dưới trường nhập liệu (ví dụ: "Tin nhắn không được để trống", "Đánh giá chỉ từ -1 đến 1").
+* `429`: Hiển thị cảnh báo "Bạn đang gửi yêu cầu quá nhanh. Vui lòng thử lại sau 1 phút".
+* `503`: Hiển thị thông báo "Dịch vụ thời tiết hiện tạm thời không khả dụng, vui lòng thử lại sau".
+
+**3. What changes would force a `/v2`?**
+* Các thay đổi làm phá vỡ tính tương thích ngược (breaking changes) như:
+  * Đổi tên hoặc xóa các trường bắt buộc trong request/response (ví dụ đổi `message` thành `prompt` hoặc `answer` thành `content`).
+  * Thay đổi kiểu dữ liệu (ví dụ đổi `rating` từ integer sang float/string).
+  * Thay đổi cấu trúc lỗi (error shape) hoặc cách thức xác thực header.
