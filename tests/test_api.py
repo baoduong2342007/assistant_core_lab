@@ -124,3 +124,101 @@ def test_rate_limit_clients_and_expiry(monkeypatch):
     assert limiter.allow("second")
     now[0] += 61
     assert limiter.allow("first")
+
+
+@pytest.fixture
+def settings(sample_settings):
+    """Keep API-only fixture names local; preserve the shared core fixtures."""
+    return sample_settings
+
+
+def test_offices_include_library_and_sorted_core_data(client, service):
+    offices = client.get("/v1/offices").json()
+    assert any(office["name"] == "Library" for office in offices)
+    assert offices == [office.__dict__ for office in service.offices.all()]
+    assert [office["name"] for office in offices] == ["IT Helpdesk", "Library", "Student Affairs", "Training Office"]
+
+
+def test_feedback_rating_valid_boundaries(client):
+    r_down = client.post("/v1/feedback", json={"request_id": "req-down", "rating": -1})
+    assert r_down.status_code == 201 and r_down.json()["rating"] == -1
+
+    r_neutral = client.post("/v1/feedback", json={"request_id": "req-neutral", "rating": 0})
+    assert r_neutral.status_code == 201 and r_neutral.json()["rating"] == 0
+
+
+def test_feedback_comment_length_limit(client):
+    long_comment = "a" * 501
+    r = client.post("/v1/feedback", json={"request_id": "req-comment", "rating": 1, "comment": long_comment})
+    assert r.status_code == 422 and r.json()["error"]["code"] == "invalid_request"
+
+
+@pytest.mark.parametrize(
+    "bad_payload",
+    [
+        [],
+        {"current": None},
+        {"current": []},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "NaN", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "Infinity", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": "-inf", "wind_speed_10m": 5, "weather_code": 3}},
+        {"current": {"time": "2026-11-02T10:00", "temperature_2m": 25.0, "wind_speed_10m": "NaN", "weather_code": 3}},
+    ],
+)
+def test_weather_upstream_malformed_or_non_finite_returns_503_without_cache(sample_settings, service, bad_payload):
+    settings = sample_settings
+    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=bad_payload)))
+    r = TestClient(app).get("/v1/weather")
+    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+
+
+def test_weather_upstream_non_finite_returns_stale_cache_when_cached(sample_settings, service):
+    settings = sample_settings
+    calls = {"n": 0}
+    nan_payload = {
+        "current": {"time": "2026-11-02T10:00", "temperature_2m": "NaN", "wind_speed_10m": 5, "weather_code": 3}
+    }
+
+    def handler(req):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return httpx.Response(200, json=OK_JSON)
+        return httpx.Response(200, json=nan_payload)
+
+    weather = weather_with(handler)
+    weather.cache_ttl_s = 0  # force a refresh on the second call
+    app = create_app(settings, service, weather)
+    client = TestClient(app)
+
+    # First call: healthy, caches valid finite values
+    r1 = client.get("/v1/weather")
+    assert r1.status_code == 200 and not r1.json()["stale"]
+    assert r1.json()["temperature_c"] == 31.2
+
+    # Second call: upstream returns NaN, client rejects NaN before caching and serves stale cache
+    r2 = client.get("/v1/weather")
+    assert r2.status_code == 200
+    body = r2.json()
+    assert body["stale"] is True
+    assert body["temperature_c"] == 31.2
+
+
+@pytest.mark.parametrize("bad_payload", [[], {"current": None}, {"current": []}])
+def test_weather_malformed_json_returns_503(settings, service, bad_payload):
+    app = create_app(settings, service, weather_with(lambda req: httpx.Response(200, json=bad_payload)))
+    r = TestClient(app).get("/v1/weather")
+    assert r.status_code == 503 and r.json()["error"]["code"] == "weather_service_unavailable"
+
+
+def test_offices_ok(client):
+    r = client.get("/v1/offices")
+    assert r.status_code == 200
+
+
+def test_offices_contains_library(client):
+    r = client.get("/v1/offices")
+    assert r.status_code == 200
+    offices = r.json()
+    assert any(o.get("name") == "Library" for o in offices)
+    names = [o["name"] for o in offices]
+    assert names == sorted(names)

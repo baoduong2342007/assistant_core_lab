@@ -66,3 +66,18 @@ This feature is a distinct H1 proposal because `--log-level` was already in the 
 source IDs and titles. It also works in interactive mode and with provider fallback.
 Responses without sources do not show a source section. `--json` already includes
 sources and cannot be combined with `--show-sources`.
+
+## Lab04 — bài cá nhân Trần Quốc Huy
+
+Cài bằng `python -m pip install -r requirements.txt` và `python -m pip install -e .`.
+Từ root repo, sao chép `.env.example` thành `.env`, đặt `API_ADMIN_KEY` cho local rồi chạy:
+
+```bash
+uvicorn assistant_api.main:create_app --factory --reload
+```
+
+Mở `http://127.0.0.1:8000/docs`; giữ `LLM_PROVIDER=stub` để chat không cần API key.
+Chạy `python -m pytest -q`, `python -m pytest -q practice/` và `bash api-tests/curl_tests.sh`.
+Terminal curl phải đặt `API_ADMIN_KEY` giống server; script không đọc `.env` và chỉ in status,
+nên cần đối chiếu từng kết quả. Đọc [contract](docs/lab4/api_contract.md),
+[bàn giao Huy](docs/lab4/tqhuy0602/status.md) và [cấu hình/weather](docs/lab4/tqhuy0602/weather-checks.md).

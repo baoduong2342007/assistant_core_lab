@@ -15,16 +15,16 @@ class ChatRequest(BaseModel):
 
     @field_validator("message")
     @classmethod
-    def nonblank_message(cls, value: str) -> str:
+    def reject_whitespace(cls, value: str) -> str:
         if not value.strip():
-            raise ValueError("message cannot be blank")
+            raise ValueError("message cannot be whitespace only")
         return value
 
 
 class ChatResponse(BaseModel):
     answer: str
     intent: Intent
-    sources: list[Source] = []
+    sources: list[Source] = Field(default_factory=list)
     degraded: bool = False
     request_id: str
 
@@ -41,8 +41,8 @@ class FeedbackOut(FeedbackIn):
 
 
 class Weather(BaseModel):
-    temperature_c: float
-    wind_kmh: float
+    temperature_c: float = Field(allow_inf_nan=False)
+    wind_kmh: float = Field(ge=0, allow_inf_nan=False)
     description: str
     observed_at: str
     stale: bool = False  # True when served from cache after an upstream failure

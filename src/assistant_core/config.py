@@ -5,13 +5,13 @@ from pathlib import Path
 from typing import Literal
 
 from dotenv import load_dotenv
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator
+from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, TypeAdapter, ValidationError, field_validator
 
 from assistant_core.errors import ConfigError
 
 
 class Settings(BaseModel):
-    """Validated offline configuration; never serialize this model into logs."""
+    """Validated core/API configuration; secrets are excluded from serialization."""
 
     model_config = ConfigDict(hide_input_in_errors=True)
 
@@ -21,20 +21,37 @@ class Settings(BaseModel):
     credit_rate_vnd: int = Field(default=450_000, gt=0)
     retake_multiplier: float = Field(default=1.5, gt=0, allow_inf_nan=False)
     max_credits: int = Field(default=30, gt=0)
+    log_level: str = "INFO"
     api_admin_key: str | None = Field(default=None, repr=False, exclude=True)
     weather_url: str = "https://api.open-meteo.com/v1/forecast"
     weather_timeout_s: float = Field(default=3.0, gt=0, allow_inf_nan=False)
-    campus_lat: float = Field(default=10.7626, ge=-90, le=90)
-    campus_lon: float = Field(default=106.6822, ge=-180, le=180)
+    weather_retries: int = Field(default=1, ge=0)
+    weather_cache_ttl_s: float = Field(default=600.0, ge=0, allow_inf_nan=False)
+    campus_lat: float = Field(default=10.7626, ge=-90, le=90, allow_inf_nan=False)
+    campus_lon: float = Field(default=106.6822, ge=-180, le=180, allow_inf_nan=False)
     rate_limit_per_min: int = Field(default=30, gt=0)
-    log_level: str = "INFO"
 
-    @field_validator("credit_rate_vnd", "max_credits", "rate_limit_per_min", mode="before")
+    @field_validator("credit_rate_vnd", "max_credits", "weather_retries", "rate_limit_per_min", mode="before")
     @classmethod
     def validate_integer(cls, value: object) -> object:
         """Reject decimal environment strings instead of silently coercing them."""
         if isinstance(value, str):
             return int(value)
+        return value
+
+    @field_validator("weather_url")
+    @classmethod
+    def validate_weather_url(cls, value: str) -> str:
+        url = TypeAdapter(AnyHttpUrl).validate_python(value)
+        if url.username or url.password or url.fragment:
+            raise ValueError("weather_url must not contain credentials or a fragment")
+        return str(url)
+
+    @field_validator("api_admin_key")
+    @classmethod
+    def validate_admin_key(cls, value: str | None) -> str | None:
+        if value is not None and not value.strip():
+            raise ValueError("api_admin_key must not be blank")
         return value
 
     @field_validator("log_level")
@@ -67,6 +84,8 @@ def load_settings(env_file: str | Path | None = ".env") -> Settings:
             api_admin_key=os.getenv("API_ADMIN_KEY") or None,
             weather_url=os.getenv("WEATHER_URL", "https://api.open-meteo.com/v1/forecast"),
             weather_timeout_s=os.getenv("WEATHER_TIMEOUT_S", "3"),
+            weather_retries=os.getenv("WEATHER_RETRIES", "1"),
+            weather_cache_ttl_s=os.getenv("WEATHER_CACHE_TTL_S", "600"),
             campus_lat=os.getenv("CAMPUS_LAT", "10.7626"),
             campus_lon=os.getenv("CAMPUS_LON", "106.6822"),
             rate_limit_per_min=os.getenv("RATE_LIMIT_PER_MIN", "30"),

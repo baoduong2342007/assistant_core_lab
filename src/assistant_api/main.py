@@ -1,9 +1,11 @@
-"""Study assistant HTTP API. Run: uvicorn assistant_api.main:create_app --factory."""
+"""Lab04 HTTP adapter. Run: uvicorn assistant_api.main:create_app --factory --reload."""
 
 from __future__ import annotations
 
 import uuid
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from secrets import compare_digest
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -18,26 +20,47 @@ from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.responder import StubLLMResponder, TemplateResponder
 
 
+def build_service(settings: Settings) -> AssistantService:
+    """Wire the existing Lab03 core without copying or replacing its logic."""
+    responder = StubLLMResponder() if settings.llm_provider == "stub" else TemplateResponder()
+    return AssistantService(
+        settings,
+        OfficeDirectory.from_csv(settings.data_dir / "offices.csv"),
+        Handbook.from_json(settings.data_dir / "handbook.json"),
+        responder,
+    )
+
+
 def create_app(
     settings: Settings | None = None, service: AssistantService | None = None, weather: WeatherClient | None = None
 ) -> FastAPI:
     settings = settings or load_settings()
-    if service is None:
-        responder = StubLLMResponder() if settings.llm_provider == "stub" else TemplateResponder()
-        service = AssistantService(
-            settings,
-            OfficeDirectory.from_csv(settings.data_dir / "offices.csv"),
-            Handbook.from_json(settings.data_dir / "handbook.json"),
-            responder,
-        )
+    service = service or build_service(settings)
+    owns_weather = weather is None
     weather = weather or WeatherClient(
-        settings.weather_url, settings.campus_lat, settings.campus_lon, timeout_s=settings.weather_timeout_s
+        settings.weather_url,
+        settings.campus_lat,
+        settings.campus_lon,
+        timeout_s=settings.weather_timeout_s,
+        retries=settings.weather_retries,
+        cache_ttl_s=settings.weather_cache_ttl_s,
     )
     limiter = RateLimiter(settings.rate_limit_per_min)
     feedback_store: list[FeedbackOut] = []  # Lab 5 replaces this with a database
 
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        try:
+            yield
+        finally:
+            if owns_weather:
+                weather.close()
+
     app = FastAPI(
-        title="Study Assistant API", version="1.0.0", description="Backend of the CSC10014 Smart Virtual Assistant."
+        title="Study Assistant API",
+        version="1.0.0",
+        description="Backend of the CSC10014 Smart Virtual Assistant.",
+        lifespan=lifespan,
     )
 
     def error(code: int, key: str, message: str) -> JSONResponse:
@@ -54,11 +77,15 @@ def create_app(
         return error(exc.status_code, str(exc.detail).lower().replace(" ", "_"), str(exc.detail))
 
     def require_admin(
-        x_api_key: str | None = Header(default=None, alias="X-API-Key"),
+        x_api_key: str | None = Header(default=None),
         x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
     ) -> None:
-        key = x_api_key or x_admin_key
-        if not settings.api_admin_key or key != settings.api_admin_key:
+        x_api_key = x_api_key or x_admin_key
+        if (
+            not settings.api_admin_key
+            or not x_api_key
+            or not compare_digest(x_api_key.encode("utf-8"), settings.api_admin_key.encode("utf-8"))
+        ):
             raise HTTPException(status.HTTP_401_UNAUTHORIZED, "Missing or invalid API key")
 
     @app.get("/health", tags=["ops"])

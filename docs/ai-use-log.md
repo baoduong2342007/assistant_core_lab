@@ -12,6 +12,7 @@ In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.1
 | 2026-10-24 | Quyền (`pqquyenn`) | Knowledge Loaders | Antigravity AI | Office CSV & Handbook JSON parser classes | Wrapped file/schema errors in `DataError`, implemented case-insensitive matching |
 | 2026-10-24 | Minh (`luongnhatinh`) | Deterministic Tools & CI Workflow | Antigravity AI | Parsing regex for credits, GitHub Actions YAML | Added negative number rejection, matrix testing across Python 3.10 and 3.12 |
 | 2026-10-24 | Bảo (`simble2k`) | Domain Models & Error Hierarchy | Antigravity AI | Pydantic models and Exception classes | Added `Field(default_factory=list)` to avoid mutable default sharing, whitespace rejection |
+| 2026-11-01 | Minh (`luongnhatinh`) | Lab 04 REST API, CI, H1 & Reflection | Antigravity AI | Scaffolding FastAPI routes, Pydantic schemas, sorting offices, unit tests | Verified with pytest, curl script, Swagger /docs, and manual code inspection |
 
 ## PR #1 required-check repair — 2026-10-24
 
@@ -109,3 +110,114 @@ Người thực hiện: **Phan Quỳnh Quyền (pqquyenn)**. Hỗ trợ bởi **
 ## Minh H1 feature — 2026-10-30
 
 Minh implemented the `--credit-rate` CLI override option allowing users to override `settings.credit_rate_vnd` for single runs and interactive sessions. AI coding assistant (Antigravity AI) was used to scaffold CLI arguments and initial proposals. Minh manually audited the code and made three concrete improvements: kept `tuition()` pure by passing overrides via `Settings` at the CLI boundary, rejected non-positive credit rates with non-zero exits, and preserved session isolation. Dedicated test suite added in `tests/test_h1_credit_rate.py`. Report documented in `docs/lab3/luongnhatinh/ai_extension_review.md`.
+
+
+## Trần Quốc Huy — nộp H2 qua GitHub PR #41 (02/11/2026)
+
+Huy yêu cầu nộp bài và chọn rõ “Nộp qua PR #41 trên GitHub”. Codex giữ nội dung H2
+hiện tại đúng 5 dòng, cập nhật hồ sơ/PR để gửi review, giữ ghi nhận AI hỗ trợ.
+Đây là chỉ định nộp bản hiện tại; không khẳng định Huy tự viết, đã tự đọc/diễn đạt lại,
+đã có peer approval hoặc đã nộp LMS.
+
+
+
+## Trần Quốc Huy — Lab04 (01/11/2026)
+
+Theo yêu cầu “Làm phần của Trần Quốc Huy”, Codex đọc PLAN_TUAN4 và main thực tế,
+dùng scaffold/học liệu chính thức tại a848a96, triển khai P1–P5, T1–T4, H1 cá nhân,
+Settings/env/admin auth và các test config/weather bằng MockTransport/clock giả.
+Codex hỗ trợ toàn bộ code, tests, contract, bản nháp reflection, Git và minh chứng curl/Swagger;
+các phần AI tạo được giữ lại và disclose. Core nhóm tuần 3 và fixtures chung được bảo toàn.
+
+Kết quả local Python 3.11.16: 274 passed, 1 skipped bonus; practice 5 passed;
+Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng status.
+Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
+Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
+
+In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
+
+
+
+## 2026-11-03 — Dương-requested correction of Huy PR41
+
+At Dương's request, Codex enabled Part F for chat, removed the Lab04 rate-limit
+skip, and restored the Week 3 tests/test_config.py byte-for-byte. API configuration
+cases and their environment fixture now live in tests/test_api_config.py.
+RateLimiter uses a lock for concurrent chat handlers. These corrections are
+AI-assisted, not claimed as Huy's independent manual work.
+
+
+
+
+## Bảo (`simble2k`) — Lab 04 REST API, Schemas & Feedback (2026-11-01)
+
+Code owner: **Phạm Quốc Bảo (`simble2k`)**. Antigravity AI hỗ trợ triển khai cấu trúc schemas, validation (đặc biệt là lọc chuỗi toàn khoảng trắng cho `POST /v1/chat` và ràng buộc rating cho feedback), endpoints T1–T4, H1 `OfficeDirectory.all()`, bộ fixtures kiểm thử độc lập trong `tests/test_api.py`, tài liệu `docs/lab4/api_contract.md` và dàn ý reflection.
+Bảo đã trực tiếp kiểm tra mã nguồn, chạy kiểm thử cục bộ (`pytest -q`, `ruff check`, `ruff format`), xác minh kết quả curl script và đối chiếu Swagger UI.
+
+On 2026-11-02, following updated homework guidance designating Part F rate limiting as required for team submission, Antigravity AI assisted in implementing thread-safe rate limiting on `POST /v1/chat`, unskipping unit test coverage, adding client isolation and sliding window expiry tests, and handling upstream malformed weather JSON payloads without modifying Week 3 tests. Bảo verified all 231 pytest unit tests, Ruff lint and format checks locally.
+
+On 2026-11-02 (follow-up review P2 fix), following peer review by Dương (`baoduong2342007`) on PR #39, Antigravity AI assisted in preventing non-finite numbers (NaN, Infinity, -Infinity) from entering the weather cache by configuring `Field(allow_inf_nan=False)` on `Weather` schema and adding explicit `math.isfinite()` validation in `WeatherClient.current()`. Non-finite values are caught, triggering upstream retries, falling back to stale cache if present (HTTP 200 stale), or raising `ExternalServiceError` (HTTP 503) without crashing serialization (HTTP 500). Added regression tests for both cached and non-cached scenarios (236 passed, 0 skipped).
+
+
+
+
+
+## 2026-11-03 — Dương-requested correction of Bảo PR39
+
+At Dương's request, Codex validated all required upstream fields before caching,
+including time/weather_code, and added 18 Lab04 regressions for invalid payloads
+with/without a stale cache. Missing metadata now follows retry/503 or stale-cache
+fallback. This correction is AI-assisted; no independent manual work is claimed.
+Existing Week 3 tests are unchanged.
+
+
+
+
+
+
+## Dương — Lab04 API (2026-11-01)
+
+At Dương's request, Codex adapted the public Lab04 starter and warm-up, wired the
+existing Lab03 core into FastAPI, implemented chat, feedback, weather and offices,
+added tests, extended CI and wrote the API contract. Source: CSC10014
+public_materials commit a848a96d44876d4baee5eabe645114cf56d0b82f. Local checks:
+223 passed and 1 optional skip before the added settings test; the focused API and
+practice run passed 17 tests with 1 optional skip. Ruff checks passed; the curl log
+is in docs/lab4/curl-results.txt. GitHub CI passed on Python 3.10 and 3.12. Dương
+must review and explain the work and write the required personal reflection. No
+human review, hours, LMS submission or group approval are claimed.
+
+Codex also captured the Swagger chat screenshot and wrote the five-line reflection in docs/lab4/baoduong2342007/reflection.md; it is AI-written and Dương should review and personalize it before submission.
+
+On 2026-11-01, after Dương supplied the updated homework instruction requiring Part F, Codex enabled the chat rate limit and updated Lab04 tests and documentation. Existing Week 3 tests were not modified.
+
+
+
+
+
+
+
+## 2026-11-02 — Dương weather correction and assisted review
+
+Codex validated the upstream weather structure and finite numeric values before caching, added 14 regression cases in a new Lab04 test file, and ran the full suite: 240 passed; practice: 5 passed; Ruff lint/format passed. Week 3 tests were not edited. Codex also inspected PR39 head e253d54 and ran focused API/practice checks (24 passed), finding a remaining non-finite-temperature serialization failure; see docs/lab4/baoduong2342007/review-bao.md. No human approval or LMS submission is asserted.
+
+
+
+
+
+
+
+
+## 2026-11-03 — Dương-requested correction of Minh PR35
+
+At Dương's request, Codex validated the upstream weather payload before caching,
+including finite temperature and wind values, and added 14 Lab04 regression cases
+for 503 and stale-cache fallback. This assisted correction is not attributed as
+Minh's independent manual work. Existing Week 3 tests are unchanged.
+
+
+
+
+
+
+
