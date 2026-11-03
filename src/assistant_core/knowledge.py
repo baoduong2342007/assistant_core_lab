@@ -47,14 +47,14 @@ class OfficeDirectory:
     def names(self) -> set[str]:
         return set(self._offices.keys())
 
+    def all(self) -> list[Office]:
+        """Return all office objects as a list sorted alphabetically by name."""
+        return sorted(self._offices.values(), key=lambda o: o.name)
+
     def find(self, text: str) -> Office | None:
         """Find the first matching office whose name appears in text (case-insensitive)."""
         t = text.lower()
         return next((o for name, o in self._offices.items() if name in t), None)
-
-    def all(self) -> list[Office]:
-        """Return a new list of the loaded offices sorted by name (Lab04 H1)."""
-        return sorted(self._offices.values(), key=lambda office: office.name)
 
 
 class Handbook:
