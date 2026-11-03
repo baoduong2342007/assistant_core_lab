@@ -15,10 +15,10 @@ class ChatRequest(BaseModel):
 
     @field_validator("message")
     @classmethod
-    def validate_message(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError("String should have at least 1 character")
-        return v
+    def nonblank_message(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("message cannot be blank")
+        return value
 
 
 class ChatResponse(BaseModel):
@@ -41,8 +41,8 @@ class FeedbackOut(FeedbackIn):
 
 
 class Weather(BaseModel):
-    temperature_c: float
-    wind_kmh: float
+    temperature_c: float = Field(allow_inf_nan=False)
+    wind_kmh: float = Field(allow_inf_nan=False)
     description: str
     observed_at: str
     stale: bool = False  # True when served from cache after an upstream failure

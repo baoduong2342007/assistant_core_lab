@@ -13,6 +13,8 @@ INVALID = [
     {"current": None},
     {"current": []},
     {"current": {}},
+    {"current": {"temperature_2m": 30, "wind_speed_10m": 5}},
+    {"current": {"time": "2026-11-03T10:00", "temperature_2m": 30, "wind_speed_10m": 5}},
     {"current": {"time": "now", "temperature_2m": 30, "wind_speed_10m": 5, "weather_code": []}},
     {"current": {"time": "now", "temperature_2m": "NaN", "wind_speed_10m": 5, "weather_code": 3}},
 ]
