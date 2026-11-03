@@ -47,6 +47,10 @@ class OfficeDirectory:
     def names(self) -> set[str]:
         return set(self._offices.keys())
 
+    def all(self) -> list[Office]:
+        """Return all office objects as a list sorted alphabetically by name."""
+        return sorted(self._offices.values(), key=lambda o: o.name)
+
     def find(self, text: str) -> Office | None:
         """Find the first matching office whose name appears in text (case-insensitive)."""
         t = text.lower()

@@ -31,11 +31,12 @@ jobs:
 
       - name: Check for unresolved conflict markers
         run: |
-          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/
+          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ practice/
 
       - name: Run Pytest suite
         run: |
           python -m pytest -q
+          python -m pytest -q practice/test_hello_api.py
 
       - name: Check code with Ruff
         run: |
