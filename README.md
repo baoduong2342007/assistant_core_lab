@@ -81,3 +81,8 @@ Chạy `python -m pytest -q`, `python -m pytest -q practice/` và `bash api-test
 Terminal curl phải đặt `API_ADMIN_KEY` giống server; script không đọc `.env` và chỉ in status,
 nên cần đối chiếu từng kết quả. Đọc [contract](docs/lab4/api_contract.md),
 [bàn giao Huy](docs/lab4/tqhuy0602/status.md) và [cấu hình/weather](docs/lab4/tqhuy0602/weather-checks.md).
+
+
+## List loaded handbook rules
+
+Run `python -m assistant_core --list-rules` to list titles in handbook order. Add `--show-sources` for IDs or `--json` for structured output. An empty handbook has an explicit result. Listing does not call the provider or search, and cannot be combined with a query.

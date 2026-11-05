@@ -29,6 +29,17 @@ class AssistantService:
         self.responder = responder
         self.fallback = TemplateResponder()
 
+    def list_rules(self) -> Response:
+        """List the loaded handbook titles in their original order."""
+        rules = self.handbook.rules
+        titles = [rule.title for rule in rules]
+        return Response(
+            answer="\n".join(f"- {title}" for title in titles) if titles else "No handbook rules available.",
+            intent=Intent.RULE,
+            sources=[Source(id=rule.id, title=rule.title) for rule in rules],
+            degraded=False,
+        )
+
     def handle(self, msg: Message) -> Response:
         """Process an incoming user message and return a structured Response."""
         intent = route(msg.text, self.offices.names)
