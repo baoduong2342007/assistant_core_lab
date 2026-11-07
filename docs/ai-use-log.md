@@ -248,3 +248,7 @@ Minh's independent manual work. Existing Week 3 tests are unchanged.
 ## 2026-11-03 — Dương requested remaining repository closeout
 
 Codex synchronized PR31 with the integrated Lab04 main, retained --list-rules and its tests, corrected the false frozen-Rule claim, and rewrote Dương’s H1 report around the actual --show-sources feature. Reports describe assisted implementation and do not invent owner reading or independent AI review. LMS submission is handled by Dương.
+
+## 2026-11-07 — Lab05 integration preparation
+
+Codex prepared the SQLModel dependency and a draft API/repository integration contract for Dương. The database and configuration implementations and the API wiring remain to be completed and reviewed by the team.
