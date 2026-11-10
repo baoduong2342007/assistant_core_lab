@@ -9,3 +9,7 @@ app.log
 *.egg-info/
 dist/
 build/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
