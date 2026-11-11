@@ -1,6 +1,6 @@
 # Review notes — Lab 5
 
-Reviewed PR #45 at `9f4c7fbd358c0c84c349dece4a5c88cec3207c1f` and PR #46 at `1f49c5458cae166bcf9076837aa72d71bac5cdeb`. These are local review notes, not reviews submitted on GitHub.
+Reviewed PR #45 at `9f4c7fbd358c0c84c349dece4a5c88cec3207c1f` and PR #46 at `1f49c5458cae166bcf9076837aa72d71bac5cdeb`. Changes-requested reviews were submitted on GitHub: [PR #45](https://github.com/baoduong2342007/assistant_core_lab/pull/45#pullrequestreview-5859811621) and [PR #46](https://github.com/baoduong2342007/assistant_core_lab/pull/46#pullrequestreview-5859810836).
 
 ## PR #46 — changes requested
 

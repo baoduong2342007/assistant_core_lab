@@ -9,4 +9,4 @@ This branch locally merges Bảo’s PR #46 as an integration dependency. The PR
 - `SESSION_SALT` must be set to a private, stable value for a real deployment. The built-in default is for local exercises only.
 - The current resolved flag follows the starter convention of marking non-unknown intents resolved. A fee request rejected by core validation can still be labeled resolved; the core response does not expose success explicitly. Agree on a richer outcome contract before interpreting this statistic.
 
-Review notes are in `review-prs.md`. No PR merge, remote review, tag, or LMS submission is claimed.
+Review notes are in `review-prs.md`; changes-requested reviews were submitted on PRs #45 and #46. No PR merge, tag, or LMS submission is claimed.
