@@ -1,6 +1,7 @@
 # Lương Nhật Minh (`luongnhatinh`) — Lab05 Status Report
 
 Ngày thực hiện: **10/11/2026 (Asia/Ho_Chi_Minh)**.  
+Cập nhật xử lý review: **11/11/2026 (Asia/Ho_Chi_Minh)**.  
 Nhánh làm việc: `feat/lab05-practice-ci-minh`.  
 Base commit (`origin/main`): `e46849399c9c179f65e55b466ee7230fe69de344`.
 
@@ -32,7 +33,10 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
 - Chạy `python practice/check.py`: **Score: 15/15** tuyệt đối.
 - Cải tiến `check.py` để thoát với exit code `1` nếu `score < len(ref)` (15), giúp CI có thể chặn đứng các commit chưa đạt điểm tối đa.
 
-### C. Scripts & Migrations
+### C. Scripts & Migrations (Đã nâng cấp Atomic Rollback)
+- Nâng cấp `scripts/migrate.py`:
+  - Thay thế cách gọi `with con: con.executescript()` (vốn tự động commit trước script trong Python `sqlite3`, dẫn đến nguy cơ không rollback được các câu lệnh DDL trước đó khi có lỗi giữa chừng).
+  - Sử dụng hàm chuẩn thư viện `sqlite3.complete_statement` để phân tách từng câu lệnh SQL và quản lý giao dịch hiển thị `con.execute("BEGIN IMMEDIATE") ... con.execute("COMMIT")`. Khi gặp lỗi, script kích hoạt `con.execute("ROLLBACK")` để hoàn nguyên toàn bộ DDL đã thực thi của file đó và không cập nhật `schema_version`.
 - Chạy `python scripts/migrate.py assistant-analysis.db` lần 1:
   ```text
   apply 001_init.sql
@@ -43,7 +47,8 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
   skip  001_init.sql
   skip  002_add_faq.sql
   ```
-  => Đảm bảo tính idempotent, không bị ghi đè hay lỗi trùng lặp khi chạy lại.
+  => Đảm bảo tính idempotent và an toàn giao dịch tuyệt đối khi chạy lại.
+- Bổ sung bộ test tự động [tests/test_migrate.py](file:///tests/test_migrate.py) đạt **3/3 passed** (kiểm chứng split statements, migration áp dụng & bỏ qua, và kiểm chứng rollback nguyên tử khi file SQL bị lỗi cú pháp giữa chừng).
 - Chạy `python scripts/seed.py assistant-analysis.db 300`:
   - Seed thành công 300 interactions, 59 chat sessions và 96 feedback records.
   - Script hỗ trợ cơ chế fallback an toàn sang `sqlite3` thuần khi môi trường chưa cấu hình SQLModel.
@@ -73,7 +78,8 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
 
 | Lệnh kiểm tra | Kết quả ghi nhận | Trạng thái |
 |---|---|:---:|
-| `python -m pytest -q` | 322 passed, 1 warning (Starlette deprecation) | PASS |
+| `python -m pytest -q` | 325 passed (bao gồm cả `test_migrate.py`), 1 warning | PASS |
+| `python -m pytest -q tests/test_migrate.py` | 3 passed (atomic rollback & idempotency) | PASS |
 | `python -m pytest -q practice/test_school_repo.py` | 5 passed (100% test Part D) | PASS |
 | `python -m pytest -q practice/test_hello_api.py` | 5 passed (giữ vững hồi quy Lab04) | PASS |
 | `python practice/make_school_db.py` | Tạo `students` (8), `courses` (5), `enrollments` (17) | PASS |
@@ -82,7 +88,7 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
 | `python scripts/migrate.py assistant-analysis.db` (lần 2) | skip `001_init.sql`, skip `002_add_faq.sql` | PASS |
 | `python scripts/seed.py assistant-analysis.db 300` | seeded 300 interactions | PASS |
 | `python -m ruff check .` | All checks passed! | PASS |
-| `python -m ruff format --check .` | 96 files already formatted | PASS |
+| `python -m ruff format --check .` | 99 files already formatted | PASS |
 
 ---
 
@@ -96,7 +102,19 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
 
 ---
 
-## 5. Danh mục file đã thực hiện trong nhánh
+## 5. Tiếp thu và Xử lý Đóng góp Peer Review trên GitHub
+
+Tại PR [#45](https://github.com/baoduong2342007/assistant_core_lab/pull/45), nhóm đã tiến hành review chéo:
+1. **Phạm Quốc Bảo (`simble2k`):** Đã kiểm tra độc lập và **APPROVED** bài làm.
+2. **Trương Quang Bảo Dương (`baoduong2342007`):** Đã chỉ ra 2 điểm kỹ thuật cần điều chỉnh và yêu cầu cập nhật:
+   - *Yêu cầu 1 (Báo cáo H2):* Tránh suy diễn nhân quả về thời gian tra handbook hay nhu cầu thực tế của sinh viên từ dữ liệu giả lập sinh bởi `seed.py`.
+     $\rightarrow$ **Đã xử lý:** Đã viết lại mục 3 của `docs/lab5/luongnhatinh/h2-result.md`, xác định rõ đây là *synthetic simulation data*, tập trung phân tích đối chiếu giữa kết quả tổng hợp SQL với các tham số phân phối xác suất ngẫu nhiên (`PLAN`, `WEIGHTS`, `random.gauss`) của generator để chứng minh độ chính xác logic của câu truy vấn.
+   - *Yêu cầu 2 (Migration Rollback & Atomicity):* `executescript()` trong `with con` không đảm bảo rollback nguyên tử cho DDL khi có lỗi giữa chừng.
+     $\rightarrow$ **Đã xử lý:** Nâng cấp `scripts/migrate.py` bóc tách từng câu lệnh qua `sqlite3.complete_statement` và bọc trong transaction `BEGIN IMMEDIATE` / `ROLLBACK`. Đồng thời viết mới file test `tests/test_migrate.py` kiểm chứng trường hợp script lỗi giữa chừng thì toàn bộ bảng tạm đều được rollback hoàn nguyên sạch sẽ.
+
+---
+
+## 6. Danh mục file cập nhật trong nhánh
 
 - `practice/school.sql`
 - `practice/make_school_db.py`
@@ -105,14 +123,15 @@ Căn cứ Mục 4 và Mục 8 của kế hoạch:
 - `practice/my_answers.sql` (Q1–Q15)
 - `practice/check.py` (cải tiến exit code validation)
 - `practice/expected.json`
-- `scripts/migrate.py`
+- `scripts/migrate.py` (nâng cấp atomic rollback)
 - `scripts/seed.py`
 - `sql/migrations/001_init.sql`
 - `sql/migrations/002_add_faq.sql`
 - `sql/bad_schema.sql`
 - `sql/my_queries.sql`
 - `.github/workflows/ci.yml`
-- `.gitignore` (bổ sung bỏ qua file DB SQLite)
+- `.gitignore`
+- `tests/test_migrate.py` (kiểm chứng migration atomic rollback & idempotency)
 - `docs/lab5/luongnhatinh/status.md`
 - `docs/lab5/luongnhatinh/sql-check.txt`
 - `docs/lab5/luongnhatinh/tests.txt`
