@@ -252,3 +252,12 @@ Codex synchronized PR31 with the integrated Lab04 main, retained --list-rules an
 ## 2026-11-07 — Lab05 integration preparation
 
 Codex prepared the SQLModel dependency and a draft API/repository integration contract for Dương. The database and configuration implementations and the API wiring remain to be completed and reviewed by the team.
+## 2026-11-10 — Bảo (`simble2k`) Lab 05 Persistence & Database Implementation
+
+Phạm Quốc Bảo used Antigravity AI to plan and scaffold the Lab 05 database persistence layer according to `PLAN_TUAN5.md`.
+Implemented `src/assistant_api/db.py` (SQLModel models `ChatSession`, `Interaction`, `Feedback`, helper methods, and `Repository` with R1 `add_feedback` and R2 `list_feedback`).
+Created unit tests in `tests/test_lab5_db.py` and restart persistence verification in `tests/test_lab5_persistence.py`.
+Configured `sqlmodel>=0.0.22` in `pyproject.toml` and `requirements.txt`.
+Verified all 331 pytest test cases, Ruff lint/formatting, SQL practice answers (15/15), and school repository tests (5/5).
+Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and compiled H3 schema analysis in `docs/lab5/simble2k/status.md`.
+
