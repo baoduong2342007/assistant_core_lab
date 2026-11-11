@@ -261,3 +261,7 @@ Configured `sqlmodel>=0.0.22` in `pyproject.toml` and `requirements.txt`.
 Verified all 331 pytest test cases, Ruff lint/formatting, SQL practice answers (15/15), and school repository tests (5/5).
 Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and compiled H3 schema analysis in `docs/lab5/simble2k/status.md`.
 
+
+## 2026-11-11 — Lab05 API integration
+
+Codex integrated the API on Dương’s local branch using Bảo’s PR #46, provisionally added configuration pending Huy’s work, repaired a concurrent first-session insertion race, added integration tests and reviewed PRs #45 and #46. Personal practice snapshots were adapted from Minh’s PR #45 and are labeled accordingly. Validation and remaining limitations are recorded in `docs/lab5/baoduong2342007/`.

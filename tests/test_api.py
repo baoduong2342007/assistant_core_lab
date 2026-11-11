@@ -45,7 +45,8 @@ def test_rate_limit(client):
 
 
 def test_feedback_roundtrip(client):
-    r = client.post("/v1/feedback", json={"request_id": "abc123", "rating": 1})
+    request_id = client.post("/v1/chat", json={"message": "hi"}).json()["request_id"]
+    r = client.post("/v1/feedback", json={"request_id": request_id, "rating": 1})
     assert r.status_code == 201 and r.json()["id"] == 1
     assert client.get("/v1/feedback").status_code == 401
     listed = client.get("/v1/feedback", headers={"X-API-Key": "secret-admin"})
@@ -140,10 +141,11 @@ def test_offices_include_library_and_sorted_core_data(client, service):
 
 
 def test_feedback_rating_valid_boundaries(client):
-    r_down = client.post("/v1/feedback", json={"request_id": "req-down", "rating": -1})
+    request_id = client.post("/v1/chat", json={"message": "hi"}).json()["request_id"]
+    r_down = client.post("/v1/feedback", json={"request_id": request_id, "rating": -1})
     assert r_down.status_code == 201 and r_down.json()["rating"] == -1
 
-    r_neutral = client.post("/v1/feedback", json={"request_id": "req-neutral", "rating": 0})
+    r_neutral = client.post("/v1/feedback", json={"request_id": request_id, "rating": 0})
     assert r_neutral.status_code == 201 and r_neutral.json()["rating"] == 0
 
 

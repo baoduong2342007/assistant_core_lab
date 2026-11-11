@@ -1,0 +1,1 @@
+Personal snapshot, checked against PR #45 practice checker: Q1-Q15 OK, score 15/15.
