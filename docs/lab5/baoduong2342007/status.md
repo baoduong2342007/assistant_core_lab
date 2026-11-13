@@ -1,6 +1,6 @@
-# Lab 5 — Dương: integration status (11 November 2026)
+# Lab 5 — Dương: integration status (13 November 2026)
 
-This branch locally merges Bảo’s PR #46 as an integration dependency. The PR remains open upstream and its concurrency bug was fixed on this integration branch; the fix still needs review by the owner. Huy’s dedicated configuration PR has not been published; the settings in this branch are provisional and must be reconciled with his work.
+PRs #45–#48 have been merged into main. This branch incorporates the current main and integrates the API with the team’s persistence, configuration, practice, and SQL work. PR #44 remains subject to review and CI before merging.
 
 - API records interaction metadata, links chat request IDs to feedback, serves feedback and stats with admin authentication, and accepts injected repositories.
 - A file-backed test and a real server stop/start confirmed feedback persistence.
@@ -10,4 +10,4 @@ This branch locally merges Bảo’s PR #46 as an integration dependency. The PR
 - `SESSION_SALT` must be set to a private, stable value for a real deployment. The built-in default is for local exercises only.
 - The current resolved flag follows the starter convention of marking non-unknown intents resolved. A fee request rejected by core validation can still be labeled resolved; the core response does not expose success explicitly. Agree on a richer outcome contract before interpreting this statistic.
 
-Review notes are in `review-prs.md`; changes-requested reviews were submitted on PRs #45 and #46. No PR merge, tag, or LMS submission is claimed.
+Review notes are in `review-prs.md`. The final integration PR has not yet been merged or tagged, and no LMS submission is claimed.
