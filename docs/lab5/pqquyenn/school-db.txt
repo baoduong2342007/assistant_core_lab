@@ -1,0 +1,3 @@
+students     8 rows
+courses      5 rows
+enrollments  17 rows

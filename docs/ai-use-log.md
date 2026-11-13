@@ -1,5 +1,18 @@
 # AI Use Disclosure Log
 
+## 2026-11-13 — Quyền Lab05 SQL and data analysis
+
+At the user's request, Codex read Plan 05 and the public Lab05 materials pinned at
+`d795a1a09f430d83b0c69b45da1689984a1254b5`, implemented Q1–Q15 and F1–F3/H2,
+added SQL semantic tests, personal D1–D3/R1–R2 snapshots and a reproducible runner,
+and wrote query results, a data-model worksheet and assisted review notes for Huy.
+SQL checker: 15/15; full suite: 328 passed; Lab04 practice: 5 passed; personal
+D1–D3: 5 passed; personal R1–R2: 4 passed; Ruff lint/format passed. Synthetic seed
+created 300 interactions, 96 feedback and 59 sessions. Quyền must review/explain
+the work and review notes before submission. No human approval, GitHub PR/CI,
+API restart demo on integrated main or LMS submission is claimed. See
+[Lab05 evidence](lab5/pqquyenn/status.md).
+
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 ## Log Entries
