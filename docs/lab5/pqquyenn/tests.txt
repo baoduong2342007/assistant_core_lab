@@ -1,0 +1,36 @@
+Lab05 / Phan Quynh Quyen (pqquyenn) / 2026-11-13 Asia/Bangkok
+Summary of commands actually run, not a verbatim combined terminal log.
+Windows PowerShell; Python 3.11.9; pytest 8.3.3; Ruff 0.6.9;
+SQLModel 0.0.22; SQLAlchemy 2.0.57; Pydantic 2.9.2.
+Base: origin/main e46849399c9c179f65e55b466ee7230fe69de344.
+
+python -m pytest -q
+328 passed, 1 warning (19.28s), including 6 SQL semantic tests.
+
+python -m pytest -q practice/test_hello_api.py
+5 passed, 1 warning (0.38s).
+
+python -m ruff check .
+All checks passed!
+
+python -m ruff format --check .
+47 files already formatted.
+
+python docs/lab5/pqquyenn/verify.py <public_materials/lab05>
+Official checker: Score: 15/15
+Official test_school_repo.py + personal D1-D3: 5 passed
+Personal R1-R2 tests + official starter models: 4 passed
+Migration first run: apply 001_init.sql, apply 002_add_faq.sql
+Migration second run: skip 001_init.sql, skip 002_add_faq.sql
+Seed: 300 interactions, 59 sessions, 96 feedback
+F1/F2/F3/H2 shapes: 5x2 / 5x2 / 3x2 / 5x6
+
+Repeated with --db-source <Bao db.py at 1f49c5458cae166bcf9076837aa72d71bac5cdeb>:
+15/15; practice 5 passed; R1-R2 4 passed; same aggregate query results.
+Adjacent per-step *.txt logs are stdout from this compatibility run,
+with trailing spaces stripped for Git whitespace checks.
+
+Existing warning: Starlette TestClient uses deprecated anyio.abc.BlockingPortal.
+No API persistence integration or remote GitHub CI result is claimed.
+Personal restart test disposes one engine and reads feedback using a second
+engine on the same temporary file. This is not a live HTTP server restart demo.

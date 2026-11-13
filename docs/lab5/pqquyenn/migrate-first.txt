@@ -1,0 +1,2 @@
+apply 001_init.sql
+apply 002_add_faq.sql
