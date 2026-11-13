@@ -144,6 +144,10 @@ Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng 
 Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
 Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
 
+## 2026-11-13 — Huy Lab05 config, privacy and personal practice
+
+Codex used the Lab05 public materials at `d795a1a` to implement configuration, privacy checks, personal Q1–Q15/D1–D3/R1–R2, the H2 query and privacy notes for H3. It ran the original school checker and tests, exercised R1/R2 with the starter, verified the API integration and Uvicorn restart, and drafted local review notes for PR #44. The code, test evidence and notes under [Huy's Lab05 work](lab5/tqhuy0602/status.md) are AI-assisted and have no recorded independent human review.
+
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 
