@@ -157,6 +157,10 @@ Ruff lint/format/BLE đạt; curl thật và POST chat qua Swagger trả đúng 
 Chưa nhận Huy tự viết/đọc reflection, tự review hoặc đã nộp LMS.
 Chi tiết và các mục cần xác nhận ở `docs/lab4/tqhuy0602/status.md`.
 
+## 2026-11-13 — Huy Lab05 config, privacy and personal practice
+
+Codex used the Lab05 public materials at `d795a1a` to implement configuration, privacy checks, personal Q1–Q15/D1–D3/R1–R2, the H2 query and privacy notes for H3. It ran the original school checker and tests, exercised R1/R2 with the starter, verified the API integration and Uvicorn restart, and drafted local review notes for PR #44. The code, test evidence and notes under [Huy's Lab05 work](lab5/tqhuy0602/status.md) are AI-assisted and have no recorded independent human review.
+
 In accordance with course guidelines and the Git & GitHub tutorial (Chapter 18.11), all AI assistant interactions used for scaffolding, refactoring, and code analysis are recorded below.
 
 
@@ -261,3 +265,13 @@ Minh's independent manual work. Existing Week 3 tests are unchanged.
 ## 2026-11-03 — Dương requested remaining repository closeout
 
 Codex synchronized PR31 with the integrated Lab04 main, retained --list-rules and its tests, corrected the false frozen-Rule claim, and rewrote Dương’s H1 report around the actual --show-sources feature. Reports describe assisted implementation and do not invent owner reading or independent AI review. LMS submission is handled by Dương.
+
+## 2026-11-10 — Bảo (`simble2k`) Lab 05 Persistence & Database Implementation
+
+Phạm Quốc Bảo used Antigravity AI to plan and scaffold the Lab 05 database persistence layer according to `PLAN_TUAN5.md`.
+Implemented `src/assistant_api/db.py` (SQLModel models `ChatSession`, `Interaction`, `Feedback`, helper methods, and `Repository` with R1 `add_feedback` and R2 `list_feedback`).
+Created unit tests in `tests/test_lab5_db.py` and restart persistence verification in `tests/test_lab5_persistence.py`.
+Configured `sqlmodel>=0.0.22` in `pyproject.toml` and `requirements.txt`.
+Verified all 331 pytest test cases, Ruff lint/formatting, SQL practice answers (15/15), and school repository tests (5/5).
+Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and compiled H3 schema analysis in `docs/lab5/simble2k/status.md`.
+

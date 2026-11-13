@@ -15,6 +15,8 @@ def isolated_environment(monkeypatch):
     """Use a private environment copy so dotenv cannot leak between tests."""
     monkeypatch.setattr(os, "environ", os.environ.copy())
     for name in (
+        "DATABASE_URL",
+        "SESSION_SALT",
         "ASSISTANT_DATA_DIR",
         "LLM_PROVIDER",
         "LLM_API_KEY",

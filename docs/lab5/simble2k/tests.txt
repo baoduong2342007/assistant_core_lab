@@ -1,0 +1,35 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.4, pytest-8.3.3, pluggy-1.6.0
+rootdir: D:\APCS\HK4\Computational Thinking\assistant_core_lab
+configfile: pyproject.toml
+testpaths: tests
+collected 331 items
+
+tests/test_api.py ..................................................... [ 16%]
+....................................................................... [ 38%]
+tests/test_api_config.py ................                               [ 42%]
+tests/test_api_huy.py ............                                      [ 46%]
+tests/test_characterisation.py ..                                       [ 47%]
+tests/test_cli.py .                                                     [ 47%]
+tests/test_cli_contract.py ................                             [ 52%]
+tests/test_cli_session.py ...........                                   [ 55%]
+tests/test_cli_show_sources.py ..                                       [ 56%]
+tests/test_config.py ......................                             [ 62%]
+tests/test_errors.py ..                                                 [ 63%]
+tests/test_fallback.py ..                                               [ 64%]
+tests/test_h1_credit_rate.py ..............                             [ 68%]
+tests/test_h1_list_rules.py ......                                      [ 70%]
+tests/test_h1_rule_by_id.py ............                                [ 73%]
+tests/test_knowledge.py .................                               [ 79%]
+tests/test_lab5_db.py ......                                            [ 80%]
+tests/test_lab5_persistence.py ...                                      [ 81%]
+tests/test_logging.py ......                                            [ 83%]
+tests/test_models.py .                                                  [ 83%]
+tests/test_responder.py ..                                              [ 84%]
+tests/test_router.py ....                                               [ 85%]
+tests/test_service.py ........                                          [ 88%]
+tests/test_tools.py ......                                              [ 89%]
+tests/test_weather.py .......................                           [ 96%]
+tests/test_weather_validation.py ............                           [100%]
+
+============================= 331 passed in 31.47s =============================
