@@ -16,3 +16,9 @@ app.log
 *.egg-info/
 dist/
 build/
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3

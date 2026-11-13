@@ -252,3 +252,13 @@ Minh's independent manual work. Existing Week 3 tests are unchanged.
 ## 2026-11-03 — Dương requested remaining repository closeout
 
 Codex synchronized PR31 with the integrated Lab04 main, retained --list-rules and its tests, corrected the false frozen-Rule claim, and rewrote Dương’s H1 report around the actual --show-sources feature. Reports describe assisted implementation and do not invent owner reading or independent AI review. LMS submission is handled by Dương.
+
+## 2026-11-10 — Bảo (`simble2k`) Lab 05 Persistence & Database Implementation
+
+Phạm Quốc Bảo used Antigravity AI to plan and scaffold the Lab 05 database persistence layer according to `PLAN_TUAN5.md`.
+Implemented `src/assistant_api/db.py` (SQLModel models `ChatSession`, `Interaction`, `Feedback`, helper methods, and `Repository` with R1 `add_feedback` and R2 `list_feedback`).
+Created unit tests in `tests/test_lab5_db.py` and restart persistence verification in `tests/test_lab5_persistence.py`.
+Configured `sqlmodel>=0.0.22` in `pyproject.toml` and `requirements.txt`.
+Verified all 331 pytest test cases, Ruff lint/formatting, SQL practice answers (15/15), and school repository tests (5/5).
+Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and compiled H3 schema analysis in `docs/lab5/simble2k/status.md`.
+
