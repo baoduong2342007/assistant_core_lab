@@ -1,0 +1,5 @@
+Integration after merging main (13 November 2026): 355 passed.
+Practice tests: 10 passed. SQL checker: 15/15.
+Ruff lint and format: passed.
+Migration on a clean temporary database: apply 001/002, then skip both on the second run. Seed: 300 synthetic interactions.
+Real server stop/start: chat and feedback returned 201; authenticated feedback retrieval returned 200 and contained the same request ID after restart. Temporary-directory cleanup reported a Windows file lock after verification.

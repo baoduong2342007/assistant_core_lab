@@ -75,3 +75,11 @@ def stub_responder_success() -> StubLLMResponder:
 def stub_responder_fail() -> StubLLMResponder:
     """Fixture providing an offline stub responder in failure mode."""
     return StubLLMResponder(fail=True)
+
+
+@pytest.fixture(autouse=True)
+def isolated_api_database(monkeypatch, tmp_path):
+    """Give every application created by existing tests its own temporary database."""
+    from assistant_api.db import make_engine
+
+    monkeypatch.setattr("assistant_api.main.make_engine", lambda url: make_engine(f"sqlite:///{tmp_path / 'test.db'}"))

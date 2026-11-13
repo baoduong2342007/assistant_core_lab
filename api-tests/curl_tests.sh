@@ -10,7 +10,9 @@ hr "chat fee (expect 200)";            curl -s -w "  [%{http_code}]\n" -X POST "
 hr "chat rule with source (200)";      curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/chat" -H "Content-Type: application/json" -d '{"message":"can I register my thesis with 118 credits"}'
 hr "chat empty (expect 422)";          curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/chat" -H "Content-Type: application/json" -d '{"message":""}'
 hr "chat wrong type (expect 422)";     curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/chat" -H "Content-Type: application/json" -d '{"message":123}'
-hr "feedback (expect 201)";            curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/feedback" -H "Content-Type: application/json" -d '{"request_id":"abc123","rating":1,"comment":"clear answer"}'
+hr "feedback (expect 201)"
+REQUEST_ID=$(curl -fsS -X POST "$BASE/v1/chat" -H "Content-Type: application/json" -d '{"message":"hello","session_id":"demo"}' | python -c 'import json,sys; print(json.load(sys.stdin)["request_id"])')
+curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/feedback" -H "Content-Type: application/json" -d "{\"request_id\":\"$REQUEST_ID\",\"rating\":1,\"comment\":\"clear answer\"}"
 hr "feedback bad rating (422)";        curl -s -w "  [%{http_code}]\n" -X POST "$BASE/v1/feedback" -H "Content-Type: application/json" -d '{"request_id":"abc123","rating":7}'
 hr "list feedback no key (401)";       curl -s -w "  [%{http_code}]\n" "$BASE/v1/feedback"
 hr "list feedback with key (200)";     curl -s -w "  [%{http_code}]\n" -H "X-API-Key: $ADMIN" "$BASE/v1/feedback"

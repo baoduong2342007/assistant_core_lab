@@ -10,6 +10,7 @@ import hashlib
 from datetime import datetime, timezone
 
 from sqlalchemy import case, func
+from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.orm import relationship
 from sqlalchemy.pool import StaticPool
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
@@ -95,8 +96,11 @@ class Repository:
     ) -> None:
         sid = hash_session(raw_session, self.salt)
         with Session(self.engine) as db:  # one transaction
-            if db.get(ChatSession, sid) is None:
-                db.add(ChatSession(id=sid))
+            db.exec(
+                sqlite_insert(ChatSession)
+                .values(id=sid, channel="web", created_at=utcnow())
+                .on_conflict_do_nothing(index_elements=["id"])
+            )
             db.add(
                 Interaction(
                     request_id=request_id,

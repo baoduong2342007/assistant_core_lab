@@ -86,3 +86,7 @@ nên cần đối chiếu từng kết quả. Đọc [contract](docs/lab4/api_co
 ## List loaded handbook rules
 
 Run `python -m assistant_core --list-rules` to list titles in handbook order. Add `--show-sources` for IDs or `--json` for structured output. An empty handbook has an explicit result. Listing does not call the provider or search, and cannot be combined with a query.
+
+### Lab 5 persistence
+
+The API stores chat metadata and feedback in SQLite at `sqlite:///assistant.db` by default. Set `DATABASE_URL` to choose the file and `SESSION_SALT` to a private, stable value in your local `.env`; the built-in salt is only suitable for local exercises. Keep the same salt across restarts to group the same session consistently. Raw messages and raw session IDs are not stored; feedback comments are stored. A valid chat request ID is required when submitting feedback. Admin authentication is required for feedback listing and `/v1/stats`.

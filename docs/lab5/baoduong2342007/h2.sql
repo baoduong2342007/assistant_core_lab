@@ -1,0 +1,1 @@
+SELECT intent, COUNT(*) AS requests, ROUND(AVG(latency_ms), 2) AS avg_latency_ms, SUM(CASE WHEN resolved = 0 THEN 1 ELSE 0 END) AS unresolved FROM interaction GROUP BY intent ORDER BY requests DESC, intent;

@@ -54,7 +54,18 @@
           "mode": "raw",
           "raw": "{\"message\": \"tuition for 18 credits and 2 retake\", \"session_id\": \"demo\"}"
         }
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (pm.response.code === 200) pm.collectionVariables.set(\"request_id\", pm.response.json().request_id);"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "chat - rule",
@@ -130,7 +141,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\"request_id\": \"abc123\", \"rating\": 1}"
+          "raw": "{\"request_id\": \"{{request_id}}\", \"rating\": 1}"
         }
       }
     },
