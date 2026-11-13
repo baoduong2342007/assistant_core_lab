@@ -15,6 +15,8 @@ class Settings(BaseModel):
 
     model_config = ConfigDict(hide_input_in_errors=True)
 
+    database_url: str = "sqlite:///assistant.db"
+    session_salt: str = Field(default="lab05-local-salt", repr=False, exclude=True)
     data_dir: Path = Path("data")
     llm_provider: Literal["stub", "template"] = "stub"
     llm_api_key: str | None = Field(default=None, repr=False, exclude=True)
@@ -54,6 +56,13 @@ class Settings(BaseModel):
             raise ValueError("api_admin_key must not be blank")
         return value
 
+    @field_validator("database_url", "session_salt")
+    @classmethod
+    def validate_persistence_settings(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("value must not be blank")
+        return value
+
     @field_validator("log_level")
     @classmethod
     def validate_log_level(cls, v: str) -> str:
@@ -74,6 +83,8 @@ def load_settings(env_file: str | Path | None = ".env") -> Settings:
 
     try:
         return Settings(
+            database_url=os.getenv("DATABASE_URL", "sqlite:///assistant.db"),
+            session_salt=os.getenv("SESSION_SALT", "lab05-local-salt"),
             data_dir=os.getenv("ASSISTANT_DATA_DIR", "data"),
             llm_provider=os.getenv("LLM_PROVIDER", "stub"),
             llm_api_key=os.getenv("LLM_API_KEY") or None,
