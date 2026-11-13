@@ -56,6 +56,13 @@ class Settings(BaseModel):
             raise ValueError("api_admin_key must not be blank")
         return value
 
+    @field_validator("database_url", "session_salt")
+    @classmethod
+    def validate_persistence_settings(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("value must not be blank")
+        return value
+
     @field_validator("log_level")
     @classmethod
     def validate_log_level(cls, v: str) -> str:
