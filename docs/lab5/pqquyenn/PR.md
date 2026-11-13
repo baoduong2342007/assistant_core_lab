@@ -39,12 +39,12 @@ Restart ở đây là test repository/engine, chưa phải demo restart HTTP ser
 
 ## Worksheet / evidence
 
-- [Trạng thái và cách chạy lại](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/status.md)
-- [Kết quả F1–F3](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/query-results.md)
-- [H2 query + result](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/h2-result.md)
-- [Worksheet mô hình dữ liệu/H3](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/data-model.md)
-- [Kết quả kiểm thử](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/tests.txt)
-- [Ghi chú review Huy](https://github.com/baoduong2342007/assistant_core_lab/blob/codex/feat/lab05-sql-quyen/docs/lab5/pqquyenn/review-huy.md)
+- [Trạng thái và cách chạy lại](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/status.md)
+- [Kết quả F1–F3](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/query-results.md)
+- [H2 query + result](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/h2-result.md)
+- [Worksheet mô hình dữ liệu/H3](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/data-model.md)
+- [Kết quả kiểm thử](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/tests.txt)
+- [Ghi chú review Huy](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab05-sql-quyen/docs/lab5/pqquyenn/review-huy.md)
 
 ## AI use
 

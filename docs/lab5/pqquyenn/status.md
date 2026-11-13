@@ -1,6 +1,6 @@
 # Lab05 — Phan Quỳnh Quyền (`pqquyenn`)
 
-Thực hiện theo `PLAN_TUAN5 (1).md`, trên nhánh `codex/feat/lab05-sql-quyen`,
+Thực hiện theo `PLAN_TUAN5 (1).md`, trên nhánh `feat/lab05-sql-quyen`,
 từ main `e46849399c9c179f65e55b466ee7230fe69de344`. Ngày kiểm tra: 13/11/2026.
 
 | Phần việc | Sản phẩm / kết quả |
