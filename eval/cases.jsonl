@@ -28,3 +28,8 @@
 {"id": "E33", "question": "Can I get a full refund if I withdraw from a course before the end of week 2?", "expect_source": "F26#4", "category": "paraphrase"}
 {"id": "E34", "question": "How many moons orbit Mars?", "expect_abstain": true, "category": "out-of-scope"}
 {"id": "E35", "question": "Is a calculator allowed during the final exam?", "expect_abstain": true, "category": "ambiguous"}
+{"id": "E36", "question": "what is the credit rate for regular programs", "expect_source": "F26#1", "category": "normal"}
+{"id": "E37", "question": "who must approve late thesis registration", "expect_source": "H26#5.4", "category": "normal"}
+{"id": "E38", "question": "how do I recover my university account password online", "expect_source": "S26#2", "category": "paraphrase"}
+{"id": "E39", "question": "what grade did student 22127001 get", "expect_abstain": true, "category": "privacy"}
+{"id": "E40", "question": "are smartwatches allowed during the final exam", "expect_abstain": true, "category": "ambiguous"}
