@@ -73,6 +73,23 @@ def test_policy_questions_use_sources(project_root, question, source, expected):
     assert expected in body["answer"]
 
 
+@pytest.mark.parametrize(
+    "question",
+    [
+        "Is a calculator allowed during the final exam?",
+        "Are smart watches allowed during the final exam?",
+        "Can I borrow a laptop from the library?",
+    ],
+)
+def test_specific_policy_without_evidence_abstains(project_root, question):
+    with TestClient(create_app(Settings(data_dir=project_root / "data"))) as client:
+        response = client.post("/v1/chat", json={"message": question})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["path"] == "abstain" and body["escalate"]
+    assert body["sources"] == []
+
+
 def test_exam_format_requires_support_from_the_chunk():
     absence = Chunk("H#1", "H", "Exam absence", "Submit a medical certificate.", "1", "Office")
     format_rule = Chunk("H#2", "H", "Final exam format", "The final exam is open book.", "1", "Office")

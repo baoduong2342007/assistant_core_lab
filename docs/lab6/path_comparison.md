@@ -1,22 +1,22 @@
-# So sánh ba đường xử lý — Trương Quang Bảo Dương
+# So sánh ba đường xử lý Lab 06 của nhóm
 
-Chạy ngày 18/11/2026, từ nhánh `feat/lab06-personal-baoduong2342007`, nền `80b9d3946ccc88d9a9eca21d9840432b3aee0db4`, đo lại tại commit `e215cf4`; Python 3.12, provider stub offline, BM25, ngưỡng 2.0, KB 14 chunk. Thời gian tính bằng ms trên máy chạy. Điểm nguồn đo ID trích dẫn, còn độ đầy đủ của câu trả lời cần kiểm tra riêng.
+Các kết quả dưới đây chạy trên bản tích hợp với Python 3.12, provider stub offline, BM25 ngưỡng 2.0 và 14 chunk. Bộ 40 câu gồm 20 câu gốc và 5 câu từ mỗi PR cá nhân đã có của Dương, Quyền, Minh và Bảo. Dải E26–E30 dành cho Huy và có thể bổ sung khi PR cá nhân của Huy sẵn sàng.
 
-| Bộ câu | Đường | Đúng | Từ chối đúng | p50 | max | ID sai |
+| Bộ câu | Đường | Đúng | Từ chối đúng | p50 (ms) | max (ms) | ID sai |
 |---|---|---:|---:|---:|---:|---|
-| 20 gốc | deterministic | 7/20 | 5/5 | 0.0 | 1.1 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 |
+| 20 gốc | deterministic | 7/20 | 5/5 | 0.0 | 0.3 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 |
 | 20 gốc | retrieval | 20/20 | 5/5 | 0.0 | 0.1 | — |
-| 20 gốc | llm (stub) | 20/20 | 5/5 | 0.2 | 0.8 | — |
-| 25 cá nhân | deterministic | 9/25 | 7/7 | 0.0 | 0.6 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E21 E22 E23 |
-| 25 cá nhân | retrieval | 25/25 | 7/7 | 0.0 | 0.1 | — |
-| 25 cá nhân | llm (stub) | 25/25 | 7/7 | 0.2 | 0.6 | — |
+| 20 gốc | llm (stub) | 20/20 | 5/5 | 0.1 | 0.5 | — |
+| 40 nhóm | deterministic | 15/40 | 13/13 | 0.0 | 0.3 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E21 E22 E23 E31 E32 E33 E36 E37 E38 E41 E42 E43 |
+| 40 nhóm | retrieval | 40/40 | 13/13 | 0.0 | 0.1 | — |
+| 40 nhóm | llm (stub) | 40/40 | 13/13 | 0.1 | 0.5 | — |
 
-Tôi chọn retrieval có ngưỡng và trích nguồn cho handbook, có chuyển người phụ trách khi thiếu căn cứ.
-Nó chạy offline và đạt cùng kết quả với stub trên cả hai bộ câu.
-Sau khi sửa E19, tôi ưu tiên kiểm tra thêm câu hỏi về các quy định vắng mặt trong KB vì BM25 vẫn có thể xếp cao đoạn chỉ trùng từ khóa.
+Nhóm chọn retrieval có ngưỡng cho câu hỏi quy định và giữ phép tính học phí ở đường deterministic.
+Retrieval đạt cùng số câu đúng với stub trong lần chạy này và trả trực tiếp đoạn nguồn.
+Bộ câu nhóm phát hiện ba trường hợp trùng chủ đề nhưng thiếu căn cứ, nên hệ thống kiểm chủ đề thiết bị trước khi dùng các đoạn về thi hoặc mượn sách để trả lời.
 
-Cả 5 câu H1 (E21–E25) đạt với retrieval và stub, gồm E21 trả đúng phí thay thẻ từ S26#3 và E24–E25 trả path abstain.
+E35 và E40 hỏi thiết bị được phép dùng khi thi. E45 hỏi mượn laptop. Trước khi sửa, retrieval và stub đạt 37/40 vì cả ba câu nhận đoạn liên quan gián tiếp. Sau khi yêu cầu đoạn nguồn đề cập thiết bị, cả ba đều trả abstain. Kết quả 40/40 áp dụng cho bộ câu mẫu và các tiêu chí của script.
 
-Bản đầu đạt 16/20 và 20/25 với retrieval và stub. Sửa định tuyến câu mượn sách và phí thay thẻ đưa kết quả lên 17/20 và 22/25. Bản cuối bổ sung từ khóa theo cách gọi trong KB cho hạn đóng học phí (E13) và tải tín chỉ (E14), đồng thời yêu cầu nguồn phải có nội dung về thi mở hoặc đóng tài liệu (E19). Bản cuối đạt 20/20 và 25/25. Bộ câu và đáp án kỳ vọng giữ nguyên qua các lần đo.
+Đo lại với `python eval/compare_paths.py --cases eval/cases_20.jsonl` và `python eval/compare_paths.py`. Bảng cá nhân và báo cáo bonus nằm trong thư mục tương ứng dưới `docs/lab6/`.
 
-Chạy từ root với `python eval/compare_paths.py --cases eval/cases_20.jsonl` và `python eval/compare_paths.py`. Bản cuối chỉ tính từ chối đúng khi path là abstain.
+Các PR đưa vào bản tích hợp gồm [#49](https://github.com/baoduong2342007/assistant_core_lab/pull/49), [#50](https://github.com/baoduong2342007/assistant_core_lab/pull/50), [#51](https://github.com/baoduong2342007/assistant_core_lab/pull/51) và [#53](https://github.com/baoduong2342007/assistant_core_lab/pull/53). [PR bonus #52](https://github.com/baoduong2342007/assistant_core_lab/pull/52) đóng góp báo cáo thử nghiệm. Bản nhóm giữ mở rộng truy vấn tải tín chỉ cho E14 để tránh thay nghĩa mọi lần xuất hiện của take hoặc register.
