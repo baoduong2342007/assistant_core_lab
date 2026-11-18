@@ -202,3 +202,11 @@ def test_api_rag_chat_and_feedback_persists_across_restart(tmp_path, project_roo
         assert listed.status_code == 200
         assert any(item["request_id"] == card["request_id"] for item in listed.json())
         assert client2.get("/v1/stats", headers={"X-Admin-Key": "admin-smoke"}).status_code == 200
+
+
+def test_bonus_e14_credit_load_grounded_without_e20_regression(chunks):
+    index = make_index("bm25", chunks)
+    e14 = RagAnswerer(index, StubLLM(), min_score=2.0).answer("can I take 32 credits")
+    e20 = RagAnswerer(index, StubLLM(), min_score=2.0).answer("tell me about exams")
+    assert e14.path == "llm" and e14.sources[0].id == "H26#6.1"
+    assert e20.path == "abstain" and e20.escalate is True
