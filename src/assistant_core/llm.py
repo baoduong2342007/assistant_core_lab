@@ -28,7 +28,7 @@ class AnswerDraft(BaseModel):
     """The structured output we require from any LLM."""
 
     answer: str = Field(max_length=800)
-    source_ids: list[str] = []
+    source_ids: list[str] = Field(default_factory=list)
     confidence: float = Field(ge=0, le=1)
     abstain: bool = False
 
@@ -47,15 +47,14 @@ def build_prompt(question: str, hits: list[Hit], version: str = "answer_v1") -> 
 
 def parse_draft(raw: str, allowed_ids: set[str]) -> AnswerDraft:
     """Validate the model output: JSON, schema, and grounding (only cite retrieved sources)."""
-    m = re.search(r"\{.*\}", raw, flags=re.S)  # tolerate text around the JSON
-    if not m:
-        raise ProviderError("no JSON object in model output")
     try:
-        draft = AnswerDraft.model_validate(json.loads(m.group(0)))
-    except (json.JSONDecodeError, ValidationError) as exc:
-        raise ProviderError(f"invalid structured output: {type(exc).__name__}") from exc
-    if not set(draft.source_ids) <= allowed_ids or (not draft.abstain and not draft.source_ids):
+        draft = AnswerDraft.model_validate_json(raw, strict=True)
+    except ValidationError as exc:
+        raise ProviderError("invalid structured output") from exc
+    if not set(draft.source_ids) <= allowed_ids:
         raise ProviderError("answer cites sources that were not retrieved")
+    if not draft.abstain and (not draft.answer.strip() or not draft.source_ids):
+        raise ProviderError("answer is missing text or citations")
     return draft
 
 
