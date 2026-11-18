@@ -9,18 +9,36 @@ Order of defences:
 from __future__ import annotations
 
 import logging
+import re
 from collections.abc import Callable
 
 from assistant_core.errors import InvalidRequest, ProviderError
 from assistant_core.llm import LLM, AnswerDraft, build_prompt, parse_draft
 from assistant_core.models import Intent, Response, Source
 from assistant_core.rag.index import Index
+from assistant_core.router import is_tuition_deadline
 
 log = logging.getLogger("assistant_core.rag")
 ESCALATE_MSG = (
     "I'm not confident I can answer that from the official documents. "
     "Please contact the Training Office (room I.101) or ask your academic advisor."
 )
+
+
+_CREDIT_LOAD = re.compile(
+    r"\b(?:take|enroll in|register for)\s+(?:more than\s+)?\d+\s+credits?\b",
+    re.IGNORECASE,
+)
+_BOOK_FORMAT = re.compile(r"\b(?:open|closed)[ -]book\b", re.IGNORECASE)
+
+
+def _search_query(question: str) -> str:
+    """Expand common paraphrases using the handbook's terminology."""
+    if is_tuition_deadline(question):
+        return f"{question} payment deadline"
+    if _CREDIT_LOAD.search(question):
+        return f"{question} credit load"
+    return question
 
 
 class RagAnswerer:
@@ -38,7 +56,10 @@ class RagAnswerer:
         self.prompt_version, self.retries, self.tool_runner = prompt_version, retries, tool_runner
 
     def answer(self, question: str) -> Response:
-        hits = self.index.search(question, self.k)
+        hits = self.index.search(_search_query(question), self.k)
+        if _BOOK_FORMAT.search(question):
+            # Exam absence rules can match "final exam" without saying what materials are allowed.
+            hits = [hit for hit in hits if _BOOK_FORMAT.search(f"{hit.chunk.title} {hit.chunk.text}")]
         if not hits or hits[0].score < self.min_score:
             return Response(answer=ESCALATE_MSG, intent=Intent.UNKNOWN, path="abstain", escalate=True, confidence=0.0)
         sources = {h.chunk.id: Source(id=h.chunk.id, title=h.chunk.title) for h in hits}

@@ -59,6 +59,8 @@ def test_citation_validation():
     [
         ("student card replacement fee", "S26#3", "50,000 VND"),
         ("how long can I keep a library book", "S26#1", "14 days"),
+        ("when is tuition due", "F26#3", "end of week 6"),
+        ("can I take 32 credits", "H26#6.1", "requires approval"),
     ],
 )
 def test_policy_questions_use_sources(project_root, question, source, expected):
@@ -69,6 +71,19 @@ def test_policy_questions_use_sources(project_root, question, source, expected):
     assert body["path"] == "llm"
     assert body["sources"][0]["id"] == source
     assert expected in body["answer"]
+
+
+def test_exam_format_requires_support_from_the_chunk():
+    absence = Chunk("H#1", "H", "Exam absence", "Submit a medical certificate.", "1", "Office")
+    format_rule = Chunk("H#2", "H", "Final exam format", "The final exam is open book.", "1", "Office")
+    provider = Provider("invalid")
+    question = "is the final exam open-book?"
+    response = RagAnswerer(Index([Hit(absence, 5)]), provider).answer(question)
+    assert response.path == "abstain" and response.escalate
+    assert response.sources == [] and provider.calls == 0
+
+    response = RagAnswerer(Index([Hit(absence, 5), Hit(format_rule, 3)]), None).answer(question)
+    assert response.path == "retrieval" and response.sources[0].id == "H#2"
 
 
 def test_api_rag_feedback_restart(tmp_path, project_root):
