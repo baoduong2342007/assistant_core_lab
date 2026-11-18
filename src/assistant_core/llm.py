@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from textwrap import shorten
 from typing import Protocol
 
 import httpx
@@ -74,10 +75,10 @@ class StubLLM:
         m = re.search(r"^\[([^\]]+)\] ([^:]+): (.+)$", prompt, flags=re.M)
         if not m:
             return json.dumps({"answer": "", "source_ids": [], "confidence": 0.0, "abstain": True})
-        first_sentence = re.split(r"(?<=\.)\s", m.group(3))[0]
+        excerpt = shorten(f"According to {m.group(2)}: {m.group(3)}", width=800)
         return json.dumps(
             {
-                "answer": f"According to {m.group(2)}: {first_sentence}",
+                "answer": excerpt,
                 "source_ids": [m.group(1)],
                 "confidence": 0.7,
                 "abstain": False,

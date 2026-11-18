@@ -57,9 +57,10 @@ class AssistantService:
                 degraded=False,
                 path="abstain",
                 escalate=False,
+                confidence=0.0,
             )
 
-        intent = route(msg.text, self.offices.names)
+        intent = route(msg.text, self.offices.names, policy_search=self.rag is not None)
 
         if intent is Intent.GREETING:
             return Response(
