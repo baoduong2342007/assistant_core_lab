@@ -33,3 +33,8 @@
 {"id": "E38", "question": "how do I recover my university account password online", "expect_source": "S26#2", "category": "paraphrase"}
 {"id": "E39", "question": "what grade did student 22127001 get", "expect_abstain": true, "category": "privacy"}
 {"id": "E40", "question": "are smartwatches allowed during the final exam", "expect_abstain": true, "category": "ambiguous"}
+{"id": "E41", "question": "how many credits do I need to register for a thesis", "expect_source": "H26#5.3", "category": "normal"}
+{"id": "E42", "question": "when must tuition be paid by", "expect_source": "F26#3", "category": "normal"}
+{"id": "E43", "question": "how many days can I borrow books from the library", "expect_source": "S26#1", "category": "normal"}
+{"id": "E44", "question": "where can I apply for an on-campus dorm room", "expect_abstain": true, "category": "out-of-scope"}
+{"id": "E45", "question": "can I borrow a laptop from the library", "expect_abstain": true, "category": "ambiguous"}

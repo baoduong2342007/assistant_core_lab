@@ -50,7 +50,7 @@ class AssistantService:
     def handle(self, msg: Message) -> Response:
         """Process an incoming user message and return a structured Response."""
         if self.rag is not None and is_private_request(msg.text):
-            return Response(answer=PRIVATE_REPLY, intent=Intent.UNKNOWN, path="abstain")
+            return Response(answer=PRIVATE_REPLY, intent=Intent.UNKNOWN, path="abstain", escalate=False, confidence=0.0)
         intent = route(msg.text, self.offices.names, policy_search=self.rag is not None)
 
         if intent is Intent.GREETING:
