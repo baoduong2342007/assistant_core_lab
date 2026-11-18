@@ -1,0 +1,8 @@
+Python 3.12; executed from repository root on 2026-11-18.
+python -m pytest -q: 358 passed, 1 third-party deprecation warning
+python -m pytest -q practice/test_mini_search.py: 4 passed
+python -m pytest -q practice/test_hello_api.py practice/test_school_repo.py: 10 passed
+python practice/make_school_db.py; python practice/check.py: 15/15
+python -m ruff check .: all checks passed
+python -m ruff format --check .: 75 files formatted
+TestClient integration covers fee, KB source, out-of-scope abstention, privacy, request ID and feedback after creating a new app with the same SQLite database.

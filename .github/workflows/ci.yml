@@ -36,6 +36,7 @@ jobs:
       - name: Run Pytest suite
         run: |
           python -m pytest -q
+          python -m pytest -q practice/test_mini_search.py
           python -m pytest -q practice/test_hello_api.py
           python -m pytest -q practice/test_school_repo.py
 

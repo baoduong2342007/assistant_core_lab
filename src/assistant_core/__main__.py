@@ -11,11 +11,9 @@ from pydantic import ValidationError
 
 from assistant_core.config import Settings, load_settings
 from assistant_core.errors import AssistantError, ConfigError, DataError
-from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.logging_setup import setup_logging
 from assistant_core.models import Message, Response
-from assistant_core.responder import StubLLMResponder, TemplateResponder
-from assistant_core.service import AssistantService
+from assistant_core.service import AssistantService, build_service
 
 
 def parse_session_id(text: str) -> str:
@@ -137,27 +135,12 @@ def main(argv: list[str] | None = None) -> int:
         if args.credit_rate is not None:
             overrides["credit_rate_vnd"] = args.credit_rate
         if overrides:
-            settings = Settings.model_validate({**settings.model_dump(), **overrides})
+            current = {name: getattr(settings, name) for name in type(settings).model_fields}
+            settings = Settings.model_validate({**current, **overrides})
 
         logger = setup_logging(level=settings.log_level)
 
-        offices_path = settings.data_dir / "offices.csv"
-        handbook_path = settings.data_dir / "handbook.json"
-
-        offices = OfficeDirectory.from_csv(offices_path)
-        handbook = Handbook.from_json(handbook_path)
-
-        if settings.llm_provider == "stub":
-            responder = StubLLMResponder(fail=args.fail_provider)
-        else:
-            responder = TemplateResponder()
-
-        service = AssistantService(
-            settings=settings,
-            offices=offices,
-            handbook=handbook,
-            responder=responder,
-        )
+        service = build_service(settings, fail_provider=args.fail_provider)
     except (ConfigError, DataError, AssistantError, ValidationError, OSError) as exc:
         sys.stderr.write(f"Startup error: {exc}\n")
         return 1

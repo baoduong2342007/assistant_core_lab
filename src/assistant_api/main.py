@@ -17,20 +17,8 @@ from assistant_api.schemas import ChatRequest, ChatResponse, ErrorResponse, Feed
 from assistant_api.weather import ExternalServiceError, WeatherClient
 from assistant_core import AssistantService, Message
 from assistant_core.config import Settings, load_settings
-from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.models import Intent
-from assistant_core.responder import StubLLMResponder, TemplateResponder
-
-
-def build_service(settings: Settings) -> AssistantService:
-    """Wire the existing Lab03 core without copying or replacing its logic."""
-    responder = StubLLMResponder() if settings.llm_provider == "stub" else TemplateResponder()
-    return AssistantService(
-        settings,
-        OfficeDirectory.from_csv(settings.data_dir / "offices.csv"),
-        Handbook.from_json(settings.data_dir / "handbook.json"),
-        responder,
-    )
+from assistant_core.service import build_service
 
 
 def create_app(
