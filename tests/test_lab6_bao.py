@@ -89,9 +89,9 @@ def test_kb_index(project_root: Path) -> Index:
     return make_index("bm25", chunks)
 
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # 1. A1 Test Suite: Verification of Zero LLM Calls on No-Hit / Low-Score
-# ==============================================================================
+# ------------------------------------------------------------------------------
 
 
 def test_a1_zero_llm_calls_when_no_hits(test_kb_index: Index):
@@ -152,9 +152,9 @@ def test_a1_calls_llm_when_score_meets_or_exceeds_threshold(test_kb_index: Index
     assert resp.sources[0].id == "H26#5.3"
 
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # 2. Guardrails Test Suite: Privacy / PII Interception
-# ==============================================================================
+# ------------------------------------------------------------------------------
 
 
 @pytest.mark.parametrize(
@@ -205,9 +205,9 @@ def test_guard_allows_valid_policy_gpa_query(test_kb_index: Index, project_root:
     assert resp.intent == Intent.RULE
 
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # 3. Fallback Test Suite: Retry and Degraded Fallback on Provider Failure
-# ==============================================================================
+# ------------------------------------------------------------------------------
 
 
 def test_fallback_on_provider_error_after_retries(test_kb_index: Index):
@@ -238,9 +238,9 @@ def test_fallback_on_hallucinated_citations(test_kb_index: Index):
     assert len(resp.sources) >= 1
 
 
-# ==============================================================================
+# ------------------------------------------------------------------------------
 # 4. Regression Test Suite: API + SQLite Persistence Across Restart
-# ==============================================================================
+# ------------------------------------------------------------------------------
 
 
 def test_api_chat_feedback_sqlite_persistence_restart(tmp_path: Path, project_root: Path):
