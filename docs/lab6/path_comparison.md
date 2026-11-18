@@ -1,49 +1,40 @@
-# Bảng so sánh ba chế độ và đánh giá mở rộng Lab 06
+# Lab 06 — So sánh ba chế độ (`luongnhatinh`)
 
-- Người thực hiện: **Phạm Quốc Bảo** (`simble2k`)
-- Nhánh: `feat/lab06-personal-simble2k`
-- Mốc commit: `80b9d39` (kế thừa Lab 05 PR #44)
-- Thiết lập: BM25 index, ngưỡng `retrieval_min_score=2.0`, provider `stub`
+Thực hiện bởi **Lương Nhật Minh (`luongnhatinh`)** trên nhánh `feat/lab06-personal-luongnhatinh` (nền `80b9d39`, đo tại commit `46cea8bbb2043b01ca74eafadab5cc3394137823`), Windows Python 3.11, provider `stub` offline, index `bm25`, ngưỡng `min_score = 2.0`, `k = 3`, KB 14 chunk.
 
----
+Lệnh chạy từ root repo:
 
-## 1. Kết quả chạy bộ 20 câu gốc (`eval/cases_20.jsonl`)
+```powershell
+$env:LLM_PROVIDER = 'stub'
+python eval/compare_paths.py --cases eval/cases_20.jsonl
+python eval/compare_paths.py
+```
 
-| Chế độ | Correct | Abstain OK | p50 latency (ms) | max latency (ms) | Case IDs thất bại |
-|---|:---:|:---:|:---:|:---:|---|
-| **Deterministic** | 7/20 | 5/5 | 0.0 | 0.3 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 |
-| **Retrieval-only** | 20/20 | 5/5 | 0.0 | 0.1 | (không có) |
-| **RAG / LLM (`stub`)** | 20/20 | 5/5 | 0.2 | 0.5 | (không có) |
+## 1. Bảng 20 câu gốc (`E01–E20`)
 
----
+| Path | Correct | Abstain ok | p50 (ms) | Max (ms) | Controllability (1–5) | Main failure mode | Fail IDs |
+|---|---:|---:|---:|---:|---:|---|---|
+| deterministic | 7/20 | 5/5 | 0.0 | 0.6 | 5 | Không trả lời được các câu hỏi quy định (`EMPTY` index) | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 |
+| retrieval | 16/20 | 4/5 | 0.0 | 0.1 | 4 | Lỗi router (`E13`, `E15`), lệch từ khóa BM25 (`E14`) và khớp nhầm từ chung (`E19`) | E13 E14 E15 E19 |
+| llm (stub) | 16/20 | 4/5 | 0.2 | 0.5 | 4 | Kế thừa nguyên tập lỗi router/retrieval ở tầng đầu vào (`E13`, `E14`, `E15`, `E19`) | E13 E14 E15 E19 |
 
-## 2. Kết quả chạy bộ 25 câu mở rộng H1 (`eval/cases.jsonl`)
+Tôi chọn chế độ `retrieval` có ngưỡng `min_score = 2.0` và trích dẫn nguồn làm đường mặc định an toàn cho câu hỏi handbook. Nó đạt cùng độ chính xác `16/20` như `llm (stub)`, trích nguyên văn quy định chính thức không bịa chi tiết và giữ độ trễ `p50 = 0.0 ms` hoàn toàn offline. Tôi ưu tiên sửa `E19` trước vì câu hỏi ngoài tài liệu (`is the final exam open-book`) vẫn vượt ngưỡng BM25 (`5.620`) do trùng cụm `"final exam"` với đoạn vắng thi `H26#7.2`.
 
-Bổ sung 5 câu hỏi cá nhân dải ID `E41–E45` của Bảo (3 câu có nguồn, 2 câu từ chối):
-- `E41`: *"how many credits do I need to register for a thesis"* $\rightarrow$ nguồn `H26#5.3`
-- `E42`: *"when must tuition be paid by"* $\rightarrow$ nguồn `F26#3`
-- `E43`: *"how many days can I borrow books from the library"* $\rightarrow$ nguồn `S26#1`
-- `E44`: *"where can I apply for an on-campus dorm room"* $\rightarrow$ `expect_abstain: true`
-- `E45`: *"can I borrow a laptop from the library"* $\rightarrow$ `expect_abstain: true`
+## 2. Bảng 25 câu gồm H1 (`E01–E20` và `E36–E40`)
 
-| Chế độ | Correct | Abstain OK | p50 latency (ms) | max latency (ms) | Case IDs thất bại |
-|---|:---:|:---:|:---:|:---:|---|
-| **Deterministic** | 9/25 | 7/7 | 0.0 | 0.5 | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E41 E42 E43 |
-| **Retrieval-only** | 24/25 | 6/7 | 0.0 | 0.1 | E45 |
-| **RAG / LLM (`stub`)** | 24/25 | 6/7 | 0.2 | 0.6 | E45 |
+| Path | Correct | Abstain ok | p50 (ms) | Max (ms) | Controllability (1–5) | Main failure mode | Fail IDs |
+|---|---:|---:|---:|---:|---:|---|---|
+| deterministic | 9/25 | 7/7 | 0.0 | 0.6 | 5 | Thiếu tra cứu tài liệu nên trượt toàn bộ câu quy định mới (`E36–E38`) | E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E36 E37 E38 |
+| retrieval | 20/25 | 5/7 | 0.0 | 0.1 | 4 | Vẫn trượt 4 ca gốc và trượt thêm `E40` do khớp giả từ khóa `"final exam"` | E13 E14 E15 E19 E40 |
+| llm (stub) | 20/25 | 5/7 | 0.2 | 0.5 | 4 | Phụ thuộc chất lượng router và top hit BM25 nên trượt cùng 5 ca `E13 E14 E15 E19 E40` | E13 E14 E15 E19 E40 |
 
----
+Trong 5 câu H1 (`E36–E40`), `E36` (`F26#1`), `E37` (`H26#5.4`), `E38` (`S26#2`) đều trích đúng nguồn và `E39` bị chặn bởi privacy guard trước khi retrieval, còn `E40` (`are smartwatches allowed during the final exam`) fail tương tự `E19` vì BM25 chấm `H26#7.2` đạt `5.620` dù đoạn đó chỉ nói về vắng thi y tế.
 
-## 3. Ba câu phân tích theo yêu cầu Rubric
+## 3. Rà soát các case trọng tâm (`E03`, `E04`, `E13`, `E14`, `E15`, `E19`)
 
-1. **Chế độ chọn cho handbook**: Tôi chọn chế độ **RAG / LLM kết hợp kiểm định căn cứ nguồn (A1 + A2)** làm đường dẫn chính cho việc tra cứu quy chế handbook.
-2. **Lý do lựa chọn**: Chế độ này đạt độ chính xác cao nhất (24/25 câu), vừa trả lời mượt mà tự nhiên bằng ngôn ngữ người dùng, vừa bảo đảm an toàn khi kết hợp cơ chế phòng thủ đa tầng: A1 từ chối sớm câu hỏi ngoài phạm vi với 0 lần gọi LLM, A2 bắt buộc trích dẫn nguồn có thực trong tài liệu, và Fallback tự động giáng cấp trích dẫn chunk thô khi nhà cung cấp gặp sự cố.
-3. **Lỗi ưu tiên sửa**: Tôi ưu tiên sửa lỗi của case **E45** (*"can I borrow a laptop from the library"*), trong đó BM25 ghép nhầm từ khóa *"borrow"* và *"library"* với quy định mượn sách (`S26#1`) vượt ngưỡng 2.0; giải pháp là bổ sung bộ lọc thực thể danh từ (entity checking) hoặc huấn luyện prompt để LLM chủ động từ chối (`abstain: true`) khi tài liệu chỉ quy định về sách mà không đề cập thiết bị laptop.
-
----
-
-## 4. Giải thích chi tiết kết quả H1 và case fail
-
-- Các câu hỏi có nguồn (`E41`, `E42`, `E43`) đạt điểm số BM25 rất cao (từ 4.5 đến 9.3) và trích xuất chính xác 100% mã chunk tương ứng.
-- Câu hỏi ngoài phạm vi `E44` (*"on-campus dorm room"*) đạt điểm BM25 cao nhất là 1.906, thấp hơn ngưỡng `min_score=2.0`, do đó tầng A1 đã can thiệp từ chối thành công ngay lập tức mà không tốn chi phí gọi LLM.
-- Case fail duy nhất là `E45`: đây là minh họa kinh điển cho hiện tượng điểm tương đồng bề mặt cao nhưng thiếu căn cứ ngữ nghĩa, khẳng định tầm quan trọng của việc kiểm tra nội dung thực tế thay vì chỉ tin tưởng vào điểm số của bộ tìm kiếm từ khóa.
+- `E03` (`tuition for 18 credits and 2 retake`): trả `Your tuition is 9,450,000 VND.` qua deterministic calculator (`intent=fee`).
+- `E04` (`where is the library`): trả `Library: room B.201, open Mon-Sat 07:00-20:00.` qua deterministic directory (`intent=office`).
+- `E13` (`when is tuition due`): router bắt từ khóa `"tuition"` đưa vào nhánh `fee` (`How many credits?`), đồng thời BM25 riêng cũng xếp `F26#1` (`2.277`) trên `F26#3` (`1.484`).
+- `E14` (`can I take 32 credits`): BM25 xếp `H26#7.2` (`2.086`, khớp từ `"take"`) cao hơn `H26#6.1` (`1.475`, dùng `"registering"` và `"credit"` số ít).
+- `E15` (`how long can I keep a library book`): router bắt tên phòng `"library"` trả vị trí `B.201` thay vì chuyển sang RAG lấy `S26#1` (`2.299`).
+- `E19` (`is the final exam open-book`): BM25 khớp `H26#7.2` với điểm `5.620 >= 2.0`, minh họa điểm retrieval cao chưa bảo đảm đúng ngữ nghĩa.

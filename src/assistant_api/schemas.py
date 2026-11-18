@@ -26,10 +26,10 @@ class ChatResponse(BaseModel):
     intent: Intent
     sources: list[Source] = Field(default_factory=list)
     degraded: bool = False
-    request_id: str
     path: str | None = None
     escalate: bool = False
     confidence: float | None = None
+    request_id: str
 
 
 class FeedbackIn(BaseModel):

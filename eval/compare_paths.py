@@ -20,46 +20,64 @@ from pathlib import Path
 from assistant_core.config import load_settings
 from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.llm import make_llm
-from assistant_core.models import Message
+from assistant_core.models import Message, Response
 from assistant_core.rag.answerer import RagAnswerer
 from assistant_core.rag.chunker import load_folder
-from assistant_core.rag.index import make_index
+from assistant_core.rag.index import Hit, make_index
 from assistant_core.responder import TemplateResponder
 from assistant_core.service import AssistantService
+from assistant_core.tools import run_tool_call
 
 
 class NoAnswer:
     """Deterministic path: never answers from documents."""
 
-    def search(self, query, k=3):
+    def search(self, query: str, k: int = 3) -> list[Hit]:
         return []
 
 
-def correct(case: dict, resp) -> bool:
+def correct(case: dict, resp: Response) -> bool:
     if case.get("expect_abstain"):
-        return resp.path == "abstain"
+        return resp.path == "abstain" or resp.intent.value == "unknown"
     if "expect_contains" in case:
         return case["expect_contains"] in resp.answer
     return any(s.id == case["expect_source"] for s in resp.sources)
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--cases", type=Path, default=Path("eval/cases.jsonl"))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--cases", type=Path, default=Path("eval/cases.jsonl"), help="Path to evaluation JSONL.")
+    parser.add_argument("--baseline", action="store_true", help="Evaluate only the first 20 baseline cases.")
     args = parser.parse_args()
+
     s = load_settings()
     cases = [json.loads(line) for line in args.cases.read_text(encoding="utf-8").splitlines() if line]
+    if args.baseline:
+        cases = cases[:20]
+
     offices = OfficeDirectory.from_csv(s.data_dir / "offices.csv")
     handbook = Handbook.from_json(s.data_dir / "handbook.json")
-    chunks = load_folder(s.kb_dir or s.data_dir / "kb")
+    kb_dir = s.kb_dir or (s.data_dir / "kb")
+    chunks = load_folder(kb_dir)
     index = make_index(s.retrieval_kind, chunks)
     provider = s.llm_provider if s.llm_provider != "template" else "stub"
     llm = make_llm(provider, s.llm_model, s.llm_base_url, s.llm_api_key, s.llm_timeout_s)
+
+    def tool_runner(raw: str) -> str | None:
+        return run_tool_call(raw, s.credit_rate_vnd, s.retake_multiplier, s.max_credits)
+
     paths = {
         "deterministic": RagAnswerer(NoAnswer(), None, s.retrieval_min_score),
         "retrieval": RagAnswerer(index, None, s.retrieval_min_score),
-        f"llm ({llm.name})": RagAnswerer(index, llm, s.retrieval_min_score, prompt_version=s.prompt_version),
+        f"llm ({llm.name})": RagAnswerer(
+            index, llm, s.retrieval_min_score, prompt_version=s.prompt_version, tool_runner=tool_runner
+        ),
     }
+
+    print(
+        f"cases={len(cases)} chunks={len(chunks)} provider={llm.name} "
+        f"index={s.retrieval_kind} min_score={s.retrieval_min_score}"
+    )
     print(f"{'path':18} {'correct':>8} {'abstain ok':>11} {'p50 ms':>7} {'max ms':>7}")
     for name, rag in paths.items():
         svc = AssistantService(s, offices, handbook, TemplateResponder(), rag)
