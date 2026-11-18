@@ -36,9 +36,16 @@ jobs:
       - name: Run Pytest suite
         run: |
           python -m pytest -q
+          python -m pytest -q practice/test_mini_search.py
           python -m pytest -q practice/test_hello_api.py
           python -m pytest -q practice/test_school_repo.py
-          python -m pytest -q practice/test_mini_search.py
+
+      - name: Run Lab 06 evaluation smoke check
+        env:
+          LLM_PROVIDER: stub
+        run: |
+          python eval/compare_paths.py --cases eval/cases_20.jsonl
+          python eval/compare_paths.py
 
       - name: Check SQL practice answers
         run: |
