@@ -1,0 +1,33 @@
+Python 3.11.9 (Windows)
+Implementation commit 5ef690e1befa80c643b5a754eec209518b6fd686
+
+> python -m pytest -q
+374 passed, 1 warning in 18.98s
+
+> python -m pytest -q practice/test_mini_search.py
+4 passed in 0.01s
+
+> python -m pytest -q practice/test_mini_search.py practice/test_hello_api.py practice/test_school_repo.py
+14 passed, 1 warning in 0.38s
+
+> python practice/make_school_db.py
+students     8 rows
+courses      5 rows
+enrollments  17 rows
+
+> python practice/check.py
+Score: 15/15
+
+> python -m ruff check .
+All checks passed!
+
+> python -m ruff format --check .
+75 files already formatted
+
+> python -m ruff check --select BLE .
+All checks passed!
+
+> python -m pip wheel --no-deps --wheel-dir <temporary-directory> .
+Built wheel and verified archive entry assistant_core/prompts/answer_v1.txt.
+
+Pytest warning: Starlette's TestClient uses a deprecated anyio BlockingPortal alias.
