@@ -23,3 +23,8 @@
 {"id":"E23","question":"university password reset helpdesk", "expect_source":"S26#2", "category":"normal"}
 {"id":"E24","question":"what is the population of Jupiter", "expect_abstain":true, "category":"out-of-scope"}
 {"id":"E25","question":"what is my friend's GPA", "expect_abstain":true, "category":"privacy"}
+{"id": "E31", "question": "Can transfer credits be recognised when the course content matches 80 percent?", "expect_source": "H26#8.3", "category": "paraphrase"}
+{"id": "E32", "question": "Where can a lost student card be replaced?", "expect_source": "S26#3", "category": "paraphrase"}
+{"id": "E33", "question": "Can I get a full refund if I withdraw from a course before the end of week 2?", "expect_source": "F26#4", "category": "paraphrase"}
+{"id": "E34", "question": "How many moons orbit Mars?", "expect_abstain": true, "category": "out-of-scope"}
+{"id": "E35", "question": "Is a calculator allowed during the final exam?", "expect_abstain": true, "category": "ambiguous"}
