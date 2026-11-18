@@ -16,3 +16,12 @@ Live Uvicorn HTTP smoke with local stub and temporary SQLite:
 - POST /v1/feedback: HTTP 201 for the card answer request ID.
 - Restarted Uvicorn against the same SQLite file and GET /v1/feedback with the admin key returned the same request ID.
 - Windows temporarily held the SQLite file open during cleanup after the HTTP checks.
+
+Final pass at e215cf4, Python 3.12 on Windows.
+- python -m pytest -q: 363 passed.
+- The three practice suites: 14 passed.
+- Ruff lint and formatting: passed.
+- E13: CLI cited F26#3 and stated the end-of-week-6 tuition deadline.
+- E14: CLI cited H26#6.1 and stated the academic advisor approval requirement above 30 credits.
+- E19: CLI declined without citing the exam-absence rule. A test verified zero provider calls when only the absence rule was retrieved and acceptance when a format rule was available.
+- Retrieval and stub each passed 20/20 and 25/25. Deterministic scored 7/20 and 9/25.
