@@ -4,8 +4,13 @@ import logging
 
 from assistant_core.config import Settings
 from assistant_core.errors import InvalidRequest, ProviderError
+from assistant_core.guard import PRIVATE_REPLY, is_private_request
 from assistant_core.knowledge import Handbook, OfficeDirectory
+from assistant_core.llm import StubLLM
 from assistant_core.models import Intent, Message, Response, Source
+from assistant_core.rag.answerer import RagAnswerer
+from assistant_core.rag.chunker import load_folder
+from assistant_core.rag.index import make_index
 from assistant_core.responder import Responder, StubLLMResponder, TemplateResponder
 from assistant_core.router import route
 from assistant_core.tools import parse_credits, tuition
@@ -22,7 +27,9 @@ class AssistantService:
         offices: OfficeDirectory,
         handbook: Handbook,
         responder: Responder,
+        rag: RagAnswerer | None = None,
     ):
+        self.rag = rag
         self.settings = settings
         self.offices = offices
         self.handbook = handbook
@@ -42,7 +49,9 @@ class AssistantService:
 
     def handle(self, msg: Message) -> Response:
         """Process an incoming user message and return a structured Response."""
-        intent = route(msg.text, self.offices.names)
+        if self.rag is not None and is_private_request(msg.text):
+            return Response(answer=PRIVATE_REPLY, intent=Intent.UNKNOWN, path="abstain")
+        intent = route(msg.text, self.offices.names, policy_search=self.rag is not None)
 
         if intent is Intent.GREETING:
             return Response(
@@ -98,7 +107,10 @@ class AssistantService:
             )
 
     def _rule(self, text: str) -> Response:
-        rule = self.handbook.get_by_id(text) or self.handbook.search(text)
+        rule = self.handbook.get_by_id(text)
+        if rule is None and self.rag is not None:
+            return self.rag.answer(text)
+        rule = rule or self.handbook.search(text)
         if rule is None:
             return Response(
                 answer="Sorry, I don't know that yet.",
@@ -127,13 +139,19 @@ class AssistantService:
             )
 
 
-def build_service(settings: Settings) -> AssistantService:
+def build_service(settings: Settings, fail_provider: bool = False) -> AssistantService:
     """Convenience factory creating a standard AssistantService instance from settings."""
     d = settings.data_dir
     offices = OfficeDirectory.from_csv(d / "offices.csv")
     handbook = Handbook.from_json(d / "handbook.json")
     if settings.llm_provider == "stub":
-        responder = StubLLMResponder(fail=False)
+        responder = StubLLMResponder(fail=fail_provider)
     else:
         responder = TemplateResponder()
-    return AssistantService(settings, offices, handbook, responder)
+    kb_dir = settings.kb_dir or (settings.data_dir / "kb")
+    rag = None
+    if kb_dir.is_dir():
+        index = make_index(settings.retrieval_kind, load_folder(kb_dir))
+        llm = StubLLM(fail=fail_provider) if settings.llm_provider == "stub" else None
+        rag = RagAnswerer(index, llm, settings.retrieval_min_score, prompt_version=settings.prompt_version)
+    return AssistantService(settings, offices, handbook, responder, rag)

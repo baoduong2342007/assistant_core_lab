@@ -12,13 +12,14 @@ from assistant_core.__main__ import main
 
 
 @pytest.fixture
-def session_env(project_root):
+def session_env(project_root, tmp_path):
     """Explicit subprocess settings independent of the user's .env."""
     return {
         **os.environ,
         "PYTHONPATH": str(project_root / "src"),
         "ASSISTANT_DATA_DIR": str(project_root / "data"),
         "LLM_PROVIDER": "stub",
+        "KB_DIR": str(tmp_path / "no-kb"),
         "LLM_API_KEY": "fake-secret-for-session-tests",
         "CREDIT_RATE_VND": "450000",
         "RETAKE_MULTIPLIER": "1.5",
