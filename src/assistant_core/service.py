@@ -4,8 +4,10 @@ import logging
 
 from assistant_core.config import Settings
 from assistant_core.errors import InvalidRequest, ProviderError
+from assistant_core.guard import PRIVATE_REPLY, is_private_request
 from assistant_core.knowledge import Handbook, OfficeDirectory
 from assistant_core.models import Intent, Message, Response, Source
+from assistant_core.rag.answerer import RagAnswerer
 from assistant_core.responder import Responder, StubLLMResponder, TemplateResponder
 from assistant_core.router import route
 from assistant_core.tools import parse_credits, tuition
@@ -22,11 +24,13 @@ class AssistantService:
         offices: OfficeDirectory,
         handbook: Handbook,
         responder: Responder,
+        rag: RagAnswerer | None = None,
     ):
         self.settings = settings
         self.offices = offices
         self.handbook = handbook
         self.responder = responder
+        self.rag = rag
         self.fallback = TemplateResponder()
 
     def list_rules(self) -> Response:
@@ -42,6 +46,8 @@ class AssistantService:
 
     def handle(self, msg: Message) -> Response:
         """Process an incoming user message and return a structured Response."""
+        if self.rag is not None and is_private_request(msg.text):
+            return Response(answer=PRIVATE_REPLY, intent=Intent.UNKNOWN, path="abstain")
         intent = route(msg.text, self.offices.names)
 
         if intent is Intent.GREETING:
@@ -98,6 +104,8 @@ class AssistantService:
             )
 
     def _rule(self, text: str) -> Response:
+        if self.rag is not None:
+            return self.rag.answer(text)
         rule = self.handbook.get_by_id(text) or self.handbook.search(text)
         if rule is None:
             return Response(

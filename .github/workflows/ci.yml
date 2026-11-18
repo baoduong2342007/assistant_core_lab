@@ -38,6 +38,7 @@ jobs:
           python -m pytest -q
           python -m pytest -q practice/test_hello_api.py
           python -m pytest -q practice/test_school_repo.py
+          python -m pytest -q practice/test_mini_search.py
 
       - name: Check SQL practice answers
         run: |
