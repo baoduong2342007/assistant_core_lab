@@ -21,10 +21,15 @@ from assistant_core.rag.chunker import Chunk
 STOP = frozenset(
     "a an and are at be by can do for from how i in is it my of on or the to what when where who with".split()
 )
+TOKEN_ALIASES = {
+    "credits": "credit",
+    "take": "registering",
+    "register": "registering",
+}
 
 
 def tokenize(text: str) -> list[str]:
-    return [t for t in re.findall(r"\w+", text.lower()) if t not in STOP]
+    return [TOKEN_ALIASES.get(t, t) for t in re.findall(r"\w+", text.lower()) if t not in STOP]
 
 
 @dataclass(frozen=True)
