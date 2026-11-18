@@ -54,6 +54,23 @@ def test_citation_validation():
             parse_draft(bad, {"H#1"})
 
 
+@pytest.mark.parametrize(
+    ("question", "source", "expected"),
+    [
+        ("student card replacement fee", "S26#3", "50,000 VND"),
+        ("how long can I keep a library book", "S26#1", "14 days"),
+    ],
+)
+def test_policy_questions_use_sources(project_root, question, source, expected):
+    with TestClient(create_app(Settings(data_dir=project_root / "data"))) as client:
+        response = client.post("/v1/chat", json={"message": question})
+    assert response.status_code == 200
+    body = response.json()
+    assert body["path"] == "llm"
+    assert body["sources"][0]["id"] == source
+    assert expected in body["answer"]
+
+
 def test_api_rag_feedback_restart(tmp_path, project_root):
     settings = Settings(
         data_dir=project_root / "data", database_url=f'sqlite:///{tmp_path / "chat.db"}', api_admin_key="test-key"
