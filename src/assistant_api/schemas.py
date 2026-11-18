@@ -27,6 +27,9 @@ class ChatResponse(BaseModel):
     sources: list[Source] = Field(default_factory=list)
     degraded: bool = False
     request_id: str
+    path: str | None = None
+    escalate: bool = False
+    confidence: float | None = None
 
 
 class FeedbackIn(BaseModel):

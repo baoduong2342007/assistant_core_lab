@@ -9,13 +9,14 @@ import pytest
 
 
 @pytest.fixture
-def cli_env(project_root):
+def cli_env(project_root, tmp_path):
     """Isolate the CLI from personal environment and .env settings."""
     return {
         **os.environ,
         "PYTHONPATH": str(project_root / "src"),
         "ASSISTANT_DATA_DIR": str(project_root / "data"),
         "LLM_PROVIDER": "stub",
+        "KB_DIR": str(tmp_path / "no-kb"),
         "LLM_API_KEY": "cli-test-secret-do-not-log",
         "CREDIT_RATE_VND": "450000",
         "RETAKE_MULTIPLIER": "1.5",

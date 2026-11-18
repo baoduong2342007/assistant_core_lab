@@ -35,6 +35,9 @@ class Response(BaseModel):
     intent: Intent
     sources: list[Source] = Field(default_factory=list)
     degraded: bool = False
+    path: str | None = None
+    escalate: bool = False
+    confidence: float | None = None
 
 
 class Rule(BaseModel):
