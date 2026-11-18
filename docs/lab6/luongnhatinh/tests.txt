@@ -1,0 +1,59 @@
+Python 3.11 (Windows, venv .venv)
+Branch: feat/lab06-personal-luongnhatinh
+Base commit (origin/main): 80b9d3946ccc88d9a9eca21d9840432b3aee0db4
+Implementation commit: 46cea8bbb2043b01ca74eafadab5cc3394137823
+
+1) Full pytest suite:
+> python -m pytest -q
+377 passed, 1 warning in 73.68s (Starlette TestClient anyio.abc.BlockingPortal DeprecationWarning)
+
+2) Practice tests (Lab 04, Lab 05, Lab 06 mini search):
+> python -m pytest -q practice/test_mini_search.py practice/test_hello_api.py practice/test_school_repo.py
+14 passed, 1 warning in 1.16s (4 passed in practice/test_mini_search.py)
+
+3) SQL practice verification:
+> python practice/make_school_db.py
+students 8 rows, courses 5 rows, enrollments 17 rows
+> python practice/check.py
+Score: 15/15
+
+4) Ruff lint, formatting, and BLE:
+> python -m ruff check .
+All checks passed!
+> python -m ruff format --check .
+75 files already formatted
+> python -m ruff check --select BLE .
+All checks passed!
+
+5) Wheel packaging check:
+> python -m pip wheel --no-deps --wheel-dir <temp> .
+Wheel prompts: ['assistant_core/prompts/answer_v1.txt']
+
+6) CLI & API smoke checks (LLM_PROVIDER=stub):
+> python -m assistant_core --show-sources "I lost my student card"
+-> S26#3: 3 Student card replacement
+> python -m assistant_core --fail-provider --json "I lost my student card"
+-> intent=rule, sources=[S26#3], degraded=true (after 2 failed LLM attempts)
+> python -m assistant_core --credit-rate 500000 --session-id minh01 --json "tuition for 10 credits"
+-> Your tuition is 5,000,000 VND. (session=minh01)
+> python -m assistant_core --json "tuition for 18 credits and 2 retake"
+-> Your tuition is 9,450,000 VND.
+> python -m assistant_core --json "where is the library"
+-> Library: room B.201, open Mon-Sat 07:00-20:00.
+> python -m assistant_core --json "what is the capital of France"
+-> intent=unknown, escalate abstain message
+> python -m assistant_core --json "what grade did my friend get"
+-> intent=unknown, privacy guard reply
+> test_api_rag_chat_and_feedback_persists_across_restart
+-> verified POST /v1/chat (fee, llm+S26#3, abstain+escalate, privacy), POST /v1/feedback (201), and GET /v1/feedback + GET /v1/stats after app restart on same SQLite file.
+
+7) Evaluation scripts (LLM_PROVIDER=stub, index=bm25, min_score=2.0):
+> python eval/compare_paths.py --cases eval/cases_20.jsonl
+deterministic: 7/20  | abstain ok: 5/5 | p50: 0.0 ms | max: 0.6 ms | fails: E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15
+retrieval:     16/20 | abstain ok: 4/5 | p50: 0.0 ms | max: 0.1 ms | fails: E13 E14 E15 E19
+llm (stub):    16/20 | abstain ok: 4/5 | p50: 0.2 ms | max: 0.5 ms | fails: E13 E14 E15 E19
+
+> python eval/compare_paths.py
+deterministic: 9/25  | abstain ok: 7/7 | p50: 0.0 ms | max: 0.6 ms | fails: E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E36 E37 E38
+retrieval:     20/25 | abstain ok: 5/7 | p50: 0.0 ms | max: 0.1 ms | fails: E13 E14 E15 E19 E40
+llm (stub):    20/25 | abstain ok: 5/7 | p50: 0.2 ms | max: 0.5 ms | fails: E13 E14 E15 E19 E40
