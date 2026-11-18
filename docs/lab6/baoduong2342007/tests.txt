@@ -1,8 +1,18 @@
-Python 3.12; executed from repository root on 2026-11-18.
-python -m pytest -q: 358 passed, 1 third-party deprecation warning
-python -m pytest -q practice/test_mini_search.py: 4 passed
-python -m pytest -q practice/test_hello_api.py practice/test_school_repo.py: 10 passed
-python practice/make_school_db.py; python practice/check.py: 15/15
-python -m ruff check .: all checks passed
-python -m ruff format --check .: 75 files formatted
-TestClient integration covers fee, KB source, out-of-scope abstention, privacy, request ID and feedback after creating a new app with the same SQLite database.
+Python 3.12 on Windows, 18/11/2026. Tested code at 21c4696.
+
+python -m pytest -q: 360 passed
+python -m pytest -q practice/test_hello_api.py practice/test_school_repo.py practice/test_mini_search.py: 14 passed, including 4 mini search tests
+The test dependency Starlette emitted one deprecation warning.
+SQL practice from the initial Lab 06 commit: 15/15
+Ruff lint and formatting: passed
+
+CLI with stub: card replacement fee returned 50,000 VND and source S26#3.
+CLI with --fail-provider: returned the same source via retrieval after two failed provider attempts, with degraded=true in the log.
+
+Live Uvicorn HTTP smoke with local stub and temporary SQLite:
+- POST /v1/chat, 18 credits and 2 retakes: deterministic, 9,450,000 VND.
+- POST /v1/chat, student card replacement fee: llm, 50,000 VND, S26#3.
+- POST /v1/chat, capital of France: abstain, Training Office escalation.
+- POST /v1/feedback: HTTP 201 for the card answer request ID.
+- Restarted Uvicorn against the same SQLite file and GET /v1/feedback with the admin key returned the same request ID.
+- Windows temporarily held the SQLite file open during cleanup after the HTTP checks.
