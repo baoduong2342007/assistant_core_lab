@@ -20,13 +20,13 @@ class Settings(BaseModel):
     data_dir: Path = Path("data")
     llm_provider: Literal["stub", "template"] = "stub"
     llm_api_key: str | None = Field(default=None, repr=False, exclude=True)
+    llm_model: str = "llama3.2"
+    llm_base_url: str | None = None
+    llm_timeout_s: float = Field(default=5.0, gt=0, allow_inf_nan=False)
     kb_dir: Path | None = None
     retrieval_kind: Literal["bm25", "tfidf", "hybrid"] = "bm25"
     retrieval_min_score: float = Field(default=2.0, ge=0, allow_inf_nan=False)
     prompt_version: Literal["answer_v1"] = "answer_v1"
-    llm_model: str = "llama3.2"
-    llm_base_url: str | None = None
-    llm_timeout_s: float = Field(default=5.0, gt=0, allow_inf_nan=False)
     credit_rate_vnd: int = Field(default=450_000, gt=0)
     retake_multiplier: float = Field(default=1.5, gt=0, allow_inf_nan=False)
     max_credits: int = Field(default=30, gt=0)
@@ -95,9 +95,13 @@ def load_settings(env_file: str | Path | None = ".env") -> Settings:
             data_dir=os.getenv("ASSISTANT_DATA_DIR", "data"),
             llm_provider=os.getenv("LLM_PROVIDER", "stub"),
             llm_api_key=os.getenv("LLM_API_KEY") or None,
+            llm_model=os.getenv("LLM_MODEL", "llama3.2"),
+            llm_base_url=os.getenv("LLM_BASE_URL") or None,
+            llm_timeout_s=os.getenv("LLM_TIMEOUT_S", "5.0"),
             kb_dir=os.getenv("KB_DIR") or None,
             retrieval_kind=os.getenv("RETRIEVAL_KIND", "bm25"),
             retrieval_min_score=os.getenv("RETRIEVAL_MIN_SCORE", "2.0"),
+            prompt_version=os.getenv("PROMPT_VERSION", "answer_v1"),
             credit_rate_vnd=os.getenv("CREDIT_RATE_VND", "450000"),
             retake_multiplier=os.getenv("RETAKE_MULTIPLIER", "1.5"),
             max_credits=os.getenv("MAX_CREDITS", "30"),

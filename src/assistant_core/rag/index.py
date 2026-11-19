@@ -58,7 +58,7 @@ class BM25Index:
                 if t in tf
             )
             scores.append(s)
-        ranked = sorted(range(len(scores)), key=lambda i: -scores[i])[:k]
+        ranked = sorted(range(len(scores)), key=lambda i: -scores[i])[: max(k, 0)]
         return [Hit(self.chunks[i], round(scores[i], 3)) for i in ranked if scores[i] > 0]
 
 
@@ -80,7 +80,7 @@ class TfidfIndex:
     def search(self, query: str, k: int = 3) -> list[Hit]:
         q = self._vec(tokenize(query))
         sims = [sum(w * v.get(t, 0) for t, w in q.items()) for v in self.vecs]
-        ranked = sorted(range(len(sims)), key=lambda i: -sims[i])[:k]
+        ranked = sorted(range(len(sims)), key=lambda i: -sims[i])[: max(k, 0)]
         return [Hit(self.chunks[i], round(sims[i], 3)) for i in ranked if sims[i] > 0]
 
 
@@ -97,7 +97,7 @@ class HybridIndex:
             for rank, h in enumerate(hits):
                 fused[h.chunk.id] = fused.get(h.chunk.id, 0) + 1 / (60 + rank)
                 best.setdefault(h.chunk.id, h)
-        top = sorted(fused, key=lambda cid: -fused[cid])[:k]
+        top = sorted(fused, key=lambda cid: -fused[cid])[: max(k, 0)]
         return [Hit(best[cid].chunk, best[cid].score) for cid in top]
 
 
