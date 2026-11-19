@@ -38,7 +38,7 @@ class NoAnswer:
 
 def correct(case: dict, resp: Response) -> bool:
     if case.get("expect_abstain"):
-        return resp.path == "abstain" or resp.intent.value == "unknown"
+        return resp.path == "abstain"
     if "expect_contains" in case:
         return case["expect_contains"] in resp.answer
     return any(s.id == case["expect_source"] for s in resp.sources)
