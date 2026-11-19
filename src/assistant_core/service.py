@@ -104,6 +104,7 @@ class AssistantService:
             return Response(
                 answer=f"Your tuition is {total:,} VND.",
                 intent=Intent.FEE,
+                path="deterministic",
                 sources=[],
                 degraded=False,
             )
@@ -111,6 +112,7 @@ class AssistantService:
             return Response(
                 answer=str(exc),
                 intent=Intent.FEE,
+                path="deterministic",
                 sources=[],
                 degraded=False,
             )
