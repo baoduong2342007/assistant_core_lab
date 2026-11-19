@@ -11,7 +11,26 @@ DOCS = {
     "D3": "A lost student card can be replaced at Student Affairs in room I.102.",
     "D4": "Students may borrow up to 5 books from the library for 14 days.",
 }
-STOP = set("a an the at of for to in can be is my i may with and up from".split())
+STOP = {
+    "a",
+    "an",
+    "the",
+    "at",
+    "of",
+    "for",
+    "to",
+    "in",
+    "can",
+    "be",
+    "is",
+    "my",
+    "i",
+    "may",
+    "with",
+    "and",
+    "up",
+    "from",
+}
 
 
 def tokenize(text: str) -> list[str]:
@@ -34,6 +53,8 @@ def build_index(docs: dict[str, str]) -> dict[str, set[str]]:
 def search(index: dict[str, set[str]], query: str, k: int = 2) -> list[tuple[str, int]]:
     """Score = number of query words found in the document. Return the top k (doc_id, score),
     highest score first; ties broken by doc_id. Documents with score 0 are not returned."""
+    if k <= 0:
+        return []
     scores: dict[str, int] = {}
     for word in tokenize(query):
         for doc_id in index.get(word, set()):

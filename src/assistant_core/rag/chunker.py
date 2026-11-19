@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from assistant_core.errors import DataError
+
 
 @dataclass(frozen=True)
 class Chunk:
@@ -29,7 +31,7 @@ def chunk_markdown(path: Path) -> list[Chunk]:
     meta, body = _front_matter(path.read_text(encoding="utf-8"))
     doc_id = meta.get("doc_id", path.stem)
     chunks = []
-    for part in re.split(r"^# ", body, flags=re.M)[1:]:
+    for part in re.split(r"^#[ \t]+(?=\S)", body, flags=re.M)[1:]:
         heading, _, text = part.partition("\n")
         number = heading.split()[0]
         chunks.append(
@@ -46,4 +48,12 @@ def chunk_markdown(path: Path) -> list[Chunk]:
 
 
 def load_folder(folder: Path) -> list[Chunk]:
-    return [c for p in sorted(folder.glob("*.md")) for c in chunk_markdown(p)]
+    chunks: list[Chunk] = []
+    seen: set[str] = set()
+    for path in sorted(folder.glob("*.md")):
+        for chunk in chunk_markdown(path):
+            if chunk.id in seen:
+                raise DataError(f"Duplicate chunk ID {chunk.id} in {path.name}")
+            chunks.append(chunk)
+            seen.add(chunk.id)
+    return chunks

@@ -10,7 +10,7 @@ GREETINGS = frozenset({"hi", "hello", "hey", "xin chao"})
 def is_tuition_deadline(text: str) -> bool:
     return bool(
         re.search(r"\btuition\b", text, re.IGNORECASE)
-        and re.search(r"\b(?:due|deadlines?)\b|\bwhen\b[^?.!]*\bpay\b", text, re.IGNORECASE)
+        and re.search(r"\b(?:due|deadlines?)\b|\bwhen\b[^?.!]*\b(?:pay|paid)\b", text, re.IGNORECASE)
     )
 
 

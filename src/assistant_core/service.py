@@ -13,7 +13,7 @@ from assistant_core.rag.chunker import load_folder
 from assistant_core.rag.index import make_index
 from assistant_core.responder import Responder, StubLLMResponder, TemplateResponder
 from assistant_core.router import route
-from assistant_core.tools import parse_credits, tuition
+from assistant_core.tools import parse_credits, run_tool_call, tuition
 
 log = logging.getLogger("assistant_core")
 
@@ -29,12 +29,12 @@ class AssistantService:
         responder: Responder,
         rag: RagAnswerer | None = None,
     ):
-        self.rag = rag
         self.settings = settings
         self.offices = offices
         self.handbook = handbook
         self.responder = responder
         self.fallback = TemplateResponder()
+        self.rag = rag
 
     def list_rules(self) -> Response:
         """List the loaded handbook titles in their original order."""
@@ -50,7 +50,16 @@ class AssistantService:
     def handle(self, msg: Message) -> Response:
         """Process an incoming user message and return a structured Response."""
         if self.rag is not None and is_private_request(msg.text):
-            return Response(answer=PRIVATE_REPLY, intent=Intent.UNKNOWN, path="abstain")
+            return Response(
+                answer=PRIVATE_REPLY,
+                intent=Intent.UNKNOWN,
+                sources=[],
+                degraded=False,
+                path="abstain",
+                escalate=False,
+                confidence=0.0,
+            )
+
         intent = route(msg.text, self.offices.names, policy_search=self.rag is not None)
 
         if intent is Intent.GREETING:
@@ -110,6 +119,7 @@ class AssistantService:
         rule = self.handbook.get_by_id(text)
         if rule is None and self.rag is not None:
             return self.rag.answer(text)
+
         rule = rule or self.handbook.search(text)
         if rule is None:
             return Response(
@@ -140,18 +150,28 @@ class AssistantService:
 
 
 def build_service(settings: Settings, fail_provider: bool = False) -> AssistantService:
-    """Convenience factory creating a standard AssistantService instance from settings."""
+    """Convenience factory creating an AssistantService instance from settings."""
     d = settings.data_dir
     offices = OfficeDirectory.from_csv(d / "offices.csv")
     handbook = Handbook.from_json(d / "handbook.json")
-    if settings.llm_provider == "stub":
-        responder = StubLLMResponder(fail=fail_provider)
-    else:
-        responder = TemplateResponder()
-    kb_dir = settings.kb_dir or (settings.data_dir / "kb")
+    responder = StubLLMResponder(fail=fail_provider) if settings.llm_provider == "stub" else TemplateResponder()
+
     rag = None
-    if kb_dir.is_dir():
-        index = make_index(settings.retrieval_kind, load_folder(kb_dir))
-        llm = StubLLM(fail=fail_provider) if settings.llm_provider == "stub" else None
-        rag = RagAnswerer(index, llm, settings.retrieval_min_score, prompt_version=settings.prompt_version)
+    kb_dir = settings.kb_dir or (d / "kb")
+    if kb_dir.exists():
+        chunks = load_folder(kb_dir)
+        index = make_index(settings.retrieval_kind, chunks)
+        llm = None if settings.llm_provider == "template" else StubLLM(fail=fail_provider)
+
+        def tool_runner(raw: str) -> str | None:
+            return run_tool_call(raw, settings.credit_rate_vnd, settings.retake_multiplier, settings.max_credits)
+
+        rag = RagAnswerer(
+            index,
+            llm,
+            settings.retrieval_min_score,
+            prompt_version=settings.prompt_version,
+            tool_runner=tool_runner,
+        )
+
     return AssistantService(settings, offices, handbook, responder, rag)

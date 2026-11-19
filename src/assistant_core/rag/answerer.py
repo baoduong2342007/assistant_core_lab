@@ -32,6 +32,28 @@ _CREDIT_LOAD = re.compile(
 _BOOK_FORMAT = re.compile(r"\b(?:open|closed)[ -]book\b", re.IGNORECASE)
 
 
+_EXAM = re.compile(r"\b(?:exams?|tests?|quizzes?)\b", re.IGNORECASE)
+_LIBRARY_LOAN = re.compile(r"\b(?:library|borrow\w*|loans?)\b", re.IGNORECASE)
+_EXAM_DEVICES = (
+    re.compile(r"\bcalculators?\b", re.IGNORECASE),
+    re.compile(r"\bsmart[ -]?watch(?:es)?\b", re.IGNORECASE),
+)
+_LIBRARY_DEVICES = (
+    re.compile(r"\b(?:laptops?|notebooks?)\b", re.IGNORECASE),
+    re.compile(r"\btablets?\b", re.IGNORECASE),
+)
+
+
+def _required_evidence(question: str) -> list[re.Pattern[str]]:
+    """Identify explicit policy details that a merely related chunk cannot answer."""
+    required = [_BOOK_FORMAT] if _BOOK_FORMAT.search(question) else []
+    if _EXAM.search(question):
+        required.extend(pattern for pattern in _EXAM_DEVICES if pattern.search(question))
+    if _LIBRARY_LOAN.search(question):
+        required.extend(pattern for pattern in _LIBRARY_DEVICES if pattern.search(question))
+    return required
+
+
 def _search_query(question: str) -> str:
     """Expand common paraphrases using the handbook's terminology."""
     if is_tuition_deadline(question):
@@ -57,9 +79,13 @@ class RagAnswerer:
 
     def answer(self, question: str) -> Response:
         hits = self.index.search(_search_query(question), self.k)
-        if _BOOK_FORMAT.search(question):
-            # Exam absence rules can match "final exam" without saying what materials are allowed.
-            hits = [hit for hit in hits if _BOOK_FORMAT.search(f"{hit.chunk.title} {hit.chunk.text}")]
+        required = _required_evidence(question)
+        if required:
+            hits = [
+                hit
+                for hit in hits
+                if all(pattern.search(f"{hit.chunk.title} {hit.chunk.text}") for pattern in required)
+            ]
         if not hits or hits[0].score < self.min_score:
             return Response(answer=ESCALATE_MSG, intent=Intent.UNKNOWN, path="abstain", escalate=True, confidence=0.0)
         sources = {h.chunk.id: Source(id=h.chunk.id, title=h.chunk.title) for h in hits}
