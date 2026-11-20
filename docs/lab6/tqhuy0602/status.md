@@ -47,8 +47,8 @@ Package data `prompts/*.txt` đã có trong main, được giữ nguyên và ki�
 ## AI, review và trạng thái gửi bài
 
 Codex hỗ trợ toàn bộ code, test, patch bài tập, phép đo và tài liệu trong lần làm này theo yêu cầu của Huy.
-[reflection.md](reflection.md) là bản nháp do AI soạn đúng năm dòng, chưa có xác nhận Huy tự viết hoặc đã đọc/diễn đạt lại.
+[reflection.md](reflection.md) được nộp nguyên nội dung năm dòng hiện tại theo chỉ định của Huy ngày 20/11/2026: “Reflection H2 bạn cứ nộp đi”. Nội dung do AI soạn và được giữ ghi nhận AI hỗ trợ; chỉ định nộp này không được mô tả thành xác nhận Huy tự viết hoặc đã đọc/diễn đạt lại.
 [review-duong.md](review-duong.md) là kiểm tra kỹ thuật có AI hỗ trợ trên bản tích hợp, chưa phải peer approval trên GitHub.
 
-Mã và hồ sơ đã push trên nhánh cá nhân, với [PR draft #55](https://github.com/baoduong2342007/assistant_core_lab/pull/55) mở bằng tài khoản `tqhuy0602`; [pr-body.md](pr-body.md) lưu nội dung PR.
+Mã và hồ sơ đã push trên nhánh cá nhân, với [PR #55](https://github.com/baoduong2342007/assistant_core_lab/pull/55) mở bằng tài khoản `tqhuy0602`; H2 được gửi qua PR này và PR chuyển sang sẵn sàng review theo chỉ định nộp của Huy. [pr-body.md](pr-body.md) lưu nội dung PR.
 Chưa có review của Quyền, chưa nộp LMS hoặc tạo tag `v0.6-ai`; không tự đánh dấu các bước này hoàn thành.

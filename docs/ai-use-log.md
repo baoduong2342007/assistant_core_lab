@@ -1,5 +1,12 @@
 # AI Use Disclosure Log
 
+## 2026-11-20 — Huy authorizes H2 submission through PR #55
+
+Huy explicitly instructed “Reflection H2 bạn cứ nộp đi”. Codex submitted the existing
+five-line reflection unchanged through PR #55, updated its submission status and
+made the PR ready for review. The AI-writing disclosure remains; no independent
+personal authorship, reading, peer approval or LMS submission is asserted.
+
 ## 2026-11-20 — Trần Quốc Huy, Lab06 settings / adapters / A2
 
 At Huy's request, Codex implemented the remaining Lab06 settings and provider wiring,

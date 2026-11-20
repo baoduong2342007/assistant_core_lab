@@ -2,7 +2,7 @@ Settings previously rejected Ollama/OpenAI and the shared factory always created
 
 A2 now rejects extra fields and non-finite confidence in addition to the existing strict JSON/type and per-turn citation checks. Prompt rendering preserves literal placeholders in evidence and the prompt spells out source/abstention requirements. Offline stub/template defaults, env precedence, hidden secrets, CLI overrides and deterministic tuition behavior remain covered.
 
-Huy's E26–E30 add three source cases and two abstentions, with a separate 25-case dataset, measured 20/25-case tables, a five-line AI-drafted H2 reflection and an original-starter S1–S3/A1/A2 solution patch. Existing team implementations and packaging configuration are explicitly credited in `docs/lab6/tqhuy0602/status.md`.
+Huy's E26–E30 add three source cases and two abstentions, with a separate 25-case dataset, measured 20/25-case tables, a five-line AI-written H2 reflection approved by Huy for submission unchanged on 2026-11-20, and an original-starter S1–S3/A1/A2 solution patch. The H2 submission is available at [reflection.md](https://github.com/baoduong2342007/assistant_core_lab/blob/feat/lab06-personal-tqhuy0602/docs/lab6/tqhuy0602/reflection.md). Existing team implementations and packaging configuration are explicitly credited in `docs/lab6/tqhuy0602/status.md`.
 
 Validation on Python 3.11.16: 512 tests passed, 4 mini-search tests passed, 10 legacy practice tests passed, SQL checker 15/15, Ruff lint/format/BLE passed. sdist/wheel built; a clean wheel environment loaded the packaged prompt and answered offline from outside checkout. Retrieval/stub scored 20/20, 25/25 and 45/45 on their respective datasets; raw logs, per-case responses and code/dataset hashes are included.
 
