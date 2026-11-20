@@ -6,7 +6,7 @@ from assistant_core.config import Settings
 from assistant_core.errors import InvalidRequest, ProviderError
 from assistant_core.guard import PRIVATE_REPLY, is_private_request
 from assistant_core.knowledge import Handbook, OfficeDirectory
-from assistant_core.llm import StubLLM
+from assistant_core.llm import StubLLM, make_llm
 from assistant_core.models import Intent, Message, Response, Source
 from assistant_core.rag.answerer import RagAnswerer
 from assistant_core.rag.chunker import load_folder
@@ -35,6 +35,13 @@ class AssistantService:
         self.responder = responder
         self.fallback = TemplateResponder()
         self.rag = rag
+
+    def close(self) -> None:
+        """Release the optional HTTP provider when an owning application shuts down."""
+        if self.rag is not None:
+            close = getattr(self.rag.llm, "close", None)
+            if close is not None:
+                close()
 
     def list_rules(self) -> Response:
         """List the loaded handbook titles in their original order."""
@@ -163,7 +170,18 @@ def build_service(settings: Settings, fail_provider: bool = False) -> AssistantS
     if kb_dir.exists():
         chunks = load_folder(kb_dir)
         index = make_index(settings.retrieval_kind, chunks)
-        llm = None if settings.llm_provider == "template" else StubLLM(fail=fail_provider)
+        if settings.llm_provider == "template":
+            llm = None
+        elif fail_provider:
+            llm = StubLLM(fail=True)
+        else:
+            llm = make_llm(
+                settings.llm_provider,
+                settings.llm_model,
+                settings.llm_base_url,
+                settings.llm_api_key,
+                settings.llm_timeout_s,
+            )
 
         def tool_runner(raw: str) -> str | None:
             return run_tool_call(raw, settings.credit_rate_vnd, settings.retake_multiplier, settings.max_credits)

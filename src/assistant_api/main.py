@@ -28,6 +28,7 @@ def create_app(
     repo: Repository | None = None,
 ) -> FastAPI:
     settings = settings or load_settings()
+    owns_service = service is None
     service = service or build_service(settings)
     owns_weather = weather is None
     weather = weather or WeatherClient(
@@ -50,6 +51,8 @@ def create_app(
         try:
             yield
         finally:
+            if owns_service:
+                service.close()
             if owns_weather:
                 weather.close()
             if owns_repo:
