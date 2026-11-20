@@ -1,0 +1,17 @@
+{
+  "source_commit": "11d934ccf8de9b0cf057d69afd84f2e2cf343dc9",
+  "files": {
+    "practice/mini_search.py": {
+      "before_sha256": "e243442e585bc73534f80b0a318922150cfd13e65febc019126bdaf9fb0e6d58",
+      "after_sha256": "24bb2ace47569d88902fa2c09a9eeab33a963d8594dcbd9c849a1b4f91e6e215"
+    },
+    "src/assistant_core/llm.py": {
+      "before_sha256": "3cc31078496fdb9d9d69528767f68249628f0f7900a565efc9212736e67f07c3",
+      "after_sha256": "0e876038e470e6a9b49de0c20effd207c68452ccacc6b37cf5e2c6d21aae0dc5"
+    },
+    "src/assistant_core/rag/answerer.py": {
+      "before_sha256": "979be7fd06009797ca53ccdcb16d74ecbb33380a718e4e1beb615913692fbfa5",
+      "after_sha256": "d5fa987d3dd692f839d7daf2012a6316807d548ad6900b7f67676eb38d62fde8"
+    }
+  }
+}

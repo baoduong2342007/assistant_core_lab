@@ -17,7 +17,7 @@ from textwrap import shorten
 from typing import Protocol
 
 import httpx
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from assistant_core.errors import ProviderError
 from assistant_core.rag.index import Hit
@@ -28,9 +28,11 @@ PROMPTS = Path(__file__).parent / "prompts"
 class AnswerDraft(BaseModel):
     """The structured output we require from any LLM."""
 
+    model_config = ConfigDict(extra="forbid", hide_input_in_errors=True)
+
     answer: str = Field(max_length=800)
     source_ids: list[str] = Field(default_factory=list)
-    confidence: float = Field(ge=0, le=1)
+    confidence: float = Field(ge=0, le=1, allow_inf_nan=False)
     abstain: bool = False
 
 
@@ -41,9 +43,12 @@ class LLM(Protocol):
 
 
 def build_prompt(question: str, hits: list[Hit], version: str = "answer_v1") -> str:
+    if version != "answer_v1":
+        raise ProviderError("unsupported prompt version")
     template = (PROMPTS / f"{version}.txt").read_text(encoding="utf-8")
     sources = "\n".join(f"[{h.chunk.id}] {h.chunk.title}: {h.chunk.text}" for h in hits)
-    return template.replace("{sources}", sources).replace("{question}", question)
+    values = {"sources": sources, "question": question}
+    return re.sub(r"\{(sources|question)\}", lambda match: values[match.group(1)], template)
 
 
 def parse_draft(raw: str, allowed_ids: set[str]) -> AnswerDraft:
@@ -89,9 +94,19 @@ class StubLLM:
 class OllamaLLM:
     name = "ollama"
 
-    def __init__(self, model: str = "llama3.2", base_url: str = "http://localhost:11434", timeout_s: float = 30):
+    def __init__(
+        self,
+        model: str = "llama3.2",
+        base_url: str = "http://localhost:11434",
+        timeout_s: float = 30,
+        *,
+        transport: httpx.BaseTransport | None = None,
+    ):
         self.model, self.base_url = model, base_url.rstrip("/")
-        self._http = httpx.Client(timeout=timeout_s)
+        self._http = httpx.Client(timeout=timeout_s, transport=transport)
+
+    def close(self) -> None:
+        self._http.close()
 
     def complete(self, prompt: str) -> str:
         try:
@@ -106,17 +121,33 @@ class OllamaLLM:
                 },
             )
             r.raise_for_status()
-            return r.json()["message"]["content"]
-        except (httpx.HTTPError, KeyError) as exc:
+            content = r.json()["message"]["content"]
+            if not isinstance(content, str):
+                raise TypeError("content must be a string")
+            return content
+        except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
             raise ProviderError(f"ollama failed: {type(exc).__name__}") from exc
 
 
 class OpenAICompatibleLLM:
     name = "openai"
 
-    def __init__(self, api_key: str, model: str, base_url: str = "https://api.openai.com/v1", timeout_s: float = 20):
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        base_url: str = "https://api.openai.com/v1",
+        timeout_s: float = 20,
+        *,
+        transport: httpx.BaseTransport | None = None,
+    ):
         self.model, self.base_url = model, base_url.rstrip("/")
-        self._http = httpx.Client(timeout=timeout_s, headers={"Authorization": f"Bearer {api_key}"})
+        self._http = httpx.Client(
+            timeout=timeout_s, headers={"Authorization": f"Bearer {api_key}"}, transport=transport
+        )
+
+    def close(self) -> None:
+        self._http.close()
 
     def complete(self, prompt: str) -> str:
         try:
@@ -130,8 +161,11 @@ class OpenAICompatibleLLM:
                 },
             )
             r.raise_for_status()
-            return r.json()["choices"][0]["message"]["content"]
-        except (httpx.HTTPError, KeyError, IndexError) as exc:
+            content = r.json()["choices"][0]["message"]["content"]
+            if not isinstance(content, str):
+                raise TypeError("content must be a string")
+            return content
+        except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError) as exc:
             raise ProviderError(f"provider failed: {type(exc).__name__}") from exc
 
 
@@ -141,7 +175,7 @@ def make_llm(provider: str, model: str, base_url: str | None, api_key: str | Non
     if provider == "ollama":
         return OllamaLLM(model, base_url or "http://localhost:11434", timeout_s)
     if provider == "openai":
-        if not api_key:
+        if not api_key or not api_key.strip():
             raise ProviderError("LLM_API_KEY required for provider 'openai'")
         return OpenAICompatibleLLM(api_key, model, base_url or "https://api.openai.com/v1", timeout_s)
     raise ProviderError(f"unknown LLM provider {provider!r}")

@@ -1,0 +1,20 @@
+{
+  "cwd": "/private/tmp",
+  "imported_from": "/private/tmp/ct-lab06-huy-wheel-env/lib/python3.11/site-packages/assistant_core/__init__.py",
+  "prompt_path": "/private/tmp/ct-lab06-huy-wheel-env/lib/python3.11/site-packages/assistant_core/prompts/answer_v1.txt",
+  "response": {
+    "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+    "intent": "rule",
+    "sources": [
+      {
+        "id": "S26#3",
+        "title": "3 Student card replacement"
+      }
+    ],
+    "degraded": false,
+    "path": "llm",
+    "escalate": false,
+    "confidence": 0.7
+  },
+  "offline": true
+}

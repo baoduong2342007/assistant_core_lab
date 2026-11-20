@@ -1,0 +1,1662 @@
+[
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E01",
+      "question": "can I register my thesis with 118 credits",
+      "expect_source": "H26#5.3",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.23812500876374543,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E02",
+      "question": "how much does a retake cost",
+      "expect_source": "F26#2",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.013167009456083179,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E03",
+      "question": "tuition for 18 credits and 2 retake",
+      "expect_contains": "9,450,000",
+      "category": "tool"
+    },
+    "correct": true,
+    "elapsed_ms": 0.15170802362263203,
+    "response": {
+      "answer": "Your tuition is 9,450,000 VND.",
+      "intent": "fee",
+      "sources": [],
+      "degraded": false,
+      "path": "deterministic",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E04",
+      "question": "where is the library",
+      "expect_contains": "B.201",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0365830201189965,
+    "response": {
+      "answer": "Library: room B.201, open Mon-Sat 07:00-20:00.",
+      "intent": "office",
+      "sources": [],
+      "degraded": false,
+      "path": null,
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E05",
+      "question": "I lost my student card",
+      "expect_source": "S26#3",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.034374999813735485,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E06",
+      "question": "refund if I drop a course",
+      "expect_source": "F26#4",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.008708011591807008,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E07",
+      "question": "I was sick during my final exam",
+      "expect_source": "H26#7.2",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.01158300437964499,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E08",
+      "question": "transfer credits from another university",
+      "expect_source": "H26#8.3",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.012042000889778137,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E09",
+      "question": "reset my password",
+      "expect_source": "S26#2",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.007208989700302482,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E10",
+      "question": "late thesis registration",
+      "expect_source": "H26#5.4",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.011208001524209976,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E11",
+      "question": "leave of absence refund",
+      "expect_source": "H26#8.1",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.006708025466650724,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E12",
+      "question": "retake deadline for final-year students",
+      "expect_source": "H26#4.2",
+      "category": "normal"
+    },
+    "correct": false,
+    "elapsed_ms": 0.0077500008046627045,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E13",
+      "question": "when is tuition due",
+      "expect_source": "F26#3",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.007374997949227691,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E14",
+      "question": "can I take 32 credits",
+      "expect_source": "H26#6.1",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.00666698906570673,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E15",
+      "question": "how long can I keep a library book",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.009000010322779417,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E16",
+      "question": "what is the capital of France",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.006874994141981006,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E17",
+      "question": "which lecturer is the best",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.006084010237827897,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E18",
+      "question": "what grade did my friend get",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0070420210249722,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E19",
+      "question": "is the final exam open-book",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.00825000461190939,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E20",
+      "question": "tell me about exams",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.006415997631847858,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E26",
+      "question": "Can I renew a library book online if another student has reserved it?",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.011333002476021647,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E27",
+      "question": "What is the minimum course content match for transfer credits?",
+      "expect_source": "H26#8.3",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.00925001222640276,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E28",
+      "question": "How long may I take a leave of absence?",
+      "expect_source": "H26#8.1",
+      "category": "paraphrase"
+    },
+    "correct": false,
+    "elapsed_ms": 0.008041010005399585,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E29",
+      "question": "What is the boiling point of ethanol?",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0072499969974160194,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "deterministic",
+    "case": {
+      "id": "E30",
+      "question": "What grade did my classmate get in physics?",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.004915986210107803,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E01",
+      "question": "can I register my thesis with 118 credits",
+      "expect_source": "H26#5.3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.04454198642633855,
+    "response": {
+      "answer": "5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E02",
+      "question": "how much does a retake cost",
+      "expect_source": "F26#2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.02029098686762154,
+    "response": {
+      "answer": "2 Retake fee: Retake credits are charged at 1.5 times the regular credit rate.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#2",
+          "title": "2 Retake fee"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E03",
+      "question": "tuition for 18 credits and 2 retake",
+      "expect_contains": "9,450,000",
+      "category": "tool"
+    },
+    "correct": true,
+    "elapsed_ms": 0.013834011042490602,
+    "response": {
+      "answer": "Your tuition is 9,450,000 VND.",
+      "intent": "fee",
+      "sources": [],
+      "degraded": false,
+      "path": "deterministic",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E04",
+      "question": "where is the library",
+      "expect_contains": "B.201",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.006750022293999791,
+    "response": {
+      "answer": "Library: room B.201, open Mon-Sat 07:00-20:00.",
+      "intent": "office",
+      "sources": [],
+      "degraded": false,
+      "path": null,
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E05",
+      "question": "I lost my student card",
+      "expect_source": "S26#3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.020500010577961802,
+    "response": {
+      "answer": "3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E06",
+      "question": "refund if I drop a course",
+      "expect_source": "F26#4",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.019875005818903446,
+    "response": {
+      "answer": "4 Refunds: Students who withdraw from a course before the end of week 2 receive a full refund for that course. No refund is given after week 2.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#4",
+          "title": "4 Refunds"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E07",
+      "question": "I was sick during my final exam",
+      "expect_source": "H26#7.2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.020458013750612736,
+    "response": {
+      "answer": "7.2 Exam absence: Students absent from a final exam for medical reasons must submit a medical certificate to the Training Office within 3 working days. Approved students take the exam in the next exam period.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#7.2",
+          "title": "7.2 Exam absence"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E08",
+      "question": "transfer credits from another university",
+      "expect_source": "H26#8.3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.02012500772252679,
+    "response": {
+      "answer": "8.3 Transfer credits: Credits from another university may be recognised if the course content matches at least 80 percent and the grade is at least 5.0 out of 10.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.3",
+          "title": "8.3 Transfer credits"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E09",
+      "question": "reset my password",
+      "expect_source": "S26#2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.013374985428526998,
+    "response": {
+      "answer": "2 IT account password reset: Students can reset their university account password at the IT Helpdesk (room E.005) or online with their registered recovery email.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#2",
+          "title": "2 IT account password reset"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E10",
+      "question": "late thesis registration",
+      "expect_source": "H26#5.4",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.017332989955320954,
+    "response": {
+      "answer": "5.4 Late thesis registration: Late thesis registration requires written approval from both the Faculty and the proposed supervisor. Requests must be submitted to the Training Office no later than week 5.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.4",
+          "title": "5.4 Late thesis registration"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E11",
+      "question": "leave of absence refund",
+      "expect_source": "H26#8.1",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.016000005416572094,
+    "response": {
+      "answer": "8.1 Leave of absence: Students may request a leave of absence for up to two semesters. Tuition already paid for the current semester is not refunded after week 4.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.1",
+          "title": "8.1 Leave of absence"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E12",
+      "question": "retake deadline for final-year students",
+      "expect_source": "H26#4.2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.021209008991718292,
+    "response": {
+      "answer": "4.2 Retaking a course: Students may retake a course they failed or want to improve. Retake credits are charged at 1.5 times the normal credit rate. Final-year students must register retakes before week 2 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#4.2",
+          "title": "4.2 Retaking a course"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E13",
+      "question": "when is tuition due",
+      "expect_source": "F26#3",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.017749989638105035,
+    "response": {
+      "answer": "3 Payment deadline: Tuition must be paid by the end of week 6. Students who pay late receive a reminder and may have registration suspended after week 8.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#3",
+          "title": "3 Payment deadline"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E14",
+      "question": "can I take 32 credits",
+      "expect_source": "H26#6.1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.018999999156221747,
+    "response": {
+      "answer": "6.1 Credit load: A regular semester load is between 14 and 30 credits. Registering more than 30 credits requires approval from the academic advisor.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#6.1",
+          "title": "6.1 Credit load"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E15",
+      "question": "how long can I keep a library book",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.016875012079253793,
+    "response": {
+      "answer": "1 Library borrowing: Students may borrow up to 5 books for 14 days. Books can be renewed once online if no one else has reserved them.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#1",
+          "title": "1 Library borrowing"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E16",
+      "question": "what is the capital of France",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.01262497971765697,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E17",
+      "question": "which lecturer is the best",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.011916999937966466,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E18",
+      "question": "what grade did my friend get",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.004125002305954695,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E19",
+      "question": "is the final exam open-book",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.022249994799494743,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E20",
+      "question": "tell me about exams",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.012917007552459836,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E26",
+      "question": "Can I renew a library book online if another student has reserved it?",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.030250026611611247,
+    "response": {
+      "answer": "1 Library borrowing: Students may borrow up to 5 books for 14 days. Books can be renewed once online if no one else has reserved them.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#1",
+          "title": "1 Library borrowing"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E27",
+      "question": "What is the minimum course content match for transfer credits?",
+      "expect_source": "H26#8.3",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.020708015654236078,
+    "response": {
+      "answer": "8.3 Transfer credits: Credits from another university may be recognised if the course content matches at least 80 percent and the grade is at least 5.0 out of 10.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.3",
+          "title": "8.3 Transfer credits"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E28",
+      "question": "How long may I take a leave of absence?",
+      "expect_source": "H26#8.1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.018708000425249338,
+    "response": {
+      "answer": "8.1 Leave of absence: Students may request a leave of absence for up to two semesters. Tuition already paid for the current semester is not refunded after week 4.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.1",
+          "title": "8.1 Leave of absence"
+        }
+      ],
+      "degraded": false,
+      "path": "retrieval",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E29",
+      "question": "What is the boiling point of ethanol?",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0118750031106174,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "retrieval",
+    "case": {
+      "id": "E30",
+      "question": "What grade did my classmate get in physics?",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.003916997229680419,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E01",
+      "question": "can I register my thesis with 118 credits",
+      "expect_source": "H26#5.3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.24812499759718776,
+    "response": {
+      "answer": "According to 5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E02",
+      "question": "how much does a retake cost",
+      "expect_source": "F26#2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07879198528826237,
+    "response": {
+      "answer": "According to 2 Retake fee: Retake credits are charged at 1.5 times the regular credit rate.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#2",
+          "title": "2 Retake fee"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E03",
+      "question": "tuition for 18 credits and 2 retake",
+      "expect_contains": "9,450,000",
+      "category": "tool"
+    },
+    "correct": true,
+    "elapsed_ms": 0.012707983842119575,
+    "response": {
+      "answer": "Your tuition is 9,450,000 VND.",
+      "intent": "fee",
+      "sources": [],
+      "degraded": false,
+      "path": "deterministic",
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E04",
+      "question": "where is the library",
+      "expect_contains": "B.201",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.006166024832054973,
+    "response": {
+      "answer": "Library: room B.201, open Mon-Sat 07:00-20:00.",
+      "intent": "office",
+      "sources": [],
+      "degraded": false,
+      "path": null,
+      "escalate": false,
+      "confidence": null
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E05",
+      "question": "I lost my student card",
+      "expect_source": "S26#3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07133401231840253,
+    "response": {
+      "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E06",
+      "question": "refund if I drop a course",
+      "expect_source": "F26#4",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07950002327561378,
+    "response": {
+      "answer": "According to 4 Refunds: Students who withdraw from a course before the end of week 2 receive a full refund for that course. No refund is given after week 2.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#4",
+          "title": "4 Refunds"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E07",
+      "question": "I was sick during my final exam",
+      "expect_source": "H26#7.2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0850000069476664,
+    "response": {
+      "answer": "According to 7.2 Exam absence: Students absent from a final exam for medical reasons must submit a medical certificate to the Training Office within 3 working days. Approved students take the exam in the next exam period.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#7.2",
+          "title": "7.2 Exam absence"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E08",
+      "question": "transfer credits from another university",
+      "expect_source": "H26#8.3",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07545901462435722,
+    "response": {
+      "answer": "According to 8.3 Transfer credits: Credits from another university may be recognised if the course content matches at least 80 percent and the grade is at least 5.0 out of 10.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.3",
+          "title": "8.3 Transfer credits"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E09",
+      "question": "reset my password",
+      "expect_source": "S26#2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.06491600652225316,
+    "response": {
+      "answer": "According to 2 IT account password reset: Students can reset their university account password at the IT Helpdesk (room E.005) or online with their registered recovery email.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#2",
+          "title": "2 IT account password reset"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E10",
+      "question": "late thesis registration",
+      "expect_source": "H26#5.4",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.08908400195650756,
+    "response": {
+      "answer": "According to 5.4 Late thesis registration: Late thesis registration requires written approval from both the Faculty and the proposed supervisor. Requests must be submitted to the Training Office no later than week 5.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.4",
+          "title": "5.4 Late thesis registration"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E11",
+      "question": "leave of absence refund",
+      "expect_source": "H26#8.1",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07041700882837176,
+    "response": {
+      "answer": "According to 8.1 Leave of absence: Students may request a leave of absence for up to two semesters. Tuition already paid for the current semester is not refunded after week 4.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.1",
+          "title": "8.1 Leave of absence"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E12",
+      "question": "retake deadline for final-year students",
+      "expect_source": "H26#4.2",
+      "category": "normal"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0829579948913306,
+    "response": {
+      "answer": "According to 4.2 Retaking a course: Students may retake a course they failed or want to improve. Retake credits are charged at 1.5 times the normal credit rate. Final-year students must register retakes before week 2 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#4.2",
+          "title": "4.2 Retaking a course"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E13",
+      "question": "when is tuition due",
+      "expect_source": "F26#3",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.06020799628458917,
+    "response": {
+      "answer": "According to 3 Payment deadline: Tuition must be paid by the end of week 6. Students who pay late receive a reminder and may have registration suspended after week 8.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "F26#3",
+          "title": "3 Payment deadline"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E14",
+      "question": "can I take 32 credits",
+      "expect_source": "H26#6.1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0627499830443412,
+    "response": {
+      "answer": "According to 6.1 Credit load: A regular semester load is between 14 and 30 credits. Registering more than 30 credits requires approval from the academic advisor.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#6.1",
+          "title": "6.1 Credit load"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E15",
+      "question": "how long can I keep a library book",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.060166988987475634,
+    "response": {
+      "answer": "According to 1 Library borrowing: Students may borrow up to 5 books for 14 days. Books can be renewed once online if no one else has reserved them.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#1",
+          "title": "1 Library borrowing"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E16",
+      "question": "what is the capital of France",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.014874996850267053,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E17",
+      "question": "which lecturer is the best",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.012832984793931246,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E18",
+      "question": "what grade did my friend get",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.005707988748326898,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E19",
+      "question": "is the final exam open-book",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.021917017875239253,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E20",
+      "question": "tell me about exams",
+      "expect_abstain": true,
+      "category": "ambiguous"
+    },
+    "correct": true,
+    "elapsed_ms": 0.012958014849573374,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E26",
+      "question": "Can I renew a library book online if another student has reserved it?",
+      "expect_source": "S26#1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07754200487397611,
+    "response": {
+      "answer": "According to 1 Library borrowing: Students may borrow up to 5 books for 14 days. Books can be renewed once online if no one else has reserved them.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#1",
+          "title": "1 Library borrowing"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E27",
+      "question": "What is the minimum course content match for transfer credits?",
+      "expect_source": "H26#8.3",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.07470799027942121,
+    "response": {
+      "answer": "According to 8.3 Transfer credits: Credits from another university may be recognised if the course content matches at least 80 percent and the grade is at least 5.0 out of 10.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.3",
+          "title": "8.3 Transfer credits"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E28",
+      "question": "How long may I take a leave of absence?",
+      "expect_source": "H26#8.1",
+      "category": "paraphrase"
+    },
+    "correct": true,
+    "elapsed_ms": 0.0701249809935689,
+    "response": {
+      "answer": "According to 8.1 Leave of absence: Students may request a leave of absence for up to two semesters. Tuition already paid for the current semester is not refunded after week 4.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#8.1",
+          "title": "8.1 Leave of absence"
+        }
+      ],
+      "degraded": false,
+      "path": "llm",
+      "escalate": false,
+      "confidence": 0.7
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E29",
+      "question": "What is the boiling point of ethanol?",
+      "expect_abstain": true,
+      "category": "out-of-scope"
+    },
+    "correct": true,
+    "elapsed_ms": 0.015166995581239462,
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": true,
+      "confidence": 0.0
+    }
+  },
+  {
+    "mode": "llm (stub)",
+    "case": {
+      "id": "E30",
+      "question": "What grade did my classmate get in physics?",
+      "expect_abstain": true,
+      "category": "privacy"
+    },
+    "correct": true,
+    "elapsed_ms": 0.004583998816087842,
+    "response": {
+      "answer": "I can't share information about other students. You can only see your own records after logging in.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "path": "abstain",
+      "escalate": false,
+      "confidence": 0.0
+    }
+  }
+]

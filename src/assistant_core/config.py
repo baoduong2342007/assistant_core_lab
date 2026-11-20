@@ -5,7 +5,16 @@ from pathlib import Path
 from typing import Literal
 
 from dotenv import load_dotenv
-from pydantic import AnyHttpUrl, BaseModel, ConfigDict, Field, TypeAdapter, ValidationError, field_validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    ConfigDict,
+    Field,
+    TypeAdapter,
+    ValidationError,
+    ValidationInfo,
+    field_validator,
+)
 
 from assistant_core.errors import ConfigError
 
@@ -18,8 +27,8 @@ class Settings(BaseModel):
     database_url: str = "sqlite:///assistant.db"
     session_salt: str = Field(default="lab05-local-salt", repr=False, exclude=True)
     data_dir: Path = Path("data")
-    llm_provider: Literal["stub", "template"] = "stub"
-    llm_api_key: str | None = Field(default=None, repr=False, exclude=True)
+    llm_provider: Literal["stub", "template", "ollama", "openai"] = "stub"
+    llm_api_key: str | None = Field(default=None, repr=False, exclude=True, validate_default=True)
     llm_model: str = "llama3.2"
     llm_base_url: str | None = None
     llm_timeout_s: float = Field(default=5.0, gt=0, allow_inf_nan=False)
@@ -39,6 +48,32 @@ class Settings(BaseModel):
     campus_lat: float = Field(default=10.7626, ge=-90, le=90, allow_inf_nan=False)
     campus_lon: float = Field(default=106.6822, ge=-180, le=180, allow_inf_nan=False)
     rate_limit_per_min: int = Field(default=30, gt=0)
+
+    @field_validator("llm_api_key")
+    @classmethod
+    def validate_llm_key(cls, value: str | None, info: ValidationInfo) -> str | None:
+        if value is not None and not value.strip():
+            raise ValueError("llm_api_key must not be blank")
+        if info.data.get("llm_provider") == "openai" and value is None:
+            raise ValueError("llm_api_key is required for openai")
+        return value
+
+    @field_validator("llm_model")
+    @classmethod
+    def validate_llm_model(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("llm_model must not be blank")
+        return value.strip()
+
+    @field_validator("llm_base_url")
+    @classmethod
+    def validate_llm_base_url(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        url = TypeAdapter(AnyHttpUrl).validate_python(value)
+        if url.username or url.password or url.query or url.fragment:
+            raise ValueError("llm_base_url must not contain credentials, query or fragment")
+        return str(url).rstrip("/")
 
     @field_validator("credit_rate_vnd", "max_credits", "weather_retries", "rate_limit_per_min", mode="before")
     @classmethod

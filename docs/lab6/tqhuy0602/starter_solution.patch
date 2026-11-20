@@ -1,0 +1,60 @@
+--- a/practice/mini_search.py
++++ b/practice/mini_search.py
+@@ -24,15 +24,19 @@
+     Example: {"thesis": {"D1"}, "credits": {"D1", "D2"}, ...}
+     """
+     index: dict[str, set[str]] = {}
+-    # TODO S1: for each (doc_id, text) in docs.items(), for each word in tokenize(text):
+-    #          index.setdefault(word, set()).add(doc_id)
++    for doc_id, text in docs.items():
++        for word in tokenize(text):
++            index.setdefault(word, set()).add(doc_id)
+     return index
+ 
+ 
+ def search(index: dict[str, set[str]], query: str, k: int = 2) -> list[tuple[str, int]]:
+     """Score = number of query words found in the document. Return the top k (doc_id, score),
+     highest score first; ties broken by doc_id. Documents with score 0 are not returned."""
++    if k <= 0:
++        return []
+     scores: dict[str, int] = {}
+-    # TODO S2: for each word in tokenize(query): for each doc_id in index.get(word, set()): scores[doc_id] += 1
+-    # TODO S3: sort by (-score, doc_id) and return the first k
+-    return []
++    for word in tokenize(query):
++        for doc_id in index.get(word, set()):
++            scores[doc_id] = scores.get(doc_id, 0) + 1
++    return sorted(scores.items(), key=lambda item: (-item[1], item[0]))[:k]
+--- a/src/assistant_core/llm.py
++++ b/src/assistant_core/llm.py
+@@ -54,10 +54,10 @@
+         draft = AnswerDraft.model_validate(json.loads(m.group(0)))
+     except (json.JSONDecodeError, ValidationError) as exc:
+         raise ProviderError(f"invalid structured output: {type(exc).__name__}") from exc
+-    # TODO A2 (2 lines) — the grounding check: if the draft does NOT abstain and either
+-    #   (a) draft.source_ids is empty, or (b) it contains an id that is not in allowed_ids,
+-    #   raise ProviderError("answer cites sources that were not retrieved").
+-    #   Hint: set(draft.source_ids) <= allowed_ids means "all ids are allowed".
++    if not set(draft.source_ids) <= allowed_ids:
++        raise ProviderError("answer cites sources that were not retrieved")
++    if not draft.abstain and not draft.source_ids:
++        raise ProviderError("answer is missing citations")
+     return draft
+ 
+ 
+--- a/src/assistant_core/rag/answerer.py
++++ b/src/assistant_core/rag/answerer.py
+@@ -39,11 +39,8 @@
+ 
+     def answer(self, question: str) -> Response:
+         hits = self.index.search(question, self.k)
+-        # TODO A1 (2 lines): if there are no hits, or the best score hits[0].score is below self.min_score,
+-        #   return Response(answer=ESCALATE_MSG, intent=Intent.UNKNOWN, path="abstain", escalate=True, confidence=0.0)
+-        #   Why? Without a good source, the LLM would guess. Abstaining is cheaper and safer.
+-        if not hits:
+-            raise NotImplementedError("A1 — also handle the low-score case")
++        if not hits or hits[0].score < self.min_score:
++            return Response(answer=ESCALATE_MSG, intent=Intent.UNKNOWN, path="abstain", escalate=True, confidence=0.0)
+         sources = {h.chunk.id: Source(id=h.chunk.id, title=h.chunk.title) for h in hits}
+         top = hits[0].chunk
+         if self.llm is None:  # retrieval-only baseline

@@ -1,0 +1,81 @@
+{
+  "recorded_at": "2026-11-20T16:58:22.765317+07:00",
+  "base_commit": "28729b8",
+  "code_commit": "e970ec1d2c09eb04417557c2ac0e9baa11074349",
+  "python": "3.11.16",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "provider": "stub",
+  "index": "bm25",
+  "min_score": 2.0,
+  "chunks": 14,
+  "k": 3,
+  "retries": 1,
+  "prompt_version": "answer_v1",
+  "dataset_sha256": {
+    "eval/cases_20.jsonl": "2e6c706fe555bc142710d07c3c9d9ac8910693b2bfdc5ff7cfd36b22c65b892e",
+    "eval/cases_huy_25.jsonl": "ca60b987ea5e5f72fc6d93f8d5c1288af5feacdbd72c50715f92f0d39e58f5f4",
+    "eval/cases.jsonl": "8ebc30536543fc0c5fe184840853c7f4ddc159feed1c7534cbb5d18db2b1b346"
+  },
+  "kb_sha256": {
+    "data/kb/fees_2026.md": "17105340499c2e6e3d59ea95dcd419338eb137b9e4184bea9cd610b68387b0f2",
+    "data/kb/handbook_2026.md": "40efdaedf47a61a7f7e85cb2931e4a5fe9e6b9fad6a87ed6ffd2195b84feffc3",
+    "data/kb/services_2026.md": "1ff2fa4468387f91ad7ce8637e55acf8a320b2fbcec20217aaa392a5787d83f5"
+  },
+  "prompt_sha256": "1235a987ff39c418ae83fab0e36e340cac5f189c589f710d7133e2b6c32ee4f0",
+  "h1_top_hits": {
+    "E26": [
+      {
+        "id": "S26#1",
+        "score": 10.476
+      },
+      {
+        "id": "H26#8.3",
+        "score": 4.088
+      },
+      {
+        "id": "S26#3",
+        "score": 3.791
+      }
+    ],
+    "E27": [
+      {
+        "id": "H26#8.3",
+        "score": 7.483
+      },
+      {
+        "id": "H26#4.2",
+        "score": 2.681
+      },
+      {
+        "id": "F26#4",
+        "score": 2.139
+      }
+    ],
+    "E28": [
+      {
+        "id": "H26#8.1",
+        "score": 6.678
+      },
+      {
+        "id": "H26#7.2",
+        "score": 3.708
+      },
+      {
+        "id": "F26#3",
+        "score": 0.852
+      }
+    ],
+    "E29": [],
+    "E30": [
+      {
+        "id": "H26#8.3",
+        "score": 2.299
+      }
+    ]
+  },
+  "table_runs": {
+    "20": "cases=20 chunks=14 provider=stub index=bm25 min_score=2.0\npath                correct  abstain ok  p50 ms  max ms\ndeterministic          7/20       5/5     0.0     0.2   fails: E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15\nretrieval             20/20       5/5     0.0     0.0   fails: \nllm (stub)            20/20       5/5     0.1     0.6   fails: \n",
+    "25": "cases=25 chunks=14 provider=stub index=bm25 min_score=2.0\npath                correct  abstain ok  p50 ms  max ms\ndeterministic          9/25       7/7     0.0     0.2   fails: E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E26 E27 E28\nretrieval             25/25       7/7     0.0     0.0   fails: \nllm (stub)            25/25       7/7     0.1     0.2   fails: \n",
+    "45": "cases=45 chunks=14 provider=stub index=bm25 min_score=2.0\npath                correct  abstain ok  p50 ms  max ms\ndeterministic         17/45      15/15     0.0     0.2   fails: E01 E02 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E21 E22 E23 E26 E27 E28 E31 E32 E33 E36 E37 E38 E41 E42 E43\nretrieval             45/45      15/15     0.0     0.0   fails: \nllm (stub)            45/45      15/15     0.1     0.2   fails: \n"
+  }
+}

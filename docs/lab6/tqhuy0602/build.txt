@@ -1,0 +1,212 @@
+* Getting build dependencies for sdist...
+running egg_info
+writing src/assistant_core.egg-info/PKG-INFO
+writing dependency_links to src/assistant_core.egg-info/dependency_links.txt
+writing requirements to src/assistant_core.egg-info/requires.txt
+writing top-level names to src/assistant_core.egg-info/top_level.txt
+reading manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+writing manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+* Building sdist...
+running sdist
+running egg_info
+writing src/assistant_core.egg-info/PKG-INFO
+writing dependency_links to src/assistant_core.egg-info/dependency_links.txt
+writing requirements to src/assistant_core.egg-info/requires.txt
+writing top-level names to src/assistant_core.egg-info/top_level.txt
+reading manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+writing manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+running check
+creating assistant_core-0.3.0
+creating assistant_core-0.3.0/src/assistant_api
+creating assistant_core-0.3.0/src/assistant_core
+creating assistant_core-0.3.0/src/assistant_core.egg-info
+creating assistant_core-0.3.0/src/assistant_core/prompts
+creating assistant_core-0.3.0/src/assistant_core/rag
+creating assistant_core-0.3.0/tests
+copying files to assistant_core-0.3.0...
+copying README.md -> assistant_core-0.3.0
+copying pyproject.toml -> assistant_core-0.3.0
+copying src/assistant_api/__init__.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_api/db.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_api/main.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_api/ratelimit.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_api/schemas.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_api/weather.py -> assistant_core-0.3.0/src/assistant_api
+copying src/assistant_core/__init__.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/__main__.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/config.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/errors.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/guard.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/knowledge.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/llm.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/logging_setup.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/models.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/responder.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/router.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/service.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core/tools.py -> assistant_core-0.3.0/src/assistant_core
+copying src/assistant_core.egg-info/PKG-INFO -> assistant_core-0.3.0/src/assistant_core.egg-info
+copying src/assistant_core.egg-info/SOURCES.txt -> assistant_core-0.3.0/src/assistant_core.egg-info
+copying src/assistant_core.egg-info/dependency_links.txt -> assistant_core-0.3.0/src/assistant_core.egg-info
+copying src/assistant_core.egg-info/requires.txt -> assistant_core-0.3.0/src/assistant_core.egg-info
+copying src/assistant_core.egg-info/top_level.txt -> assistant_core-0.3.0/src/assistant_core.egg-info
+copying src/assistant_core/prompts/answer_v1.txt -> assistant_core-0.3.0/src/assistant_core/prompts
+copying src/assistant_core/rag/__init__.py -> assistant_core-0.3.0/src/assistant_core/rag
+copying src/assistant_core/rag/answerer.py -> assistant_core-0.3.0/src/assistant_core/rag
+copying src/assistant_core/rag/chunker.py -> assistant_core-0.3.0/src/assistant_core/rag
+copying src/assistant_core/rag/index.py -> assistant_core-0.3.0/src/assistant_core/rag
+copying tests/test_api.py -> assistant_core-0.3.0/tests
+copying tests/test_api_config.py -> assistant_core-0.3.0/tests
+copying tests/test_api_huy.py -> assistant_core-0.3.0/tests
+copying tests/test_characterisation.py -> assistant_core-0.3.0/tests
+copying tests/test_cli.py -> assistant_core-0.3.0/tests
+copying tests/test_cli_contract.py -> assistant_core-0.3.0/tests
+copying tests/test_cli_session.py -> assistant_core-0.3.0/tests
+copying tests/test_cli_show_sources.py -> assistant_core-0.3.0/tests
+copying tests/test_config.py -> assistant_core-0.3.0/tests
+copying tests/test_errors.py -> assistant_core-0.3.0/tests
+copying tests/test_fallback.py -> assistant_core-0.3.0/tests
+copying tests/test_h1_credit_rate.py -> assistant_core-0.3.0/tests
+copying tests/test_h1_list_rules.py -> assistant_core-0.3.0/tests
+copying tests/test_h1_rule_by_id.py -> assistant_core-0.3.0/tests
+copying tests/test_knowledge.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_api_integration.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_config.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_db.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_persistence.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_privacy.py -> assistant_core-0.3.0/tests
+copying tests/test_lab5_sql.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_bao.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_huy_a1.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_huy_config.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_huy_llm.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_integration.py -> assistant_core-0.3.0/tests
+copying tests/test_lab6_retrieval.py -> assistant_core-0.3.0/tests
+copying tests/test_logging.py -> assistant_core-0.3.0/tests
+copying tests/test_migrate.py -> assistant_core-0.3.0/tests
+copying tests/test_models.py -> assistant_core-0.3.0/tests
+copying tests/test_rag.py -> assistant_core-0.3.0/tests
+copying tests/test_responder.py -> assistant_core-0.3.0/tests
+copying tests/test_router.py -> assistant_core-0.3.0/tests
+copying tests/test_service.py -> assistant_core-0.3.0/tests
+copying tests/test_tools.py -> assistant_core-0.3.0/tests
+copying tests/test_weather.py -> assistant_core-0.3.0/tests
+copying tests/test_weather_validation.py -> assistant_core-0.3.0/tests
+Writing assistant_core-0.3.0/setup.cfg
+Creating tar archive
+removing 'assistant_core-0.3.0' (and everything under it)
+* Building wheel from sdist
+* Getting build dependencies for wheel...
+running egg_info
+writing src/assistant_core.egg-info/PKG-INFO
+writing dependency_links to src/assistant_core.egg-info/dependency_links.txt
+writing requirements to src/assistant_core.egg-info/requires.txt
+writing top-level names to src/assistant_core.egg-info/top_level.txt
+reading manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+writing manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib/assistant_api
+copying src/assistant_api/db.py -> build/lib/assistant_api
+copying src/assistant_api/weather.py -> build/lib/assistant_api
+copying src/assistant_api/__init__.py -> build/lib/assistant_api
+copying src/assistant_api/ratelimit.py -> build/lib/assistant_api
+copying src/assistant_api/schemas.py -> build/lib/assistant_api
+copying src/assistant_api/main.py -> build/lib/assistant_api
+creating build/lib/assistant_core
+copying src/assistant_core/service.py -> build/lib/assistant_core
+copying src/assistant_core/config.py -> build/lib/assistant_core
+copying src/assistant_core/models.py -> build/lib/assistant_core
+copying src/assistant_core/tools.py -> build/lib/assistant_core
+copying src/assistant_core/__init__.py -> build/lib/assistant_core
+copying src/assistant_core/llm.py -> build/lib/assistant_core
+copying src/assistant_core/guard.py -> build/lib/assistant_core
+copying src/assistant_core/errors.py -> build/lib/assistant_core
+copying src/assistant_core/router.py -> build/lib/assistant_core
+copying src/assistant_core/knowledge.py -> build/lib/assistant_core
+copying src/assistant_core/__main__.py -> build/lib/assistant_core
+copying src/assistant_core/responder.py -> build/lib/assistant_core
+copying src/assistant_core/logging_setup.py -> build/lib/assistant_core
+creating build/lib/assistant_core/rag
+copying src/assistant_core/rag/index.py -> build/lib/assistant_core/rag
+copying src/assistant_core/rag/chunker.py -> build/lib/assistant_core/rag
+copying src/assistant_core/rag/__init__.py -> build/lib/assistant_core/rag
+copying src/assistant_core/rag/answerer.py -> build/lib/assistant_core/rag
+running egg_info
+writing src/assistant_core.egg-info/PKG-INFO
+writing dependency_links to src/assistant_core.egg-info/dependency_links.txt
+writing requirements to src/assistant_core.egg-info/requires.txt
+writing top-level names to src/assistant_core.egg-info/top_level.txt
+reading manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+writing manifest file 'src/assistant_core.egg-info/SOURCES.txt'
+creating build/lib/assistant_core/prompts
+copying src/assistant_core/prompts/answer_v1.txt -> build/lib/assistant_core/prompts
+installing to build/bdist.macosx-26.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-26.0-arm64/wheel
+creating build/bdist.macosx-26.0-arm64/wheel/assistant_api
+copying build/lib/assistant_api/db.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+copying build/lib/assistant_api/weather.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+copying build/lib/assistant_api/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+copying build/lib/assistant_api/ratelimit.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+copying build/lib/assistant_api/schemas.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+copying build/lib/assistant_api/main.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_api
+creating build/bdist.macosx-26.0-arm64/wheel/assistant_core
+copying build/lib/assistant_core/service.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/config.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/models.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/tools.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/llm.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+creating build/bdist.macosx-26.0-arm64/wheel/assistant_core/rag
+copying build/lib/assistant_core/rag/index.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core/rag
+copying build/lib/assistant_core/rag/chunker.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core/rag
+copying build/lib/assistant_core/rag/__init__.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core/rag
+copying build/lib/assistant_core/rag/answerer.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core/rag
+creating build/bdist.macosx-26.0-arm64/wheel/assistant_core/prompts
+copying build/lib/assistant_core/prompts/answer_v1.txt -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core/prompts
+copying build/lib/assistant_core/guard.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/errors.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/router.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/knowledge.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/__main__.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/responder.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+copying build/lib/assistant_core/logging_setup.py -> build/bdist.macosx-26.0-arm64/wheel/./assistant_core
+running install_egg_info
+Copying src/assistant_core.egg-info to build/bdist.macosx-26.0-arm64/wheel/./assistant_core-0.3.0-py3.11.egg-info
+running install_scripts
+creating build/bdist.macosx-26.0-arm64/wheel/assistant_core-0.3.0.dist-info/WHEEL
+creating '/Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/dist/.tmp-vcmn0ij2/assistant_core-0.3.0-py3-none-any.whl' and adding 'build/bdist.macosx-26.0-arm64/wheel' to it
+adding 'assistant_api/__init__.py'
+adding 'assistant_api/db.py'
+adding 'assistant_api/main.py'
+adding 'assistant_api/ratelimit.py'
+adding 'assistant_api/schemas.py'
+adding 'assistant_api/weather.py'
+adding 'assistant_core/__init__.py'
+adding 'assistant_core/__main__.py'
+adding 'assistant_core/config.py'
+adding 'assistant_core/errors.py'
+adding 'assistant_core/guard.py'
+adding 'assistant_core/knowledge.py'
+adding 'assistant_core/llm.py'
+adding 'assistant_core/logging_setup.py'
+adding 'assistant_core/models.py'
+adding 'assistant_core/responder.py'
+adding 'assistant_core/router.py'
+adding 'assistant_core/service.py'
+adding 'assistant_core/tools.py'
+adding 'assistant_core/prompts/answer_v1.txt'
+adding 'assistant_core/rag/__init__.py'
+adding 'assistant_core/rag/answerer.py'
+adding 'assistant_core/rag/chunker.py'
+adding 'assistant_core/rag/index.py'
+adding 'assistant_core-0.3.0.dist-info/METADATA'
+adding 'assistant_core-0.3.0.dist-info/WHEEL'
+adding 'assistant_core-0.3.0.dist-info/top_level.txt'
+adding 'assistant_core-0.3.0.dist-info/RECORD'
+removing build/bdist.macosx-26.0-arm64/wheel
+Successfully built assistant_core-0.3.0.tar.gz and assistant_core-0.3.0-py3-none-any.whl

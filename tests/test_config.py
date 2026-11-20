@@ -57,7 +57,7 @@ def test_settings_validation():
 
 @pytest.mark.parametrize("key", ["", "fake-key-do-not-log"])
 def test_load_settings_rejects_unsupported_provider_even_with_key(monkeypatch, key):
-    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    monkeypatch.setenv("LLM_PROVIDER", "unsupported")
     monkeypatch.setenv("LLM_API_KEY", key)
     with pytest.raises(ConfigError, match="llm_provider"):
         load_settings(env_file=None)
