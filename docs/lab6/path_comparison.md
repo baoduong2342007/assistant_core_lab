@@ -22,3 +22,5 @@ Các số 37/40 và 40/40 ở đoạn trên là lịch sử thử nghiệm đã 
 Đo lại với `python eval/compare_paths.py --cases eval/cases_20.jsonl` và `python eval/compare_paths.py`. Bảng cá nhân và báo cáo bonus nằm trong thư mục tương ứng dưới `docs/lab6/`.
 
 Các PR đưa vào bản tích hợp gồm [#49](https://github.com/baoduong2342007/assistant_core_lab/pull/49), [#50](https://github.com/baoduong2342007/assistant_core_lab/pull/50), [#51](https://github.com/baoduong2342007/assistant_core_lab/pull/51) và [#53](https://github.com/baoduong2342007/assistant_core_lab/pull/53). [PR bonus #52](https://github.com/baoduong2342007/assistant_core_lab/pull/52) đóng góp báo cáo thử nghiệm. Bản nhóm giữ mở rộng truy vấn tải tín chỉ cho E14 để tránh thay nghĩa mọi lần xuất hiện của take hoặc register.
+
+[PR draft #55 của Huy](https://github.com/baoduong2342007/assistant_core_lab/pull/55) bổ sung settings/adapter/A2, E26–E30 và lần đo lại 45 câu nêu trên; PR này chưa được tính là đã merge.

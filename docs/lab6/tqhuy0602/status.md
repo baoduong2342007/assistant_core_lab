@@ -37,7 +37,7 @@ Không cần áp dụng patch vào repo nhóm vì các TODO đã được main h
 | Bộ 20 / 25 / 45 câu | retrieval và stub: 20/20, 25/25, 45/45 |
 
 Log: [tests.txt](tests.txt), [build.txt](build.txt), [wheel-smoke.json](wheel-smoke.json), [bảng cá nhân](path_comparison.md).
-Python local là 3.11.16; chưa chạy GitHub CI trên Python 3.10/3.12 cho nhánh này.
+Python local là 3.11.16; trạng thái GitHub CI trên Python 3.10/3.12 được theo dõi tại [PR #55](https://github.com/baoduong2342007/assistant_core_lab/pull/55/checks).
 Cảnh báo duy nhất của pytest đến từ deprecated alias của dependency Starlette/AnyIO.
 Ollama/OpenAI mới được kiểm bằng mock; chưa gọi model thật hoặc thực hiện bonus.
 
@@ -50,5 +50,5 @@ Codex hỗ trợ toàn bộ code, test, patch bài tập, phép đo và tài li�
 [reflection.md](reflection.md) là bản nháp do AI soạn đúng năm dòng, chưa có xác nhận Huy tự viết hoặc đã đọc/diễn đạt lại.
 [review-duong.md](review-duong.md) là kiểm tra kỹ thuật có AI hỗ trợ trên bản tích hợp, chưa phải peer approval trên GitHub.
 
-Mã và hồ sơ đã chuẩn bị trên nhánh cá nhân; [pr-body.md](pr-body.md) là nội dung PR để gửi dưới dạng draft cho vòng review của nhóm.
+Mã và hồ sơ đã push trên nhánh cá nhân, với [PR draft #55](https://github.com/baoduong2342007/assistant_core_lab/pull/55) mở bằng tài khoản `tqhuy0602`; [pr-body.md](pr-body.md) lưu nội dung PR.
 Chưa có review của Quyền, chưa nộp LMS hoặc tạo tag `v0.6-ai`; không tự đánh dấu các bước này hoàn thành.
