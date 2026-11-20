@@ -1,0 +1,9 @@
+Settings previously rejected Ollama/OpenAI and the shared factory always created StubLLM, so the existing HTTP adapters could not be selected through CLI/API. This change enables the configured adapter, validates its settings, normalizes malformed upstream responses into ProviderError for the existing retry/fallback policy, and closes API-owned clients at shutdown.
+
+A2 now rejects extra fields and non-finite confidence in addition to the existing strict JSON/type and per-turn citation checks. Prompt rendering preserves literal placeholders in evidence and the prompt spells out source/abstention requirements. Offline stub/template defaults, env precedence, hidden secrets, CLI overrides and deterministic tuition behavior remain covered.
+
+Huy's E26–E30 add three source cases and two abstentions, with a separate 25-case dataset, measured 20/25-case tables, a five-line AI-drafted H2 reflection and an original-starter S1–S3/A1/A2 solution patch. Existing team implementations and packaging configuration are explicitly credited in `docs/lab6/tqhuy0602/status.md`.
+
+Validation on Python 3.11.16: 512 tests passed, 4 mini-search tests passed, 10 legacy practice tests passed, SQL checker 15/15, Ruff lint/format/BLE passed. sdist/wheel built; a clean wheel environment loaded the packaged prompt and answered offline from outside checkout. Retrieval/stub scored 20/20, 25/25 and 45/45 on their respective datasets; raw logs, per-case responses and code/dataset hashes are included.
+
+Codex assisted all changes and evidence. Ollama/OpenAI were mocked; no real-provider bonus, independent human review, CI result, LMS submission or release is claimed. Reviewer suggested by the team plan: pqquyenn.

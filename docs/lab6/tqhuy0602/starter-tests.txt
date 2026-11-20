@@ -1,0 +1,89 @@
+Pinned original starter: 11d934ccf8de9b0cf057d69afd84f2e2cf343dc9
+Python 3.11.16; pytest 8.3.3; offline stub.
+
+Before S1-S3: python -m pytest -q practice/test_mini_search.py
+.FF.                                                                     [100%]
+=================================== FAILURES ===================================
+________________________________ test_s1_index _________________________________
+
+    def test_s1_index():
+        idx = build_index(DOCS)
+>       assert idx["credits"] == {"D1", "D2"}
+E       KeyError: 'credits'
+
+practice/test_mini_search.py:10: KeyError
+______________________________ test_s2_s3_search _______________________________
+
+    def test_s2_s3_search():
+        idx = build_index(DOCS)
+>       assert search(idx, "I lost my student card")[0] == ("D3", 3)
+E       IndexError: list index out of range
+
+practice/test_mini_search.py:16: IndexError
+=========================== short test summary info ============================
+FAILED practice/test_mini_search.py::test_s1_index - KeyError: 'credits'
+FAILED practice/test_mini_search.py::test_s2_s3_search - IndexError: list ind...
+2 failed, 2 passed in 0.02s
+Exit: 1
+
+Before A1-A2: python -m pytest -q tests
+................F...F.....................                               [100%]
+=================================== FAILURES ===================================
+______________________ test_abstain_when_nothing_relevant ______________________
+
+chunks = [Chunk(id='F26#1', doc_id='F26', title='1 Tuition per credit', text='The tuition rate for the 2026 academic year is 45.... Registration opens in week 1 and closes in week 3 of the semester.', version='2026.1', owner='Training Office'), ...]
+
+    def test_abstain_when_nothing_relevant(chunks):
+>       r = RagAnswerer(make_index("bm25", chunks), StubLLM()).answer("what is the capital of France")
+
+tests/test_rag.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <assistant_core.rag.answerer.RagAnswerer object at 0x10f18ffd0>
+question = 'what is the capital of France'
+
+    def answer(self, question: str) -> Response:
+        hits = self.index.search(question, self.k)
+        # TODO A1 (2 lines): if there are no hits, or the best score hits[0].score is below self.min_score,
+        #   return Response(answer=ESCALATE_MSG, intent=Intent.UNKNOWN, path="abstain", escalate=True, confidence=0.0)
+        #   Why? Without a good source, the LLM would guess. Abstaining is cheaper and safer.
+        if not hits:
+>           raise NotImplementedError("A1 — also handle the low-score case")
+E           NotImplementedError: A1 — also handle the low-score case
+
+src/assistant_core/rag/answerer.py:46: NotImplementedError
+_______________ test_citation_of_unretrieved_source_is_rejected ________________
+
+    def test_citation_of_unretrieved_source_is_rejected():
+        raw = json.dumps({"answer": "x", "source_ids": ["H26#9.9"], "confidence": 0.9, "abstain": False})
+>       with pytest.raises(ProviderError):
+E       Failed: DID NOT RAISE <class 'assistant_core.errors.ProviderError'>
+
+tests/test_rag.py:55: Failed
+=============================== warnings summary ===============================
+../../../../../Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_rag.py::test_abstain_when_nothing_relevant - NotImplemented...
+FAILED tests/test_rag.py::test_citation_of_unretrieved_source_is_rejected - F...
+2 failed, 40 passed, 1 warning in 1.58s
+Exit: 1
+
+After S1-S3: python -m pytest -q practice/test_mini_search.py
+....                                                                     [100%]
+4 passed in 0.00s
+Exit: 0
+
+After A1-A2: python -m pytest -q tests
+..........................................                               [100%]
+=============================== warnings summary ===============================
+../../../../../Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+42 passed, 1 warning in 1.51s
+Exit: 0

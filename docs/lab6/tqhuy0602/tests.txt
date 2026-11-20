@@ -1,0 +1,48 @@
+........................................................................ [ 14%]
+........................................................................ [ 28%]
+........................................................................ [ 42%]
+........................................................................ [ 56%]
+........................................................................ [ 70%]
+........................................................................ [ 84%]
+........................................................................ [ 98%]
+........                                                                 [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+512 passed, 1 warning in 11.12s
+....                                                                     [100%]
+4 passed in 0.01s
+..........                                                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab06-huy/.venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 1 warning in 0.17s
+students     8 rows
+courses      5 rows
+enrollments  17 rows
+Q1   OK
+Q2   OK
+Q3   OK
+Q4   OK
+Q5   OK
+Q6   OK
+Q7   OK
+Q8   OK
+Q9   OK
+Q10  OK
+Q11  OK
+Q12  OK
+Q13  OK
+Q14  OK
+Q15  OK
+
+Score: 15/15
+All checks passed!
+81 files already formatted
+All checks passed!

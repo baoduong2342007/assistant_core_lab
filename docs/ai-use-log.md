@@ -1,5 +1,20 @@
 # AI Use Disclosure Log
 
+## 2026-11-20 — Trần Quốc Huy, Lab06 settings / adapters / A2
+
+At Huy's request, Codex implemented the remaining Lab06 settings and provider wiring,
+HTTP failure handling, strict draft-schema checks, prompt rendering, mock tests and
+H1 E26–E30 on main `28729b8`. It also measured the 20/25/45-case tables, verified a
+wheel in a clean environment, and prepared Huy's personal evidence and draft PR.
+The existing team S1–S3/A1/A2, KB, evaluator and packaging configuration are credited;
+an additional solution patch and before/after test log use the pinned original starter
+`11d934ccf8de9b0cf057d69afd84f2e2cf343dc9`. The five-line H2 reflection and assisted
+review notes were AI-written, with no independent human review or authorship claimed.
+Local code validation: 512 pytest passed, 4 mini-search tests, 10 legacy practice
+tests, SQL 15/15, Ruff lint/format/BLE, sdist/wheel and offline installed-wheel smoke
+passed. Actual Ollama/OpenAI calls, bonus, peer approval, LMS submission and a team
+release are not claimed. Details: [Huy Lab06 status](lab6/tqhuy0602/status.md).
+
 ## 2026-11-13 — Quyền Lab05 SQL and data analysis
 
 At the user's request, Codex read Plan 05 and the public Lab05 materials pinned at

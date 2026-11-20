@@ -90,3 +90,12 @@ Run `python -m assistant_core --list-rules` to list titles in handbook order. Ad
 ### Lab 5 persistence
 
 The API stores chat metadata and feedback in SQLite at `sqlite:///assistant.db` by default. Set `DATABASE_URL` to choose the file and `SESSION_SALT` to a private, stable value in your local `.env`; the built-in salt is only suitable for local exercises. Keep the same salt across restarts to group the same session consistently. Raw messages and raw session IDs are not stored; feedback comments are stored. A valid chat request ID is required when submitting feedback. Admin authentication is required for feedback listing and `/v1/stats`.
+
+### Lab 6 — Huy: settings, LLM adapter và A2
+
+Chạy tại root với `LLM_PROVIDER=stub` để dùng offline; `template` dùng retrieval không gọi model.
+`ollama` dùng `LLM_MODEL` và `LLM_BASE_URL` (mặc định `http://localhost:11434`);
+`openai` yêu cầu `LLM_API_KEY`, model tương thích và base URL mặc định `https://api.openai.com/v1`.
+`LLM_TIMEOUT_S` phải dương; `RETRIEVAL_KIND=bm25` mặc định có `RETRIEVAL_MIN_SCORE=2.0`.
+Prompt được đóng gói trong wheel; JSON/schema/citation sai hoặc provider lỗi sau hai lượt sẽ fallback về đoạn nguồn.
+Xem [hồ sơ bàn giao Huy](docs/lab6/tqhuy0602/status.md) và [bảng 20/25 câu](docs/lab6/tqhuy0602/path_comparison.md).
