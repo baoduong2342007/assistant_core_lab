@@ -31,7 +31,7 @@ jobs:
 
       - name: Check for unresolved conflict markers
         run: |
-          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ practice/ scripts/ sql/
+          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ ui/ practice/ scripts/ sql/
 
       - name: Run Pytest suite
         run: |
@@ -39,6 +39,7 @@ jobs:
           python -m pytest -q practice/test_mini_search.py
           python -m pytest -q practice/test_hello_api.py
           python -m pytest -q practice/test_school_repo.py
+          (cd practice && python -m pytest -q test_hello_streamlit.py)
 
       - name: Run Lab 06 evaluation smoke check
         env:
