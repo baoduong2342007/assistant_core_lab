@@ -2,6 +2,7 @@
 
 Ngày 21/11/2026, Asia/Ho_Chi_Minh. Nhánh `feat/lab07-personal-tqhuy0602` từ main `fe0d569415c2c29317e99cc1d73d4d21425fbdf2`, đúng mốc của kế hoạch.
 Code commit: `fc655896137476e28ff208ebd5c29f479342230b`.
+Đã push và mở [PR draft #56](https://github.com/baoduong2342007/assistant_core_lab/pull/56) bằng tài khoản `tqhuy0602`; trạng thái CI Python 3.10/3.12 xem tại [checks](https://github.com/baoduong2342007/assistant_core_lab/pull/56/checks).
 Học liệu: `CSC10014-at-fit-hcmus/public_materials` tại `ea80fc97f747cadecde2262c9fd934eb2393c082`, thư mục `lab07`.
 [Provenance và hash file](provenance.json) phân biệt starter và phần hoàn thành.
 
@@ -60,4 +61,4 @@ Codex đã đọc nguồn và soạn nội dung; không xác nhận thay cho Huy
 
 Codex hỗ trợ toàn bộ code, test, đọc nguồn, tài liệu và ảnh kiểm chứng trong lần làm này.
 PR giữ dạng draft để bổ sung H1; chưa có peer review của Quyền, chưa nộp LMS hoặc tạo tag `v0.7-mvp`.
-Không yêu cầu người dùng duyệt lại các bước code/test đã được giao; phần còn thiếu là dữ liệu của buổi H1 thật và các bước nhóm/LMS ngoài phạm vi hiện có.
+Sau khi có buổi H1 thật, cập nhật worksheet, commit sửa và ảnh trước/sau vào cùng PR.
