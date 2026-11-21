@@ -1,0 +1,11 @@
+The Lab07 UI now talks to the existing FastAPI backend only through HTTP. Huy's client reads `ASSISTANT_API_URL` from the UI process, supports MockTransport, validates replies, and provides recovery messages for health failures, timeouts, 422/429/500, malformed replies and feedback 404/network failures. Feedback is acknowledged only after HTTP 201; failure leaves the action available to retry.
+
+This personal submission also completes U1–U4, L1/L2/F1, source/escalation display, shared sidebar/chat submission, persistent session/history and labelled feedback controls. Streamlit is pinned at 1.39.0; CI retains previous gates and adds the four warm-up AppTests. README covers two-terminal startup and UI environment configuration. A Lab06 path assertion now compares Path objects for Windows compatibility.
+
+Base: `fe0d569415c2c29317e99cc1d73d4d21425fbdf2`; code/evidence SHA: `fc655896137476e28ff208ebd5c29f479342230b`; original teaching materials: `ea80fc97f747cadecde2262c9fd934eb2393c082`.
+
+Validation on Python 3.11.16: 579 main tests passed (including all seven original UI tests, 50 client checks and 10 additional AppTest/logic cases), four warm-up tests passed from either working directory, 14 legacy practice tests passed, SQL 15/15, Ruff lint/format passed, and the Lab06 evaluation is unchanged. A real Chrome/Streamlit/FastAPI run verified the spinner, thesis/card sources, I.101 escalation, both feedback directions, failed-feedback retry, API shutdown/recovery, separate sessions, 375px layout and persisted feedback after restarting Uvicorn with the same SQLite file.
+
+Evidence and screenshots: `docs/lab7/tqhuy0602/status.md`, `demo_results.md`, `usability_checklist.md`, `browser-results.json` and test logs. H2 is exactly two AI-written sentences with links to the two PAIR chapters; no claim is made that Huy independently read for 15 minutes.
+
+**H1 remains pending:** a real person outside the team must test for 10 minutes, supply three observations and drive one fix with before/after screenshots. The observation worksheet contains a prepared script and explicit pending fields; automated browser checks are not presented as human observations. This PR stays draft for that follow-up. Codex assisted all implementation and evidence; no peer approval, LMS submission or release tag is claimed. Suggested reviewer: pqquyenn.

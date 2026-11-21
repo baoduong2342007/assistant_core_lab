@@ -1,5 +1,20 @@
 # AI Use Disclosure Log
 
+## 2026-11-21 — Trần Quốc Huy, Lab07 UI HTTP client and personal exercises
+
+At Huy's request, Codex used Lab07 materials at `ea80fc97f747cadecde2262c9fd934eb2393c082`
+on team main `fe0d569` to implement the HTTP client, UI configuration, warm-up,
+L1/L2/F1 and personal Streamlit UI, tests, README and CI. Codex fixed the Lab06
+Windows-sensitive path assertion, read both linked PAIR chapters, and drafted the
+two-sentence H2 reading response without asserting Huy's personal reading time.
+Local checks: 579 main tests, four warm-up tests, 14 legacy practice tests, SQL
+15/15, Ruff, and real Chrome/Streamlit/FastAPI checks including 375px layout and
+feedback persistence through Uvicorn restart. Screenshots, HTTP traces and the
+10-item technical usability checklist are recorded under `docs/lab7/tqhuy0602/`.
+The required H1 outside-person test has not occurred; its observations/fix and
+before/after images are explicitly pending, not replaced by automated tests.
+No independent human verification, peer approval, LMS submission or release is claimed.
+
 ## 2026-11-20 — Huy authorizes H2 submission through PR #55
 
 Huy explicitly instructed “Reflection H2 bạn cứ nộp đi”. Codex submitted the existing

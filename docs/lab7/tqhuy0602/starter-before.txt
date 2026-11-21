@@ -1,0 +1,114 @@
+Source: public_materials ea80fc97f747cadecde2262c9fd934eb2393c082, unmodified Lab07 starter/practice.
+
+Command: python -m pytest -q tests/test_ui.py; cwd=/private/tmp/ct-lab07-huy-original
+.....FF                                                                  [100%]
+=================================== FAILURES ===================================
+_____________________________ test_format_sources ______________________________
+
+    def test_format_sources():
+>       assert format_sources([]) == ""
+
+tests/test_ui.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+sources = []
+
+    def format_sources(sources: list[dict]) -> str:
+        """'Sources: H26#5.3 — 5.3 Thesis registration' or '' if none."""
+        # TODO L1 (3 lines): return "" if there are no sources, otherwise
+        #   "Sources: " + "; ".join(f"{s['id']} — {s['title']}" for s in sources)
+>       raise NotImplementedError("L1")
+E       NotImplementedError: L1
+
+ui/logic.py:26: NotImplementedError
+_______________________________ test_status_note _______________________________
+
+    def test_status_note():
+>       assert "Training Office" in status_note(ChatResult(ok=True, escalate=True))
+
+tests/test_ui.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+result = ChatResult(ok=True, answer='', intent='', sources=[], path='', escalate=True, degraded=False, request_id='', error='')
+
+    def status_note(result: ChatResult) -> str | None:
+        """A short note shown under the answer, explaining special situations."""
+        # TODO L2 (5 lines):
+        #   if result.escalate -> "I could not find this in the official documents. A staff member can help: Training Office, room I.101."
+        #   elif result.degraded -> "Shown directly from the source document (the AI helper was unavailable)."
+        #   else -> None
+>       raise NotImplementedError("L2")
+E       NotImplementedError: L2
+
+ui/logic.py:35: NotImplementedError
+=========================== short test summary info ============================
+FAILED tests/test_ui.py::test_format_sources - NotImplementedError: L1
+FAILED tests/test_ui.py::test_status_note - NotImplementedError: L2
+2 failed, 5 passed in 0.03s
+Exit: 1
+
+Command: python -m pytest -q test_hello_streamlit.py; cwd=/private/tmp/ct-lab07-huy-original/practice
+.FFF                                                                     [100%]
+=================================== FAILURES ===================================
+_______________________________ test_u2_greeting _______________________________
+
+    def test_u2_greeting():
+        at = app()
+        at.text_input[0].input("Lan").run()
+>       assert at.success[0].value == "Hello, Lan!"
+
+test_hello_streamlit.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ElementList(), idx = 0
+
+    def __getitem__(self, idx: int | slice) -> El_co | ElementList[El_co]:
+        if isinstance(idx, slice):
+            return ElementList(self._list[idx])
+        else:
+>           return self._list[idx]
+E           IndexError: list index out of range
+
+/Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab07-huy/.venv/lib/python3.11/site-packages/streamlit/testing/v1/element_tree.py:228: IndexError
+----------------------------- Captured stderr call -----------------------------
+2026-11-21 14:09:10.615 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+_______________________ test_u3_counter_survives_reruns ________________________
+
+    def test_u3_counter_survives_reruns():
+        at = app()
+        at.button[0].click().run()
+        at.button[0].click().run()
+>       assert "Clicked 2 times" in [m.value for m in at.markdown]
+E       AssertionError: assert 'Clicked 2 times' in ['This page is written in Python only — no HTML needed.', 'Clicked 0 times']
+
+test_hello_streamlit.py:22: AssertionError
+----------------------------- Captured stderr call -----------------------------
+2026-11-21 14:09:10.631 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+______________________________ test_u4_validation ______________________________
+
+    def test_u4_validation():
+        at = app()
+        at.number_input[0].set_value(32).run()
+>       assert "advisor approval" in at.error[0].value
+
+test_hello_streamlit.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = ElementList(), idx = 0
+
+    def __getitem__(self, idx: int | slice) -> El_co | ElementList[El_co]:
+        if isinstance(idx, slice):
+            return ElementList(self._list[idx])
+        else:
+>           return self._list[idx]
+E           IndexError: list index out of range
+
+/Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab07-huy/.venv/lib/python3.11/site-packages/streamlit/testing/v1/element_tree.py:228: IndexError
+----------------------------- Captured stderr call -----------------------------
+2026-11-21 14:09:10.636 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+=========================== short test summary info ============================
+FAILED test_hello_streamlit.py::test_u2_greeting - IndexError: list index out...
+FAILED test_hello_streamlit.py::test_u3_counter_survives_reruns - AssertionEr...
+FAILED test_hello_streamlit.py::test_u4_validation - IndexError: list index o...
+3 failed, 1 passed in 0.15s
+Exit: 1
