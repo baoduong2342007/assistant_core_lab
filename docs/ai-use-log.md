@@ -304,3 +304,12 @@ Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and co
 ## 2026-11-11 — Lab05 API integration
 
 Codex integrated the API on Dương’s local branch using Bảo’s PR #46, provisionally added configuration pending Huy’s work, repaired a concurrent first-session insertion race, added integration tests and reviewed PRs #45 and #46. Personal practice snapshots were adapted from Minh’s PR #45 and are labeled accordingly. Validation and remaining limitations are recorded in `docs/lab5/baoduong2342007/`.
+
+## 2026-11-21 — Minh (`luongnhatinh`), Lab 07 Streamlit UI, warm-up, tests, CI & draft docs
+
+At Minh's request, Antigravity AI scaffolded and implemented the Lab 07 work on `feat/lab07-personal-luongnhatinh` from `main` (`fe0d569`) using `public_materials` Lab 07 (`ea80fc9`):
+- Implemented warm-up `practice/hello_streamlit.py` (U1–U4), UI logic `ui/logic.py` (L1 `format_sources`, L2 `status_note`), HTTP client `ui/api_client.py` (`AssistantClient`), and Streamlit chat app `ui/app.py` (F1 `👎`, shared feedback helper fixing the `👍` return-value bug, whitespace stripping before `validate_input` / `ask`).
+- Added and expanded tests in `tests/test_ui.py` (13 tests) and `tests/test_ui_app.py` (9 `AppTest` + FastAPI/SQLite persistence tests), updated `pyproject.toml`, `requirements.txt`, `.github/workflows/ci.yml`, and `README.md`.
+- Drafted the two-sentence H2 reading note in `docs/lab7/luongnhatinh/reading.md`, verified the 10-item checklist in `docs/lab7/luongnhatinh/usability_checklist.md`, and ran live two-server API/Streamlit + desktop (`1280x800`) and phone (`375x812`) browser checks.
+- Validation observed locally on Windows (`.venv\Scripts\python.exe`): `tests/test_ui.py tests/test_ui_app.py` (`22 passed`), `practice/test_hello_streamlit.py` (`4 passed`), `practice/test_mini_search.py practice/test_hello_api.py practice/test_school_repo.py` (`14 passed`), full `pytest -q` (`532 passed, 2 failed` due to pre-existing Windows path-separator assertions in `tests/test_lab6_huy_config.py::test_lab6_dotenv_precedence[False|True]`), `eval/compare_paths.py` (`20/20` and `45/45` with `LLM_PROVIDER=stub`), and Ruff `check` / `format --check` / `BLE`.
+- Pending human steps (not fabricated or claimed complete): H1 10-minute external hallway user test (`docs/lab7/luongnhatinh/user_test_observations.md`, 1 UI fix, before/after screenshots), Minh's personal review of `reading.md` and the PR, peer approval, and LMS submission. Details: [Minh Lab 07 status](lab7/luongnhatinh/status.md).
