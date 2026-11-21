@@ -47,6 +47,10 @@ jobs:
           python eval/compare_paths.py --cases eval/cases_20.jsonl
           python eval/compare_paths.py
 
+      - name: Run Lab 07 Streamlit warm-up
+        working-directory: practice
+        run: python -m pytest -q test_hello_streamlit.py
+
       - name: Check SQL practice answers
         run: |
           python practice/make_school_db.py
