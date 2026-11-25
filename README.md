@@ -8,7 +8,7 @@ integration acceptance coverage, CLI validation fixes and accurate classroom tra
 ## Setup (PowerShell, Python 3.10/3.12)
 
 ```powershell
-python -m venv .venv
+py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip install -e .
 .\.venv\Scripts\python.exe -m assistant_core "tuition for 18 credits and 2 retake"
