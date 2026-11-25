@@ -15,7 +15,7 @@ if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
 from ui.api_client import AssistantClient  # noqa: E402
-from ui.logic import EXAMPLES, WELCOME, format_sources, status_note, validate_input  # noqa: E402
+from ui.logic import EXAMPLES, WELCOME, build_status_note, format_sources, validate_input  # noqa: E402
 
 
 def _handle_feedback(client: AssistantClient, request_id: str, rating: int, toast_message: str) -> None:
@@ -47,7 +47,12 @@ def run(client: AssistantClient) -> None:
         for ex in EXAMPLES:
             if st.button(ex, use_container_width=True):
                 st.session_state.pending = ex
-        st.caption("This is an AI assistant. Check important decisions with the Training Office.")
+        st.caption("This is an AI assistant (English queries). Check important decisions with the Training Office.")
+        if st.button("New chat", key="new_chat", use_container_width=True):
+            st.session_state.session_id = uuid.uuid4().hex[:12]
+            st.session_state.messages = [{"role": "assistant", "content": WELCOME}]
+            st.session_state.rated = set()
+            st.rerun()
 
     # ---- history -------------------------------------------------------------------
     for m in st.session_state.messages:
@@ -68,13 +73,13 @@ def run(client: AssistantClient) -> None:
                         if c2.button("👎 Not helpful", key=f"down-{rid}", use_container_width=True):
                             _handle_feedback(client, rid, -1, "Thanks — we will look at this answer.")
                 else:
-                    feedback_slot.empty()
+                    feedback_slot.caption("✓ Feedback recorded")
 
     if toast_message := st.session_state.pop("feedback_toast", None):
         st.toast(toast_message)
 
     # ---- new question ----------------------------------------------------------------
-    chat_input_value = st.chat_input("Ask about fees, offices or the handbook…")
+    chat_input_value = st.chat_input("Ask in English about fees, offices or the handbook…")
     pending_question = st.session_state.pop("pending", None)
     raw_question = chat_input_value if chat_input_value is not None else pending_question
     if raw_question is not None:
@@ -92,7 +97,7 @@ def run(client: AssistantClient) -> None:
                         "role": "assistant",
                         "content": result.answer,
                         "sources": format_sources(result.sources),
-                        "note": status_note(result),
+                        "note": build_status_note(result, question),
                         "request_id": result.request_id,
                     }
                 )

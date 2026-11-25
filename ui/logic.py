@@ -5,12 +5,12 @@ from __future__ import annotations
 from ui.api_client import ChatResult
 
 WELCOME = (
-    "Hi! I can answer questions about fees, offices and the student handbook. "
+    "Hi! I can answer questions in English about fees, offices and the student handbook. "
     "Try: “Can I register my thesis with 118 credits?”"
 )
 EXAMPLES = [
     "Can I register my thesis with 118 credits?",
-    "Tuition for 18 credits and 2 retake",
+    "Tuition for 18 credits and 2 retakes",
     "Where is the library?",
     "I lost my student card",
 ]
@@ -40,3 +40,19 @@ def status_note(result: ChatResult) -> str | None:
     if result.degraded:
         return "Shown directly from the source document (the AI helper was unavailable)."
     return None
+
+
+def looks_non_english(text: str) -> bool:
+    """Return True when the input contains non-ASCII characters (e.g., Vietnamese)."""
+    return any(ord(ch) > 127 for ch in text)
+
+
+def build_status_note(result: ChatResult, question: str = "") -> str | None:
+    """Build the UI note without repeating escalation already present in the answer."""
+    english_hint = "Official documents are currently indexed in English only — try rephrasing your question in English."
+    if result.escalate and "Training Office" in result.answer:
+        return f"Note: {english_hint}" if looks_non_english(question) else None
+    note = status_note(result)
+    if result.escalate and note and looks_non_english(question):
+        return f"{note} Note: {english_hint}"
+    return note

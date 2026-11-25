@@ -128,6 +128,7 @@ def test_app_feedback_success_shows_toast_hides_buttons_and_no_resend(
     assert len(at.toast) == 1
     assert "Thanks" in at.toast[0].value
     assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
+    assert any("Feedback recorded" in c.value for c in at.caption)
 
     # Subsequent rerun keeps the feedback buttons hidden and does not re-send feedback.
     at.run()
@@ -161,6 +162,30 @@ def test_app_feedback_failure_shows_retry_warning_and_keeps_buttons(
     assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
     at.run()
     assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
+
+
+def test_app_vietnamese_escalation_hint_and_new_chat_reset(fake_client: FakeAssistantClient):
+    fake_client.next_result = ChatResult(
+        ok=True,
+        answer="I'm not confident I can answer that. Please contact the Training Office (room I.101).",
+        intent="unknown",
+        path="abstain",
+        escalate=True,
+        request_id="req-vi-001",
+    )
+    at = AppTest.from_file(str(APP_PATH)).run()
+    initial_session = at.session_state["session_id"]
+
+    at.chat_input[0].set_value("Nếu bị mất thẻ sinh viên thì đến đâu để làm lại?").run()
+    assert not at.exception
+    assert len(at.chat_message) == 3
+    assert any("English only" in box.value for box in at.info)
+
+    _button_by_label(at, "New chat").click().run()
+    assert not at.exception
+    assert len(at.chat_message) == 1
+    assert len(at.session_state["rated"]) == 0
+    assert at.session_state["session_id"] != initial_session
 
 
 def test_api_sqlite_persistence_and_domain_queries(tmp_path: Path, monkeypatch):

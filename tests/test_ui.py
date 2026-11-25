@@ -1,7 +1,7 @@
 import httpx
 
 from ui.api_client import AssistantClient, ChatResult
-from ui.logic import format_sources, status_note, validate_input
+from ui.logic import build_status_note, format_sources, looks_non_english, status_note, validate_input
 
 OK = {
     "answer": "Room B.201",
@@ -138,3 +138,21 @@ def test_validate_input_boundaries():
     assert validate_input("  " + ("x" * 2000) + "  ") is None
     assert validate_input("x" * 2001).startswith("Your question is too long")
     assert validate_input("Tuition for 18 credits") is None
+
+
+def test_non_english_detection_and_build_status_note():
+    assert looks_non_english("Nếu bị mất thẻ sinh viên?") is True
+    assert looks_non_english("I lost my student card") is False
+
+    esc_with_office = ChatResult(
+        ok=True,
+        answer="Please contact the Training Office (room I.101).",
+        escalate=True,
+    )
+    vi_note = build_status_note(esc_with_office, "Nếu bị mất thẻ sinh viên?")
+    assert vi_note is not None and "English only" in vi_note and "Training Office" not in vi_note
+    assert build_status_note(esc_with_office, "What is the capital of France?") is None
+
+    esc_plain = ChatResult(ok=True, answer="Not found.", escalate=True)
+    plain_vi_note = build_status_note(esc_plain, "Mất thẻ?")
+    assert plain_vi_note is not None and "Training Office" in plain_vi_note and "English only" in plain_vi_note
