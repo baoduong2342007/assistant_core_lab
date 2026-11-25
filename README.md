@@ -8,7 +8,7 @@ integration acceptance coverage, CLI validation fixes and accurate classroom tra
 ## Setup (PowerShell, Python 3.10/3.12)
 
 ```powershell
-py -3.12 -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip install -e .
 .\.venv\Scripts\python.exe -m assistant_core "tuition for 18 credits and 2 retake"
@@ -131,7 +131,7 @@ python -m streamlit run ui/app.py
 Trên Windows, chạy các khối PowerShell dưới đây từ thư mục gốc. Cài đặt một lần ở terminal API.
 
 ```powershell
-py -3.12 -m venv .venv
+python -m venv .venv
 . .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 python -m pip install -e .
