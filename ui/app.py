@@ -6,7 +6,9 @@ from pathlib import Path
 
 import streamlit as st
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+repo_root = str(Path(__file__).resolve().parents[1])
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 
 from ui.api_client import AssistantClient  # noqa: E402
 from ui.logic import EXAMPLES, WELCOME, format_sources, status_note, validate_input  # noqa: E402
@@ -66,15 +68,15 @@ def run(client: AssistantClient) -> None:
         st.error(client.health_error)
     with st.sidebar:
         st.subheader("Try an example")
+        example_question = None
         for example in EXAMPLES:
             if st.button(example, use_container_width=True):
-                st.session_state.pending = example
+                example_question = example
         st.caption("AI can make mistakes. Read the sources and check important decisions with the Training Office.")
 
     render_history(client)
     typed = st.chat_input("Ask about fees, offices or the handbook…")
-    pending = st.session_state.pop("pending", None)
-    question = typed if typed is not None else pending
+    question = typed if typed is not None else example_question
     if question is None:
         return
     question = question.strip()
@@ -83,7 +85,9 @@ def run(client: AssistantClient) -> None:
         st.warning(problem)
         return
     st.session_state.messages.append({"role": "user", "content": question})
-    with st.spinner("Thinking…"):
+    with st.chat_message("user"):
+        st.markdown(question)
+    with st.chat_message("assistant"), st.spinner("Thinking…"):
         result = client.ask(question, st.session_state.session_id)
     if result.ok:
         st.session_state.messages.append(

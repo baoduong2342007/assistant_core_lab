@@ -100,9 +100,9 @@ Chạy tại root với `LLM_PROVIDER=stub` để dùng offline; `template` dùn
 Prompt được đóng gói trong wheel; JSON/schema/citation sai hoặc provider lỗi sau hai lượt sẽ fallback về đoạn nguồn.
 Xem [hồ sơ bàn giao Huy](docs/lab6/tqhuy0602/status.md) và [bảng 20/25 câu](docs/lab6/tqhuy0602/path_comparison.md).
 
-## Lab 7 — Streamlit UI và HTTP client của Huy
+## Lab 7 — FIT Study Assistant MVP
 
-Từ root repo, dùng Python 3.10 hoặc 3.12 (local đã kiểm Python 3.11.16):
+Chạy từ thư mục gốc của repo với Python 3.10 hoặc 3.12.
 
 ```bash
 python3 -m venv .venv
@@ -128,9 +128,24 @@ export ASSISTANT_API_URL=http://127.0.0.1:8000
 python -m streamlit run ui/app.py
 ```
 
-PowerShell dùng `. .\.venv\Scripts\Activate.ps1` để kích hoạt venv;
-đặt `$env:LLM_PROVIDER = 'stub'` và `$env:DATABASE_URL = 'sqlite:///assistant_lab7_demo.db'` ở terminal API;
-đặt `$env:ASSISTANT_API_URL = 'http://127.0.0.1:8000'` ở terminal UI, rồi chạy cùng hai lệnh `python -m ...` phía trên.
+Trên Windows, chạy các khối PowerShell dưới đây từ thư mục gốc. Cài đặt một lần ở terminal API.
+
+```powershell
+py -3.12 -m venv .venv
+. .\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m pip install -e .
+$env:LLM_PROVIDER = 'stub'
+$env:DATABASE_URL = 'sqlite:///assistant_lab7_demo.db'
+python -m uvicorn assistant_api.main:create_app --factory --host 127.0.0.1 --port 8000
+```
+
+```powershell
+# Terminal UI
+. .\.venv\Scripts\Activate.ps1
+$env:ASSISTANT_API_URL = 'http://127.0.0.1:8000'
+python -m streamlit run ui/app.py
+```
 Mở [UI](http://localhost:8501) và [OpenAPI](http://127.0.0.1:8000/docs).
 
 `ASSISTANT_API_URL` phải đặt trong **terminal chạy Streamlit**, không phải chỉ trong terminal FastAPI hoặc file `.env` của backend.
@@ -151,9 +166,9 @@ Test chính tại root tự thu thập `tests/test_ui.py` cùng test client/AppT
 
 ```bash
 python -m pytest -q
-python -m pytest -q tests/test_ui.py tests/test_lab7_huy_client.py tests/test_lab7_huy_app.py
+python -m pytest -q tests/test_ui.py tests/test_lab7_huy_client.py tests/test_lab7_huy_app.py tests/test_lab7_integration.py
 python -m ruff check .
 python -m ruff format --check .
 ```
 
-Hồ sơ, ảnh desktop/375 px, D.4 và trạng thái H1/H2 ở [bàn giao Lab 7 của Huy](docs/lab7/tqhuy0602/status.md).
+Bản tích hợp dùng HTTP client và AppTest từ [PR #56 của Huy](https://github.com/baoduong2342007/assistant_core_lab/pull/56) và kiểm thử SQLite qua vòng đời API từ [PR #57 của Minh](https://github.com/baoduong2342007/assistant_core_lab/pull/57).
