@@ -36,6 +36,14 @@ class FakeAssistantClient:
     ask_calls: list[tuple[str, str]] = field(default_factory=list)
     feedback_calls: list[tuple[str, int, str | None]] = field(default_factory=list)
 
+    closed_runs: int = 0
+
+    def __enter__(self) -> FakeAssistantClient:
+        return self
+
+    def __exit__(self, *_: object) -> None:
+        self.closed_runs += 1
+
     def healthy(self) -> bool:
         return self.is_healthy
 
@@ -76,6 +84,7 @@ def test_app_sidebar_example_click_sends_one_ask(fake_client: FakeAssistantClien
     at.sidebar.button[0].click().run()
 
     assert not at.exception
+    assert fake_client.closed_runs >= 2
     assert len(fake_client.ask_calls) == 1
     assert fake_client.ask_calls[0][0] == EXAMPLES[0]
     assert len(at.chat_message) == 3
@@ -102,7 +111,7 @@ def test_app_valid_padded_input_strips_before_ask(fake_client: FakeAssistantClie
     assert "Can I register my thesis with 118 credits?" in [m.value for m in at.chat_message[1].markdown]
 
 
-@pytest.mark.parametrize(("label", "expected_rating"), [("👍", 1), ("👎", -1)])
+@pytest.mark.parametrize(("label", "expected_rating"), [("👍 Helpful", 1), ("👎 Not helpful", -1)])
 def test_app_feedback_success_shows_toast_hides_buttons_and_no_resend(
     fake_client: FakeAssistantClient,
     label: str,
@@ -118,15 +127,15 @@ def test_app_feedback_success_shows_toast_hides_buttons_and_no_resend(
     assert "req-ui-001" in at.session_state["rated"]
     assert len(at.toast) == 1
     assert "Thanks" in at.toast[0].value
-    assert {"👍", "👎"}.isdisjoint({b.label for b in at.button})
+    assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
 
     # Subsequent rerun keeps the feedback buttons hidden and does not re-send feedback.
     at.run()
-    assert {"👍", "👎"}.isdisjoint({b.label for b in at.button})
+    assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
     assert len(fake_client.feedback_calls) == 1
 
 
-@pytest.mark.parametrize("label", ["👍", "👎"])
+@pytest.mark.parametrize("label", ["👍 Helpful", "👎 Not helpful"])
 def test_app_feedback_failure_shows_retry_warning_and_keeps_buttons(
     fake_client: FakeAssistantClient,
     label: str,
@@ -142,16 +151,16 @@ def test_app_feedback_failure_shows_retry_warning_and_keeps_buttons(
     assert "req-ui-001" not in at.session_state["rated"]
     assert any("try again" in w.value.lower() for w in at.warning)
     remaining_labels = {b.label for b in at.button}
-    assert {"👍", "👎"}.issubset(remaining_labels)
+    assert {"👍 Helpful", "👎 Not helpful"}.issubset(remaining_labels)
 
     # User can retry once the backend recovers.
     fake_client.feedback_ok = True
     _button_by_label(at, label).click().run()
     assert len(at.toast) == 1
     assert "req-ui-001" in at.session_state["rated"]
-    assert {"👍", "👎"}.isdisjoint({b.label for b in at.button})
+    assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
     at.run()
-    assert {"👍", "👎"}.isdisjoint({b.label for b in at.button})
+    assert {"👍 Helpful", "👎 Not helpful"}.isdisjoint({b.label for b in at.button})
 
 
 def test_api_sqlite_persistence_and_domain_queries(tmp_path: Path, monkeypatch):

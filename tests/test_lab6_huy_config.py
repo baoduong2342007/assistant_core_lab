@@ -1,6 +1,7 @@
 """Huy's Lab06 settings contract, including legacy CLI secret preservation."""
 
 import os
+from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
@@ -80,7 +81,7 @@ def test_lab6_dotenv_precedence(monkeypatch, tmp_path, environment_wins):
     assert settings.llm_api_key == ("environment-key" if environment_wins else "dotenv-key")
     assert settings.llm_base_url == "http://localhost:11434"
     assert settings.llm_timeout_s == 12
-    assert str(settings.kb_dir) == "custom/kb"
+    assert settings.kb_dir == Path("custom/kb")
     assert settings.retrieval_kind == "hybrid"
     assert settings.retrieval_min_score == (0 if environment_wins else 0.25)
 
