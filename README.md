@@ -99,3 +99,34 @@ Chạy tại root với `LLM_PROVIDER=stub` để dùng offline; `template` dùn
 `LLM_TIMEOUT_S` phải dương; `RETRIEVAL_KIND=bm25` mặc định có `RETRIEVAL_MIN_SCORE=2.0`.
 Prompt được đóng gói trong wheel; JSON/schema/citation sai hoặc provider lỗi sau hai lượt sẽ fallback về đoạn nguồn.
 Xem [hồ sơ bàn giao Huy](docs/lab6/tqhuy0602/status.md) và [bảng 20/25 câu](docs/lab6/tqhuy0602/path_comparison.md).
+
+## Lab 7 — Streamlit Web UI
+
+Cài đặt dependencies gồm `streamlit==1.39.0` bằng `python -m pip install -r requirements.txt` và `python -m pip install -e .`.
+UI chỉ giao tiếp với backend qua HTTP. Đặt `ASSISTANT_API_URL` ở terminal chạy UI (mặc định `http://127.0.0.1:8000`); không dùng `.env` của backend cho biến này.
+
+### Chạy hai terminal (PowerShell)
+
+Terminal 1 (backend FastAPI tại root repo):
+
+```powershell
+. .\.venv\Scripts\Activate.ps1
+$env:LLM_PROVIDER = 'stub'
+$env:DATABASE_URL = 'sqlite:///assistant_lab7_demo.db'
+python -m uvicorn assistant_api.main:create_app --factory
+```
+
+Terminal 2 (giao diện Streamlit tại root repo):
+
+```powershell
+. .\.venv\Scripts\Activate.ps1
+$env:ASSISTANT_API_URL = 'http://127.0.0.1:8000'
+python -m streamlit run ui/app.py
+```
+
+Mở UI tại `http://localhost:8501` và Swagger tại `http://127.0.0.1:8000/docs`. Chạy kiểm thử UI và warm-up:
+
+```powershell
+python -m pytest -q tests/test_ui.py tests/test_lab7_quyen_ui.py
+Push-Location practice; python -m pytest -q test_hello_streamlit.py; Pop-Location
+```

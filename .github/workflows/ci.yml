@@ -31,7 +31,7 @@ jobs:
 
       - name: Check for unresolved conflict markers
         run: |
-          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ practice/ scripts/ sql/
+          ! git grep -E "<<<<<<<|=======|>>>>>>>" src/ tests/ ui/ practice/ scripts/ sql/
 
       - name: Run Pytest suite
         run: |
@@ -46,6 +46,11 @@ jobs:
         run: |
           python eval/compare_paths.py --cases eval/cases_20.jsonl
           python eval/compare_paths.py
+
+      - name: Run Lab 07 Streamlit warm-up
+        working-directory: practice
+        run: |
+          python -m pytest -q test_hello_streamlit.py
 
       - name: Check SQL practice answers
         run: |
