@@ -18,7 +18,7 @@ Cả năm PR có mã warm-up U1–U4, luồng L1/L2/F1, kiểm thử và checkli
 
 1. Mời một người ngoài nhóm thử khoảng 10 phút. Giao nhiệm vụ kiểm tra điều kiện đăng ký khóa luận với 118 tín chỉ và tìm nơi cấp lại thẻ sinh viên. Quan sát khi họ tự thao tác. Ghi ba hiểu nhầm do UI hoặc hệ thống vào worksheet, sửa một vấn đề từ ghi chép và thêm link commit cùng ảnh trước/sau chụp với cùng câu hỏi và kích thước cửa sổ.
 2. Đọc hai chương PAIR khoảng 15 phút. Xác nhận hai câu trên PR cá nhân gồm một ý đã dùng và một ý muốn thêm vào một luồng cụ thể. [Feedback + Control](https://pair.withgoogle.com/guidebook-v2/chapter/feedback-controls/) · [Errors + Graceful Failure](https://pair.withgoogle.com/guidebook-v2/chapter/errors-failing/)
-3. Cập nhật PR cá nhân đang mở để giữ lịch sử bài làm, minh chứng và ghi nhận hỗ trợ AI.
+3. Mở lại PR cá nhân khi có minh chứng H1/H2 để cập nhật cùng link bài làm và giữ lịch sử hỗ trợ AI.
 
 ## Thay đổi tích hợp sau MVP
 
