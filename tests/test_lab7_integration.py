@@ -34,7 +34,8 @@ def test_api_sqlite_persistence_and_domain_queries(tmp_path: Path, monkeypatch):
 
         card = client1.post("/v1/chat", json={"message": "I lost my student card", "session_id": "s-persist"})
         assert card.status_code == 200
-        assert "S26#3" in [s["id"] for s in card.json()["sources"]]
+        card_body = card.json()
+        assert "S26#3" in [s["id"] for s in card_body["sources"]]
 
         tuition = client1.post(
             "/v1/chat",
@@ -59,6 +60,8 @@ def test_api_sqlite_persistence_and_domain_queries(tmp_path: Path, monkeypatch):
             json={"request_id": thesis_body["request_id"], "rating": -1, "comment": "needs clearer rule"},
         )
         assert fb_ok.status_code == 201
+        fb_positive = client1.post("/v1/feedback", json={"request_id": card_body["request_id"], "rating": 1})
+        assert fb_positive.status_code == 201
 
         fb_missing = client1.post(
             "/v1/feedback",
@@ -74,7 +77,8 @@ def test_api_sqlite_persistence_and_domain_queries(tmp_path: Path, monkeypatch):
         listed = client2.get("/v1/feedback", headers={"X-API-Key": "lab7-admin-key"})
         assert listed.status_code == 200
         items = listed.json()
-        assert len(items) == 1
-        assert items[0]["request_id"] == thesis_body["request_id"]
-        assert items[0]["rating"] == -1
-        assert items[0]["comment"] == "needs clearer rule"
+        assert len(items) == 2
+        by_request = {item["request_id"]: item for item in items}
+        assert by_request[thesis_body["request_id"]]["rating"] == -1
+        assert by_request[thesis_body["request_id"]]["comment"] == "needs clearer rule"
+        assert by_request[card_body["request_id"]]["rating"] == 1

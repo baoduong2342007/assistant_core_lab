@@ -1,0 +1,2 @@
+Mình áp dụng ý xin phản hồi trực tiếp cho từng kết quả bằng cách đặt nút Helpful và Not helpful dưới mỗi câu trả lời và xác nhận khi API đã lưu. [Feedback + Control](https://pair.withgoogle.com/guidebook-v2/chapter/feedback-controls/)
+Mình muốn thêm nút gửi lại đúng câu hỏi vừa thất bại khi API kết nối trở lại để người dùng có thể tiếp tục mà không cần gõ lại. [Errors + Graceful Failure](https://pair.withgoogle.com/guidebook-v2/chapter/errors-failing/)

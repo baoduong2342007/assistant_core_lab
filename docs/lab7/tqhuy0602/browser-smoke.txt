@@ -1,0 +1,8 @@
+Sidebar sends one POST; Thinking visible; thesis has 120 credits, GPA 2.0 and H26#5.3.
+Positive feedback uses the answer request_id; both buttons disappear after 201.
+No-evidence response escalates to I.101; real provider failure shows retrieval fallback and S26#3.
+375 px has no horizontal overflow; labels readable; failed negative feedback stays retryable; 201 hides buttons.
+Stopping real Uvicorn preserves UI history; restart on same SQLite retains both ratings; session_id is stable.
+Whitespace and 2001-character questions make no POST; separate tabs have separate session_id.
+Evidence: /Users/tranquochuy/Downloads/CT core lab/assistant_core_lab-lab07-huy/docs/lab7/tqhuy0602
+Server logs: /var/folders/y2/7t6bntg92w5c2vxwfqtfzl100000gn/T/huy-lab07-browser-HEPDuU
