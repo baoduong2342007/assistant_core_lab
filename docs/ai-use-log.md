@@ -304,3 +304,10 @@ Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and co
 ## 2026-11-11 — Lab05 API integration
 
 Codex integrated the API on Dương’s local branch using Bảo’s PR #46, provisionally added configuration pending Huy’s work, repaired a concurrent first-session insertion race, added integration tests and reviewed PRs #45 and #46. Personal practice snapshots were adapted from Minh’s PR #45 and are labeled accordingly. Validation and remaining limitations are recorded in `docs/lab5/baoduong2342007/`.
+
+
+## 2026-11-27 — Quyền (`pqquyenn`) Lab 07 UI, Logic & Verification
+
+Phan Quỳnh Quyền used Antigravity AI to adapt the official Lab 07 starter (`ea80fc9`) onto `feat/lab07-personal-pqquyenn` from `main` (`fe0d569`), completing warm-up U1–U4 (`practice/hello_streamlit.py`), pure UI presentation/validation rules in `ui/logic.py` (L1/L2, KB alignment, escalation priority), HTTP client boundary in `ui/api_client.py`, Streamlit chat/feedback UI in `ui/app.py` (F1 + `201`-gated `👍`/`👎` buttons with `st.empty()`), CI/README updates, Windows `Path` assertion fix in `tests/test_lab6_huy_config.py`, and 51 UI/AppTest/KB/SQLite tests in `tests/test_lab7_quyen_ui.py`.
+Live Chrome + FastAPI (`stub`) + Streamlit (`1.39.0`) walkthrough verified desktop (`1280x800`), mobile (`375x812`), two isolated tabs, offline outage/recovery, and `201` feedback logs (`docs/lab7/pqquyenn/demo_results.md`).
+H1 (10-minute external human usability test) remains `PENDING`, and `docs/lab7/pqquyenn/reading.md` is an AI-drafted 2-sentence reflection awaiting Quyền's independent reading and confirmation. No peer approval or LMS submission is claimed.
