@@ -308,3 +308,9 @@ Codex integrated the API on Dương’s local branch using Bảo’s PR #46, pro
 ## 2026-11-27 — Lab 07 group closeout
 
 Codex collected the five personal PR snapshots, adapted New chat from Minh and Quyền, extended the SQLite restart test using Bảo's coverage of both ratings, and ran the shared validation. The Lab 07 index attributes the work and records the need for real outside-team H1 observations and personal H2 confirmation. Minh's review report identifies its reviewer as AI UX/QA.
+
+## 2026-11-27 — Bảo (`simble2k`) Lab 07 H1 & H2 Follow-up
+
+Code owner: **Phạm Quốc Bảo (`simble2k`)**. Following Hà's live usability test session on `http://localhost:8501`, Antigravity AI assisted with:
+- Diagnosing why mixed English–Vietnamese/shorthand queries (e.g. `"118 credits có đăng kí làm khóa luận được kh"`) abstained while `"tui mất studnet card thì làm lại ở đâu"` matched `S26#3`, and implementing the UI fix (`c655f34`) in `ui/logic.py`, `ui/app.py`, and `tests/test_lab7_bao_h1.py` (English-only input placeholder, rephrase guidance on mixed/shorthand escalations, and one-click `"💡 Try in English: ..."` buttons).
+- Capturing matched `1280x800` before/after screenshots, completing `docs/lab7/simble2k/user_test_observations.md`, and updating the 2-sentence PAIR note in `docs/lab7/simble2k/reading.md`.
