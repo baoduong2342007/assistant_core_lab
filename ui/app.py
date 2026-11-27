@@ -11,7 +11,15 @@ if repo_root not in sys.path:
     sys.path.insert(0, repo_root)
 
 from ui.api_client import AssistantClient  # noqa: E402
-from ui.logic import EXAMPLES, WELCOME, format_sources, status_note, validate_input  # noqa: E402
+from ui.logic import (  # noqa: E402
+    CHAT_PLACEHOLDER,
+    EXAMPLES,
+    WELCOME,
+    escalation_note,
+    format_sources,
+    suggest_english_queries,
+    validate_input,
+)
 
 
 def render_history(client: AssistantClient) -> None:
@@ -23,6 +31,12 @@ def render_history(client: AssistantClient) -> None:
             if message.get("note"):
                 st.info(message["note"])
             request_id = message.get("request_id")
+            if message.get("suggestions"):
+                st.caption("Try asking in full English:")
+                for idx, suggestion in enumerate(message["suggestions"]):
+                    if st.button(f"💡 Try in English: {suggestion}", key=f"suggest-{request_id or 'msg'}-{idx}"):
+                        st.session_state.pending_question = suggestion
+                        st.rerun()
             if not request_id:
                 continue
             feedback_area = st.empty()
@@ -83,8 +97,9 @@ def run(client: AssistantClient) -> None:
         st.button("New chat", key="new_chat", on_click=start_new_chat, use_container_width=True)
 
     render_history(client)
-    typed = st.chat_input("Ask about fees, offices or the handbook…")
-    question = typed if typed is not None else example_question
+    typed = st.chat_input(CHAT_PLACEHOLDER)
+    pending = st.session_state.pop("pending_question", None)
+    question = typed if typed is not None else (example_question or pending)
     if question is None:
         return
     question = question.strip()
@@ -103,7 +118,8 @@ def run(client: AssistantClient) -> None:
                 "role": "assistant",
                 "content": result.answer,
                 "sources": format_sources(result.sources),
-                "note": status_note(result),
+                "note": escalation_note(question, result),
+                "suggestions": suggest_english_queries(question) if result.escalate else [],
                 "request_id": result.request_id,
             }
         )
