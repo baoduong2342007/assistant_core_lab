@@ -304,3 +304,12 @@ Conducted peer review for Minh's PR (`docs/lab5/simble2k/review-minh.md`) and co
 ## 2026-11-11 — Lab05 API integration
 
 Codex integrated the API on Dương’s local branch using Bảo’s PR #46, provisionally added configuration pending Huy’s work, repaired a concurrent first-session insertion race, added integration tests and reviewed PRs #45 and #46. Personal practice snapshots were adapted from Minh’s PR #45 and are labeled accordingly. Validation and remaining limitations are recorded in `docs/lab5/baoduong2342007/`.
+
+
+## 2026-11-27 — Bảo (`simble2k`) Lab 07 UI, F1 Feedback & SQLite Persistence
+
+Code owner: **Phạm Quốc Bảo (`simble2k`)**. Antigravity AI assisted with:
+- Setting up the Python 3.12 virtual environment with `streamlit==1.39.0`, completing the `U1–U4` warm-up (`practice/hello_streamlit.py`, `practice/test_hello_streamlit.py`), and scaffolding `ui/api_client.py`, `ui/logic.py`, and `ui/app.py` from `public_materials/lab07` (`ea80fc9`).
+- Implementing L1/L2, unified chat/sidebar input handling, hardened **F1** feedback controls (`👍 Helpful` / `👎 Not helpful` verified against HTTP `201`, locked on success, retryable with explicit error message on failure), and the Bonus collapsible `📚 Source details` expander + waiting spinner.
+- Writing `tests/test_ui.py` and `tests/test_lab7_bao_feedback.py` (including `AppTest` rerun checks and live FastAPI + file-backed SQLite persistence across restart), plus live two-server D.4 and `375x812` browser verification.
+- Creating `docs/lab7/simble2k/demo_results.md`, `usability_checklist.md`, clean template `user_test_observations.md` (unfilled — pending Bảo's real 10-minute external user test), and a 2-sentence PAIR draft in `reading.md` (pending Bảo's reading confirmation and personal review).

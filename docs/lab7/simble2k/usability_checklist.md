@@ -1,0 +1,12 @@
+# Lab 7 — Usability checklist (tick before your user test)
+
+- [x] The first screen says what the assistant can do, with example questions (`WELCOME` message + 4 sidebar `EXAMPLES` buttons verified in browser)
+- [x] Empty or too-long input shows a friendly message (not a crash) (Whitespace-only `"   "` showed `"Please type a question."` warning without POST; `>2000` chars verified in `AppTest`)
+- [x] While waiting, the user sees "Thinking…" (`st.spinner("Thinking… Checking official documents and tools…")` displayed inside assistant chat bubble)
+- [x] Every answer from documents shows its sources (`Sources: H26#5.3 — 5.3 Thesis registration`, `Sources: S26#3 — 3 Student card replacement`, plus collapsible `📚 Source details` expander)
+- [x] "I don't know" answers tell the user who can help (escalation) (`what is the capital of France` showed `"I could not find this in the official documents. A staff member can help: Training Office, room I.101."`)
+- [x] If the backend is down, the page says so clearly (Stopping Uvicorn displayed top offline alert banner `"The assistant backend is not reachable..."` and `"⚠️ Cannot reach the assistant..."` while preserving prior history)
+- [x] Each answer has 👍 / 👎, and clicking gives a "thanks" message (Clear labels `"👍 Helpful"` and `"👎 Not helpful"`; HTTP 201 hides buttons immediately and shows `"Thanks for your feedback!"` / `"Thanks — we will look at this answer."`)
+- [x] The page says it is an AI assistant (Stated in both `WELCOME` message and sidebar disclaimer caption)
+- [x] Text is readable (size, contrast); buttons have clear labels (Verified on desktop `1280x800` and mobile `375x812`)
+- [x] Works on a phone-width window (Verified at `375x812`: sidebar collapses cleanly, message bubbles, source expander, stacked feedback buttons, and chat input remain readable and clickable without clipping)
