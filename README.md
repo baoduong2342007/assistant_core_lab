@@ -99,3 +99,76 @@ Chạy tại root với `LLM_PROVIDER=stub` để dùng offline; `template` dùn
 `LLM_TIMEOUT_S` phải dương; `RETRIEVAL_KIND=bm25` mặc định có `RETRIEVAL_MIN_SCORE=2.0`.
 Prompt được đóng gói trong wheel; JSON/schema/citation sai hoặc provider lỗi sau hai lượt sẽ fallback về đoạn nguồn.
 Xem [hồ sơ bàn giao Huy](docs/lab6/tqhuy0602/status.md) và [bảng 20/25 câu](docs/lab6/tqhuy0602/path_comparison.md).
+
+## Lab 7 — FIT Study Assistant MVP
+
+Chạy từ thư mục gốc của repo với Python 3.10 hoặc 3.12.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+
+Streamlit được ghim `1.39.0`. Cả hai terminal dưới đây chạy tại root và dùng cùng venv.
+
+```bash
+# Terminal 1: FastAPI, offline stub, SQLite demo riêng
+source .venv/bin/activate
+export LLM_PROVIDER=stub
+export DATABASE_URL=sqlite:///assistant_lab7_demo.db
+python -m uvicorn assistant_api.main:create_app --factory --host 127.0.0.1 --port 8000
+```
+
+```bash
+# Terminal 2: UI chỉ gọi backend bằng HTTP
+source .venv/bin/activate
+export ASSISTANT_API_URL=http://127.0.0.1:8000
+python -m streamlit run ui/app.py
+```
+
+Trên Windows, chạy các khối PowerShell dưới đây từ thư mục gốc. Cài đặt một lần ở terminal API.
+
+```powershell
+python -m venv .venv
+. .\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m pip install -e .
+$env:LLM_PROVIDER = 'stub'
+$env:DATABASE_URL = 'sqlite:///assistant_lab7_demo.db'
+python -m uvicorn assistant_api.main:create_app --factory --host 127.0.0.1 --port 8000
+```
+
+```powershell
+# Terminal UI
+. .\.venv\Scripts\Activate.ps1
+$env:ASSISTANT_API_URL = 'http://127.0.0.1:8000'
+python -m streamlit run ui/app.py
+```
+Mở [UI](http://localhost:8501) và [OpenAPI](http://127.0.0.1:8000/docs).
+
+`ASSISTANT_API_URL` phải đặt trong **terminal chạy Streamlit**, không phải chỉ trong terminal FastAPI hoặc file `.env` của backend.
+Nếu bỏ biến này, UI dùng `http://127.0.0.1:8000`; URL chỉ nhận HTTP/HTTPS, không nhận credentials/query/fragment.
+Client mặc định chờ tối đa 20 giây mỗi thao tác HTTP và 2 giây khi kiểm health.
+Timeout, 422, 429, lỗi server và lỗi mạng có thông báo cùng bước xử lý; lỗi feedback giữ nút để thử lại, chỉ xác nhận và ẩn nút sau HTTP 201.
+
+Chạy warm-up riêng trong `practice/`, dừng nó trước khi mở chat vì cùng dùng cổng 8501:
+
+```bash
+cd practice
+python -m streamlit run hello_streamlit.py
+# Ở terminal khác, cùng thư mục practice:
+python -m pytest -q test_hello_streamlit.py
+```
+
+Test chính tại root tự thu thập `tests/test_ui.py` cùng test client/AppTest bổ sung:
+
+```bash
+python -m pytest -q
+python -m pytest -q tests/test_ui.py tests/test_lab7_huy_client.py tests/test_lab7_huy_app.py tests/test_lab7_integration.py
+python -m ruff check .
+python -m ruff format --check .
+```
+
+Bản tích hợp dùng HTTP client và AppTest từ [PR #56 của Huy](https://github.com/baoduong2342007/assistant_core_lab/pull/56) và kiểm thử SQLite qua vòng đời API từ [PR #57 của Minh](https://github.com/baoduong2342007/assistant_core_lab/pull/57).
