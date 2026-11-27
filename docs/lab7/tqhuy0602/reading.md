@@ -1,0 +1,2 @@
+Tôi đã áp dụng ý tạo bước tiếp theo khi có lỗi trong [Errors + Graceful Failure](https://pair.withgoogle.com/guidebook-v2/chapter/errors-failing/): UI giữ lịch sử khi mất kết nối, cho thử lại feedback thất bại và chỉ cảm ơn khi API xác nhận lưu.
+Từ [Feedback + Control](https://pair.withgoogle.com/guidebook-v2/chapter/feedback-controls/), tôi muốn thêm ô ghi lý do khi chọn “Not helpful” để nhóm hiểu vấn đề của câu trả lời và nói rõ phản hồi được xem xét, không hứa model thay đổi ngay.

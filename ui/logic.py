@@ -6,7 +6,8 @@ from ui.api_client import ChatResult
 
 WELCOME = (
     "Hi! I am an AI study assistant for fees, offices and the student handbook. "
-    "Try an example, or type a question below. Check important decisions with the Training Office."
+    "For best results, ask in English. Try an example or type a question below. "
+    "Check important decisions with the Training Office."
 )
 EXAMPLES = [
     "Can I register my thesis with 118 credits?",

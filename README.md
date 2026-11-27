@@ -171,4 +171,6 @@ python -m ruff check .
 python -m ruff format --check .
 ```
 
+Xem [hồ sơ Lab 7 của nhóm](docs/lab7/README.md) để mở các PR cá nhân, kết quả demo và worksheet.
+
 Bản tích hợp dùng HTTP client và AppTest từ [PR #56 của Huy](https://github.com/baoduong2342007/assistant_core_lab/pull/56) và kiểm thử SQLite qua vòng đời API từ [PR #57 của Minh](https://github.com/baoduong2342007/assistant_core_lab/pull/57).

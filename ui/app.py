@@ -53,9 +53,16 @@ def render_history(client: AssistantClient) -> None:
                 st.error(st.session_state.feedback_errors[request_id])
 
 
+def start_new_chat() -> None:
+    st.session_state.session_id = uuid.uuid4().hex
+    st.session_state.messages = [{"role": "assistant", "content": WELCOME}]
+    st.session_state.rated = set()
+    st.session_state.feedback_errors = {}
+
+
 def run(client: AssistantClient) -> None:
     if "session_id" not in st.session_state:
-        st.session_state.session_id = uuid.uuid4().hex
+        start_new_chat()
     if "messages" not in st.session_state:
         st.session_state.messages = [{"role": "assistant", "content": WELCOME}]
     if "rated" not in st.session_state:
@@ -73,6 +80,7 @@ def run(client: AssistantClient) -> None:
             if st.button(example, use_container_width=True):
                 example_question = example
         st.caption("AI can make mistakes. Read the sources and check important decisions with the Training Office.")
+        st.button("New chat", key="new_chat", on_click=start_new_chat, use_container_width=True)
 
     render_history(client)
     typed = st.chat_input("Ask about fees, offices or the handbook…")

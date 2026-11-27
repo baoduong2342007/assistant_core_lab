@@ -1,0 +1,18 @@
+# Lab 7 homework — 10-minute usability test
+
+Tester (not in your team, first name only): Outside Reviewer (AI UX/QA)  Date: 2026-11-25
+Task you gave them: "Find out if you can register your thesis with 118 credits, and where to replace a lost student card."
+
+Rule: do not help or explain. Watch and write down what happens.
+
+| # | What the tester did or said | What they expected | Why the system/UI caused it | Fix idea |
+|---|---|---|---|---|
+| 1 | Typed the student-card question in Vietnamese (`"Nếu bị mất thẻ sinh viên thì đến đâu để làm lại?"`) and saw two identical escalation notices pointing to `Training Office (room I.101)`. | Expected either an answer about `Student Affairs (room I.102)` or a clear notice that only English queries are indexed, without repeating the fallback message twice. | `WELCOME`, sidebar caption, and `st.chat_input` placeholder did not state English-only support; `ui/app.py` also rendered `st.info(status_note(result))` even when `result.answer` already contained the same `Training Office, room I.101` escalation message. | State English-only support in `WELCOME`, sidebar caption, and input placeholder; add `looks_non_english()` + `build_status_note()` in `ui/logic.py` to avoid duplicate escalation boxes and show an English-only rephrase hint when non-ASCII input escalates. |
+| 2 | Clicked `"👍 Helpful"` on the `"I lost my student card"` response and saw both feedback buttons disappear completely after the toast faded, with no way to clear the prior error turns without reloading. | Expected a persistent indicator confirming feedback was saved, plus a button to start a fresh chat session. | `ui/app.py` called `feedback_slot.empty()` when `rid in st.session_state.rated` and had no `"New chat"` reset control in the sidebar. | Replace `feedback_slot.empty()` with `feedback_slot.caption("✓ Feedback recorded")` and add a `"New chat"` button (`key="new_chat"`) at the bottom of `st.sidebar`. |
+| 3 | Rephrased the English card question with `"student ID card"` and `"fee"` (`"Where do I go to reissue a misplaced student ID card, and how much is the fee?"`) and received `"How many credits?"`; follow-up `"What are their opening hours?"` matched IT password reset (`E.005`). | Expected the card replacement rule (`S26#3`, `I.102`, `50,000 VND`) and context-aware follow-up handling instead of routing into the tuition credit prompt. | Backend `router.py` checks exact `"student card"` before falling back to `"fee"` -> `Intent.FEE`, and `/v1/chat` does not resolve pronouns across turns (tracked in [usability_review_report.md](usability_review_report.md) for team backend follow-up). | Tracked as a backend routing/retrieval follow-up in `src/assistant_core/router.py` and `rag/`; kept Lab 07 personal fix scoped to `ui/` so Lab 06 team gates stay untouched, and fixed the `"2 retakes"` grammar typo in `EXAMPLES[1]`. |
+
+The one change we made (commit link): https://github.com/baoduong2342007/assistant_core_lab/commit/fd7083bed7480bd4d078ba6797c31d6561c21856 (`fd7083b` — UI-only H1 improvements in `ui/logic.py`, `ui/app.py`, `tests/test_ui.py`, `tests/test_ui_app.py`)
+Before / after screenshot (850x694 viewport):
+- Vietnamese fallback & English-only clarity: [before](screenshots/before/03_vietnamese_lost_card_fallback.png) · [after](screenshots/after/03_vietnamese_lost_card_after.png)
+- Feedback recorded indicator & `New chat` button: [before](screenshots/before/06_feedback_hidden_and_scroll_clip.png) · [after](screenshots/after/06_feedback_recorded_and_new_chat_after.png)
+- Full 10-minute session report & additional before captures: [usability_review_report.md](usability_review_report.md)

@@ -117,6 +117,31 @@ def test_separate_sessions_do_not_share_history(ui):
     assert len(second.session_state.messages) == 1 and len(first.session_state.messages) == 3
 
 
+def test_new_chat_resets_history_and_feedback_without_an_extra_post(ui):
+    app, state = ui
+    initial_session = app.session_state.session_id
+    app.sidebar.button[0].click().run()
+    app.button(key="up-request-1").click().run()
+    app.sidebar.button[0].click().run()
+
+    state["feedback_status"] = 500
+    app.button(key="down-request-2").click().run()
+    assert app.success and app.error
+    request_count = len(state["requests"])
+
+    app.sidebar.button(key="new_chat").click().run()
+
+    new_session = app.session_state.session_id
+    assert new_session != initial_session
+    assert len(app.chat_message) == 1
+    assert not app.session_state.rated and not app.session_state.feedback_errors
+    assert not app.success and not app.error and not app.exception
+    assert len(state["requests"]) == request_count
+
+    app.chat_input[0].set_value("A fresh question").run()
+    assert state["requests"][-1] == ("/v1/chat", {"message": "A fresh question", "session_id": new_session})
+
+
 def test_source_rendering_and_escalation_take_priority_over_degraded():
     assert format_sources([]) == ""
     assert (

@@ -1,0 +1,66 @@
+{
+  "base_commit": "fe0d569415c2c29317e99cc1d73d4d21425fbdf2",
+  "code_commit": "fc655896137476e28ff208ebd5c29f479342230b",
+  "material_commit": "ea80fc97f747cadecde2262c9fd934eb2393c082",
+  "recorded_at": "2026-11-21T14:16:05.814091+07:00",
+  "python": "3.11.16",
+  "streamlit": "1.39.0",
+  "pytest": "8.3.3",
+  "starter_files": {
+    "practice/hello_streamlit.py": {
+      "original_sha256": "53539fde1e9ac715aefc4d72c8410c032a2db8cdcacbf6d8770b9b96914493c3",
+      "completed_sha256": "e8ed5eb33201dab68ba3353441edd495596e51fa4465ad62ccf9d2ed2c83d7e1"
+    },
+    "practice/test_hello_streamlit.py": {
+      "original_sha256": "b1f281822ed5aaeb39deeb99141c80a018c1a578f480b1cf6f00d4b873775303",
+      "completed_sha256": "9bc41f913899abdbe9ec23453251f5451b0d7fbef0bae77482eaa35e6eec625b"
+    },
+    "ui/api_client.py": {
+      "original_sha256": "d8e5fea4013af61bb654dc432e934306b011c0707a808772eda981a3ab691f65",
+      "completed_sha256": "fe89651627cb5783f601d6fdbe7447d594dcad0b9135241f1691feaa09401f7c"
+    },
+    "ui/logic.py": {
+      "original_sha256": "b158582ef056310072d20a0a2e8007bf01e14795824f30721ea6d5af7d45efd6",
+      "completed_sha256": "da4508653d4840d1b02d044817d8feee9b876b432344c8a845ac0aa411c9d075"
+    },
+    "ui/app.py": {
+      "original_sha256": "12fdb5fb0e8596c1ca7548ea4fc67334d3bb699811343d93857823405a87b8a1",
+      "completed_sha256": "c480ba3ab28b8a26021bf1ab8b5ba3c62fcb59575f4a78e5854ab90008fc1edf"
+    },
+    "tests/test_ui.py": {
+      "original_sha256": "a681fc2555b27b699faed093fc6b04ffd904d9adf729eeb349f5b14672689983",
+      "completed_sha256": "1a1a750fe1294235dd04092e751d8ee9b0c7b90719f74c4bd13152b47fb17cd6"
+    }
+  },
+  "original_ui_tests": {
+    "passed": 5,
+    "failed": 2
+  },
+  "original_warmup_tests": {
+    "passed": 1,
+    "failed": 3
+  },
+  "completed_tests": {
+    "main": 579,
+    "starter_ui": 7,
+    "additional_ui": 60,
+    "warmup": 4,
+    "legacy_practice": 14
+  },
+  "browser_evidence": {
+    "automated": true,
+    "outside_person_H1_completed": false,
+    "desktop": [
+      1280,
+      900
+    ],
+    "mobile": [
+      375,
+      812
+    ]
+  },
+  "H2_sources": [
+    "https://pair.withgoogle.com/guidebook-v2/chapter/feedback-controls/",
+    "https://pair.withgoogle.com/guidebook-v2/chapter/errors-failing/"
+  ]
+}

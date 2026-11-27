@@ -1,0 +1,425 @@
+{
+  "automated": true,
+  "human_usability_test": false,
+  "viewport": {
+    "viewport": 375,
+    "content": 375
+  },
+  "results": [
+    "Sidebar sends one POST; Thinking visible; thesis has 120 credits, GPA 2.0 and H26#5.3.",
+    "Positive feedback uses the answer request_id; both buttons disappear after 201.",
+    "No-evidence response escalates to I.101; real provider failure shows retrieval fallback and S26#3.",
+    "375 px has no horizontal overflow; labels readable; failed negative feedback stays retryable; 201 hides buttons.",
+    "Stopping real Uvicorn preserves UI history; restart on same SQLite retains both ratings; session_id is stable.",
+    "Whitespace and 2001-character questions make no POST; separate tabs have separate session_id."
+  ],
+  "feedback_after_restart": [
+    {
+      "request_id": "cefb6c13abbb",
+      "rating": -1,
+      "comment": null,
+      "id": 2,
+      "created_at": "2026-11-21T07:13:55.680837"
+    },
+    {
+      "request_id": "a8cee049510e",
+      "rating": 1,
+      "comment": null,
+      "id": 1,
+      "created_at": "2026-11-21T07:13:52.484732"
+    }
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat",
+      "status": 200,
+      "body": {
+        "message": "Can I register my thesis with 118 credits?",
+        "session_id": "2a1221f9111c442faaea33052e85ecd0"
+      },
+      "response": {
+        "answer": "According to 5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.",
+        "intent": "rule",
+        "sources": [
+          {
+            "id": "H26#5.3",
+            "title": "5.3 Thesis registration"
+          }
+        ],
+        "degraded": false,
+        "path": "llm",
+        "escalate": false,
+        "confidence": 0.7,
+        "request_id": "a8cee049510e"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feedback",
+      "status": 201,
+      "body": {
+        "request_id": "a8cee049510e",
+        "rating": 1,
+        "comment": null
+      },
+      "response": {
+        "request_id": "a8cee049510e",
+        "rating": 1,
+        "comment": null,
+        "id": 1,
+        "created_at": "2026-11-21T07:13:52.484732"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat",
+      "status": 200,
+      "body": {
+        "message": "what is the capital of France",
+        "session_id": "2a1221f9111c442faaea33052e85ecd0"
+      },
+      "response": {
+        "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+        "intent": "unknown",
+        "sources": [],
+        "degraded": false,
+        "path": "abstain",
+        "escalate": true,
+        "confidence": 0,
+        "request_id": "455efc4ea3dc"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat",
+      "status": 200,
+      "body": {
+        "message": "I lost my student card",
+        "session_id": "2a1221f9111c442faaea33052e85ecd0"
+      },
+      "response": {
+        "answer": "3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+        "intent": "rule",
+        "sources": [
+          {
+            "id": "S26#3",
+            "title": "3 Student card replacement"
+          }
+        ],
+        "degraded": true,
+        "path": "retrieval",
+        "escalate": false,
+        "confidence": null,
+        "request_id": "8ff18312f609"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat",
+      "status": 200,
+      "body": {
+        "message": "I lost my student card",
+        "session_id": "e36b062cdfff4f0e8e63e1ad4afc8905"
+      },
+      "response": {
+        "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+        "intent": "rule",
+        "sources": [
+          {
+            "id": "S26#3",
+            "title": "3 Student card replacement"
+          }
+        ],
+        "degraded": false,
+        "path": "llm",
+        "escalate": false,
+        "confidence": 0.7,
+        "request_id": "cefb6c13abbb"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feedback",
+      "status": 500,
+      "body": {
+        "request_id": "cefb6c13abbb",
+        "rating": -1,
+        "comment": null
+      },
+      "response": {
+        "error": {
+          "code": "demo_failure"
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/feedback",
+      "status": 201,
+      "body": {
+        "request_id": "cefb6c13abbb",
+        "rating": -1,
+        "comment": null
+      },
+      "response": {
+        "request_id": "cefb6c13abbb",
+        "rating": -1,
+        "comment": null,
+        "id": 2,
+        "created_at": "2026-11-21T07:13:55.680837"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat",
+      "status": 200,
+      "body": {
+        "message": "Tuition for 18 credits and 2 retake",
+        "session_id": "2a1221f9111c442faaea33052e85ecd0"
+      },
+      "response": {
+        "answer": "Your tuition is 9,450,000 VND.",
+        "intent": "fee",
+        "sources": [],
+        "degraded": false,
+        "path": "deterministic",
+        "escalate": false,
+        "confidence": null,
+        "request_id": "bdeebd78aee0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/feedback",
+      "status": 200,
+      "body": null,
+      "response": [
+        {
+          "request_id": "cefb6c13abbb",
+          "rating": -1,
+          "comment": null,
+          "id": 2,
+          "created_at": "2026-11-21T07:13:55.680837"
+        },
+        {
+          "request_id": "a8cee049510e",
+          "rating": 1,
+          "comment": null,
+          "id": 1,
+          "created_at": "2026-11-21T07:13:52.484732"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": null,
+      "response": {
+        "status": "ok",
+        "version": "1.0.0"
+      }
+    }
+  ]
+}
